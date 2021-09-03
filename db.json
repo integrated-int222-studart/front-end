@@ -1,0 +1,188 @@
+{
+    "product": [{
+            "prodID": 2,
+            "prodName": "testProd1",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product01",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 3,
+            "prodName": "testProd2",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product02",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 4,
+            "prodName": "testProd3",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product03",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 5,
+            "prodName": "testProd4",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product04",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 6,
+            "prodName": "testProd5",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product05",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 7,
+            "prodName": "testProd6",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product06",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 8,
+            "prodName": "testProd7",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product07",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 9,
+            "prodName": "testProd8",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product08",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 10,
+            "prodName": "testProd9",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product09",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 11,
+            "prodName": "testProd10",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product10",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 12,
+            "prodName": "testProd11",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product11",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 13,
+            "prodName": "testProd12",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product12",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 14,
+            "prodName": "testProd13",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product13",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 15,
+            "prodName": "testProd14",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product14",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 16,
+            "prodName": "testProd15",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product15",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 17,
+            "prodName": "testProd17",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product17",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        },
+        {
+            "prodID": 18,
+            "prodName": "testProd18",
+            "manufacDate": "2021-08-25T00:00:00.000Z",
+            "imgurl": "https://source.unsplash.com/random",
+            "prodDescription": "product18",
+            "price": 500.5,
+            "ownerID": 1,
+            "productType": 1
+        }
+    ],
+    "user": {
+        "userID": 1,
+        "username": "tein1142",
+        "email": "tein1142@hotmail.com",
+        "firstName": "Pantavit",
+        "lastName": "Hengnalen",
+        "description": "Hi, Im Tien",
+        "status": "not allowed",
+        "school": "KMUTT",
+        "image": {
+            "type": "Buffer",
+            "data": [84, 105, 101, 110, 80, 105, 99]
+        }
+    }
+
+}
