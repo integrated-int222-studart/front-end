@@ -1,0 +1,24 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+
+#app {
+  font-family: 'Prompt', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.min-h-80 {
+  min-height: 20rem
+  ;
+}
+
+.min-w-xs {
+  min-width: 20rem
+  ;
+}
