@@ -8,36 +8,34 @@
         >
           <div>
             <span class="text-2xl font-semibold text-gray-800 md:text-4xl"
-              >Stud<span class="text-blue-600">art</span></span
+              >Stud<span class="text-primary">art</span></span
             >
             <h1 class="py-5 text-5xl font-semibold text-gray-800 md:text-6xl">
-              แหล่งรวมผลงานศิลปะของ<span class="text-blue-600"
+              แหล่งรวมผลงานศิลปะของ<span class="text-primary"
                 >นักเรียน/นักศึกษา</span
               >
             </h1>
 
-            <p class="mt-2 text-sm text-gray-500 md:text-lg">
+            <p class="mt-2 text-sm text-black md:text-lg">
               แหล่งรวมผลงานศิลปะของ
               <strong>นักเรียน/นักศึกษา</strong>
               เพื่อสนับสนุนผู้มีความสามารถด้านศิลปะ
             </p>
             <div class="flex space-x-3 justify-center lg:justify-start mt-6">
-              <div class="rounded-md shadow">
-                <a
+              <button
+                href="#"
+                class="flex items-center justify-center border border-transparent text-base font-medium rounded-md  btn btn-secondary text-black"
+              >
+                ดูผลงาน
+              </button>
+              <router-link to="/addproduct">
+                <button
                   href="#"
-                  class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
-                >
-                  ดูผลงาน
-                </a>
-              </div>
-              <div class="mt-3 sm:mt-0 sm:ml-3">
-                <a
-                  href="#"
-                  class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10"
+                  class="flex items-center justify-center border border-transparent text-base font-medium rounded-md  btn btn-secondary text-black"
                 >
                   สร้างผลงาน
-                </a>
-              </div>
+                </button>
+              </router-link>
             </div>
           </div>
         </div>
@@ -110,6 +108,7 @@
     <footer
       class="p-10 footer bg-base-200 text-base-content footer-center mt-10"
     >
+      
       <div class="grid grid-flow-col gap-4">
         <a class="link link-hover">About us</a>
         <a class="link link-hover">Contact</a>

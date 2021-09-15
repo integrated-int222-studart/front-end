@@ -1,10 +1,11 @@
 <template>
-  <div class="">
+  <div class="app">
     <navbar></navbar>
 
-    <div class="pt-18">
+    <!--main-->
+    <main class="pt-18">
       <router-view />
-    </div>
+    </main>
   </div>
 </template>
 
@@ -18,7 +19,7 @@ export default {
 </script>
 
 <style scoped>
-.pt-18{
+.pt-18 {
   padding-top: 4.25rem;
 }
 </style>

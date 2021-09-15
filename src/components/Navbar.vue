@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-base-200 min-h-16 fixed">
+  <nav class="bg-base-300 min-h-16 fixed z-10 top-0">
     <div
-      class="w-screen flex justify-between items-center shadow-lg text-black border-b-4 border-red-700 p-2"
+      class="w-screen flex justify-between items-center shadow-lg text-black border-b-4 border-primary-focus p-2"
     >
       <div class="flex px-2 mx-2 ">
         <router-link to="/"
@@ -38,6 +38,13 @@
               ผลงาน
             </button></router-link
           >
+          <router-link to="/addproduct"
+            ><button
+              class="btn btn-ghost btn-md rounded-btn text-lg font-normal mx-2"
+            >
+              สร้างผลงาน
+            </button></router-link
+          >
           <router-link to="/login"
             ><button
               class="btn btn-ghost btn-md rounded-btn text-lg font-normal mx-2"
@@ -64,7 +71,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </nav>
 
 </template>
 

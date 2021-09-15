@@ -7,23 +7,29 @@
     </div>
     <!-- component -->
     <main class="p-2 m-2 md:p-8 md:m-6">
-      <div class="container mx-auto px-6">
-        
+      <div class="container mx-auto">
         <div class="md:flex items-center ">
           <div class=" h-full w-full md:w-1/2 ">
+            <div class="aspect-w-1 aspect-h-1 border-2 border-black rounded">
               <img
                 src="https://source.unsplash.com/random/"
-                class="object-cover rounded-md mx-auto min-w-xs max-w-xs min-h-80 max-h-80 h-full w-full "
+                class="object-cover h-full w-full "
                 alt=""
               />
-              <!-- min-w-xs min-h-80 max-w-xs max-h-80 -->
+            </div>
           </div>
-          <div class="w-full md:w-1/2 md:ml-10">
+
+          <div class="w-full md:w-1/2 mt-10 p-3 md:ml-10">
             <div class="mb-10 md:text-left">
               <h1 class="font-bold uppercase text-2xl mb-5">
-                Mens's Ragged <br />Waterproof Jacket
+                ชื่อผลงาน: { { product.prodname }}
               </h1>
+              <p class="text-sm mb-5 cursor-pointer">
+                ศิลปิน: { { product.owner }}
+              </p>
               <p class="text-sm">
+                รายละเอียด: { { product.description }}
+                <br/>
                 Lorem ipsum dolor sit, amet consectetur adipisicing, elit. Eos,
                 voluptatum dolorum! Laborum blanditiis consequatur, voluptates,
                 sint enim fugiat saepe, dolor fugit, magnam explicabo eaque quas
@@ -32,8 +38,7 @@
             </div>
           </div>
         </div>
-        
-        
+
         <div class="mt-16">
           <h3 class="text-gray-600 text-2xl font-medium">More Products</h3>
 
@@ -45,7 +50,6 @@
             </div>
           </main>
         </div>
-
       </div>
     </main>
   </div>
@@ -72,4 +76,3 @@ export default {
   //   },
 };
 </script>
-

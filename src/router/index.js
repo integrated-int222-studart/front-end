@@ -5,7 +5,8 @@ import Login from '../views/LoginPage.vue'
 import Register from '../views/RegisterPage.vue'
 import Profile from '../views/ProfilePage.vue'
 import ProductDetail from '../views/ProductDetail.vue'
-import NotFound from '../views/NotFoundPage.vue'
+// import NotFound from '../views/NotFoundPage.vue'
+import AddProduct from '../views/AddProduct.vue'
 
 const routes = [
   {
@@ -49,7 +50,12 @@ const routes = [
     name: 'Profile',
     component: Profile
   },
-  { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound },
+  {
+    path: '/addproduct',
+    name: 'AddProduct',
+    component: AddProduct
+  },
+  // { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound },
 ]
 
 const router = createRouter({

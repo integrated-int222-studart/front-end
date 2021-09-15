@@ -64,19 +64,16 @@
                 >
               </div>
             </nav>
-            <main class="grid place-items-center items-start min-h-screen">
-              <div>
-                <div
-                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-                >
-                  <product
-                    v-for="product in products"
-                    :key="product.prodID"
-                    :product="product"
-                  ></product>
-                </div>
-              </div>
-            </main>
+            <!-- component -->
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 w-full h-full items-start gap-3"
+            >
+              <product
+                v-for="product in this.$store.state.products"
+                :key="product.prodID"
+                :product="product"
+              ></product>
+            </div>
           </div>
         </div>
       </main>
@@ -85,26 +82,39 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import product from "../components/Product.vue";
+
+import { useStore } from "vuex";
 
 export default {
   name: "ProfilePage",
   components: {
     product,
   },
-  data() {
-    return {
-      products: [],
+  // data() {
+  //   return {
+  //     products: [],
+  //   };
+  // },
+  // async created() {
+  //   try {
+  //     const res = await axios.get("http://localhost:3000/product");
+  //     this.products = res.data;
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // },
+  setup() {
+    const store = useStore();
+
+    let products = function() {
+      return store.state.products;
     };
-  },
-  async created() {
-    try {
-      const res = await axios.get("http://localhost:3000/product");
-      this.products = res.data;
-    } catch (e) {
-      console.log(e);
-    }
+
+    return {
+      products,
+    };
   },
 };
 </script>
