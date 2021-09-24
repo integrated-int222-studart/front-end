@@ -1,9 +1,9 @@
 <template>
   <div class="product bg-gray-100 ">
-    <div class="cursor-pointer p-3 shadow-lg ">
+    <div class="cursor-pointer p-3 shadow-lg " @click="gotoProductDetail(product.prodID)">
       <div class=" h-full w-full aspect-w-1 aspect-h-1 ">
         <img
-          src="https://source.unsplash.com/random/"
+          :src="this.product.imgurl"
           class="object-cover "
           alt=""
         />
@@ -16,13 +16,18 @@
       /> -->
       <div class="flex justify-between p-2 mt-3 bg-white ">
         <p class="mt-4 ">{{ product.prodName }}</p>
-        <p class="mt-4 ">{{ product.prodID }}</p>
+        <p class="mt-4 ">{{ product.price }}</p>
       </div>
+      
     </div>
+    <div @click="this.delete">
+        <button>Delete</button>
+      </div>
   </div>
 </template>
 
 <script>
+
 export default {
   props: {
     product: {
@@ -30,27 +35,18 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      url: "http://13.76.182.102:3000/upload/photo/1"
+    };
   },
   methods: {
-    getRandomNumber() {
-      return Math.floor(Math.random() * 1000);
+    delete(){
+      this.$store.dispatch("removeProduct",this.product);
+    },
+    gotoProductDetail(prodid) {
+      this.$router.push(`/productdetail/${prodid}`);
     },
   },
 };
 </script>
 
-<style scoped>
-.aspect-w-1 {
-    position: relative;
-    padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%);
-}
-
-.aspect-w-1 {
-    --tw-aspect-w: 1;
-}
-
-.aspect-h-1 {
-    --tw-aspect-h: 1;
-}
-</style>

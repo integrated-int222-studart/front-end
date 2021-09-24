@@ -2,7 +2,7 @@
   <div class="home">
     <!-- component -->
     <div class="w-full">
-      <div class="flex bg-base-100 max-h-screen md:h-screen">
+      <div class="flex max-h-screen md:h-screen">
         <div
           class="flex items-center text-center lg:text-left px-8 md:px-12 lg:w-1/2"
         >
@@ -51,7 +51,7 @@
       </div>
     </div>
     <!-- add more -->
-    <div class="product-example mt-10 bg-base-200 p-10">
+    <div class="product-example mt-10 p-10">
       <div class="">
         <p class="text-2xl font-semibold text-gray-800 md:text-4xl">
           ตัวอย่างผลงาน
@@ -68,7 +68,7 @@
                 src="https://images.unsplash.com/photo-1463320898484-cdee8141c787?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
                 alt=""
               />
-              <div class="p-4 bg-base-100">
+              <div class="p-4 ">
                 <p class="mt-4 font-bold text-2xl">Planta Minimalista</p>
               </div>
             </div>
@@ -82,7 +82,7 @@
                 src="https://images.unsplash.com/photo-1463320898484-cdee8141c787?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
                 alt=""
               />
-              <div class="p-4 bg-base-100">
+              <div class="p-4 ">
                 <p class="mt-4 font-bold text-2xl">Planta Minimalista</p>
               </div>
             </div>
@@ -96,7 +96,7 @@
                 src="https://images.unsplash.com/photo-1463320898484-cdee8141c787?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
                 alt=""
               />
-              <div class="p-4 bg-base-100">
+              <div class="p-4 ">
                 <p class="mt-4 font-bold text-2xl">Planta Minimalista</p>
               </div>
             </div>
@@ -106,9 +106,8 @@
     </div>
 
     <footer
-      class="p-10 footer bg-base-200 text-base-content footer-center mt-10"
+      class="p-10 footer  text-base-content footer-center mt-10"
     >
-      
       <div class="grid grid-flow-col gap-4">
         <a class="link link-hover">About us</a>
         <a class="link link-hover">Contact</a>
@@ -162,6 +161,7 @@
         <p>Copyright © 2021 - All right reserved by ACME Industries Ltd</p>
       </div>
     </footer>
+    
   </div>
 </template>
 

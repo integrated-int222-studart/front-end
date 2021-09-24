@@ -5,9 +5,9 @@ module.exports = {
   theme: {
     extend: {
       padding: {
-        '1/3': '33.3333%',
-        '2/3': '66.6667%'
-      }
+        "1/3": "33.3333%",
+        "2/3": "66.6667%",
+      },
     },
   },
   variants: {
@@ -46,7 +46,7 @@ module.exports = {
             "#ffffff" /* Foreground content color to use on neutral color */,
 
           "base-100":
-            "#fff0fa" /* Base color of page, used for blank backgrounds */,
+            "#f9f7fd" /* Base color of page, used for blank backgrounds */,
           "base-200": "#ffd4f4" /* Base color, a little darker */,
           "base-300": "#efd6ff" /* Base color, even more darker */,
           "base-content":

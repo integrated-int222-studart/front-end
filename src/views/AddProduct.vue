@@ -7,7 +7,7 @@
     <div></div>
     <main class="p-2 m-2 md:p-4 md:m-4">
       <div class="container mx-auto px-6">
-        <div class="flex-none lg:flex justify-between items-center  ">
+        <div class="flex-none lg:flex justify-between items-start  ">
           <div class="h-full w-full p-3 md:p-6">
             <image-upload></image-upload>
           </div>
@@ -18,7 +18,6 @@
           </div>
         </div>
 
-        
       </div>
     </main>
   </div>

@@ -97,7 +97,6 @@
             v-for="product in products"
             :key="product.prodID"
             :product="product"
-            @click="this.gotoProductDetail(product.prodID)"
           ></product>
           </div>
         <!-- </div> -->
@@ -107,7 +106,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapActions } from "vuex";
 import product from "../components/Product.vue";
 
 export default {
@@ -117,24 +116,27 @@ export default {
   },
   data() {
     return {
-      products: [],
       url: "http://localhost:3000/product",
       // http://13.76.182.102:3000/user/allProduct
       // http://localhost:3000/product
     };
   },
-  methods: {
-    gotoProductDetail(prodid) {
-      this.$router.push(`/productdetail/${prodid}`);
+  computed: {
+    products() {
+      return this.$store.getters.getProducts;
     },
   },
-  async created() {
-    try {
-      const res = await axios.get(`${this.url}`);
-      this.products = res.data;
-    } catch (e) {
-      console.log(e);
-    }
+  methods: {
+    ...mapActions({ getProduct: "fetchProducts" }),
+    
   },
+  // async created() {
+  //   try {
+  //     const res = await axios.get(`${this.url}`);
+  //     this.products = res.data;
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // },
 };
 </script>
