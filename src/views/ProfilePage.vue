@@ -15,21 +15,19 @@
               <h1 class="font-bold uppercase text-2xl mb-5">
                 ไอหนุ่ม
               </h1>
-              <p class="text-sm mb-5 cursor-pointer">
-                ศิลปิน: { { product.owner }}
+              <p class="text-sm mb-5 cursor-pointer ">
+                ศิลปิน:
+                <span class="underline">{{ this.users.user.email }}</span>
               </p>
               <p class="text-sm">
                 รายละเอียด: { { product.description }}
-                <br />
+              </p>
+              <p class="text-sm">
                 Lorem ipsum dolor sit, amet consectetur adipisicing, elit. Eos,
                 voluptatum dolorum! Laborum blanditiis consequatur, voluptates,
                 sint enim fugiat saepe, dolor fugit, magnam explicabo eaque quas
                 id quo porro dolorum facilis...
               </p>
-              <h1 class="font-bold uppercase text-2xl mb-5">
-                
-                
-              </h1>
             </div>
           </div>
         </div>
@@ -84,9 +82,9 @@ export default {
       // console.log(this.$store.getters.getProducts)
       return this.$store.getters.getProducts;
     },
-    users(){
+    users() {
       return this.$store.getters.getUser;
-    }
+    },
   },
   methods: {
     ...mapActions({ getProduct: "fetchProducts" }),

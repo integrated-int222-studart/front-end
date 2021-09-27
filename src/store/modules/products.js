@@ -33,7 +33,7 @@ export default {
     async addProduct({ commit }, product) {
       axios.defaults.headers.common["Authorization"] =
         "Bearer " +
-        this.$store.getters.getUser.token
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImlhdCI6MTYzMjc1NjQ3NX0.C0gX6ewTcnFpc3lBWq2S-fdfewlt2Ir1WO3uwWM10nA"
       const response = await axios.post(
         "http://13.76.182.102:3000/user/addProduct",
         product

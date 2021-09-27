@@ -14,7 +14,6 @@ export default {
   },
   mutations: {
     LOGIN_USER: (state, payload) => {
-      //   state.user = user_auth;
       state.user_data = payload;
     },
   },
