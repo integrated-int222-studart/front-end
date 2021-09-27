@@ -26,6 +26,10 @@
                 sint enim fugiat saepe, dolor fugit, magnam explicabo eaque quas
                 id quo porro dolorum facilis...
               </p>
+              <h1 class="font-bold uppercase text-2xl mb-5">
+                
+                
+              </h1>
             </div>
           </div>
         </div>
@@ -57,13 +61,12 @@
         </div>
       </div>
     </main>
-    <pre>{{ this.products }}</pre>
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-// import axios from "axios";
+
 import product from "../components/Product.vue";
 
 // import { useStore } from "vuex";
@@ -73,13 +76,17 @@ export default {
   components: {
     product,
   },
-  // mounted() {
-  //   this.getProduct();
-  // },
+  mounted() {
+    this.getProduct();
+  },
   computed: {
     products() {
+      // console.log(this.$store.getters.getProducts)
       return this.$store.getters.getProducts;
     },
+    users(){
+      return this.$store.getters.getUser;
+    }
   },
   methods: {
     ...mapActions({ getProduct: "fetchProducts" }),

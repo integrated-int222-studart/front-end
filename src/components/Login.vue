@@ -9,6 +9,7 @@
             <div class="flex flex-col pt-4">
               <label for="email" class="text-lg">Email</label>
               <input
+                v-model="this.userLogin.email"
                 type="email"
                 id="email"
                 placeholder="your@email.com"
@@ -18,13 +19,14 @@
             <div class="flex flex-col pt-4">
               <label for="password" class="text-lg">Password</label>
               <input
+                v-model="this.userLogin.password"
                 type="password"
                 id="password"
                 placeholder="Password"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
-            <button class="btn btn-primary mt-8">Log IN</button>
+            <button @click="submit" class="btn btn-primary mt-8">Log IN</button>
           </form>
           <div class="text-center pt-12 pb-12">
             <p>
@@ -39,3 +41,23 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      userLogin: {
+        email: "",
+        password: "",
+      },
+      checkValidate: {},
+    };
+  },
+  methods: {
+    submit() {
+      this.$store.dispatch("login", this.userLogin);
+      console.log("Go to login vuex",this.userLogin);
+    },
+  },
+};
+</script>

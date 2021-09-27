@@ -116,10 +116,10 @@ export default {
   },
   data() {
     return {
-      url: "http://localhost:3000/product",
-      // http://13.76.182.102:3000/user/allProduct
-      // http://localhost:3000/product
     };
+  },
+  mounted() {
+    this.getProduct();
   },
   computed: {
     products() {
@@ -130,13 +130,6 @@ export default {
     ...mapActions({ getProduct: "fetchProducts" }),
     
   },
-  // async created() {
-  //   try {
-  //     const res = await axios.get(`${this.url}`);
-  //     this.products = res.data;
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // },
+
 };
 </script>

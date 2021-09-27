@@ -15,8 +15,9 @@ import navbar from "./components/Navbar.vue";
 export default {
   name: "app",
   components: { navbar },
-  mounted() {
-    this.$store.dispatch("fetchProducts");
-  },
+  // mounted() {
+  //   this.$store.dispatch("fetchProducts");
+  // },
+  
 };
 </script>
