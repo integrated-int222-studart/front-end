@@ -25,7 +25,7 @@ export default {
       // console.log(resource_url);
 
       const response = await axios.get(
-        resource_url + "allProduct"
+        resource_url + "/user/allProduct"
         // "http://13.76.182.102:3000/user/allProduct"
       );
 
@@ -37,7 +37,7 @@ export default {
         "Bearer " +
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImlhdCI6MTYzMjc1NjQ3NX0.C0gX6ewTcnFpc3lBWq2S-fdfewlt2Ir1WO3uwWM10nA";
       const response = await axios.post(
-        resource_url + "addProduct",
+        resource_url + "/user/addProduct",
         // "http://13.76.182.102:3000/user/addProduct",
         product
       );
@@ -53,7 +53,7 @@ export default {
         "Bearer " +
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImlhdCI6MTYzMjQ3MTM1OH0.Bfrbi31zHVZ4XNj-VVIc8ulGGjd8_zuYQNXby_oY_EU";
       const response = await axios.delete(
-        resource_url + `deleteProduct/${product.prodID}`
+        resource_url + `/user/deleteProduct/${product.prodID}`
       );
 
       console.log(response.data);

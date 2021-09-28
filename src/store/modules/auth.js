@@ -20,7 +20,7 @@ export default {
   actions: {
     async login({ commit }, user_auth) {
       const response = await axios.post(
-        user_url + "login",
+        user_url + "/user/login",
         user_auth
       );
       commit("LOGIN_USER", response.data);
