@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// const resource_url = `${process.env.VUE_APP_REST_API}`;
+const resource_url = `${process.env.VUE_APP_REST_API}`;
 
 export default {
   state: {
@@ -15,8 +15,6 @@ export default {
       state.products.push(payload);
     },
     DELETE_PRODUCT(state, payload) {
-      console.log("payload");
-      console.log(payload.prodID);
       state.products = state.products.filter((p) => payload.prodID != p.prodID);
     },
     UPDATE_PRODUCT() {},
@@ -24,18 +22,23 @@ export default {
   actions: {
     async fetchProducts({ commit }) {
       // axios.defaults.headers.common["Authorization"] = "Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImlhdCI6MTYzMjQ3MTM1OH0.Bfrbi31zHVZ4XNj-VVIc8ulGGjd8_zuYQNXby_oY_EU";
+      // console.log(resource_url);
+
       const response = await axios.get(
-        "http://13.76.182.102:3000/user/allProduct"
+        resource_url + "allProduct"
+        // "http://13.76.182.102:3000/user/allProduct"
       );
+
       commit("GET_PRODUCTS", response.data);
     },
 
     async addProduct({ commit }, product) {
       axios.defaults.headers.common["Authorization"] =
         "Bearer " +
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImlhdCI6MTYzMjc1NjQ3NX0.C0gX6ewTcnFpc3lBWq2S-fdfewlt2Ir1WO3uwWM10nA"
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImlhdCI6MTYzMjc1NjQ3NX0.C0gX6ewTcnFpc3lBWq2S-fdfewlt2Ir1WO3uwWM10nA";
       const response = await axios.post(
-        "http://13.76.182.102:3000/user/addProduct",
+        resource_url + "addProduct",
+        // "http://13.76.182.102:3000/user/addProduct",
         product
       );
 
@@ -50,7 +53,7 @@ export default {
         "Bearer " +
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImlhdCI6MTYzMjQ3MTM1OH0.Bfrbi31zHVZ4XNj-VVIc8ulGGjd8_zuYQNXby_oY_EU";
       const response = await axios.delete(
-        `http://13.76.182.102:3000/user/deleteProduct/${product.prodID}`
+        resource_url + `deleteProduct/${product.prodID}`
       );
 
       console.log(response.data);

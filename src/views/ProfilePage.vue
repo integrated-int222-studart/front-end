@@ -79,7 +79,6 @@ export default {
   },
   computed: {
     products() {
-      // console.log(this.$store.getters.getProducts)
       return this.$store.getters.getProducts;
     },
     users() {

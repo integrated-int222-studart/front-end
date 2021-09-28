@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// const resource_url = `${process.env.VUE_APP_REST_API}`;
+const user_url = `${process.env.VUE_APP_REST_API}`;
 
 export default {
   state: {
@@ -20,7 +20,7 @@ export default {
   actions: {
     async login({ commit }, user_auth) {
       const response = await axios.post(
-        "http://13.76.182.102:3000/user/login",
+        user_url + "login",
         user_auth
       );
       commit("LOGIN_USER", response.data);
