@@ -15,19 +15,17 @@
               <h1 class="font-bold uppercase text-2xl mb-5">
                 ไอหนุ่ม
               </h1>
-              <p class="text-sm mb-5 cursor-pointer ">
+              <p class="text-sm mb-5">
                 ศิลปิน:
-                <span class="underline">{{ this.users.user.email }}</span>
+                <span class="underline cursor-pointer">{{ this.users.user.email }}</span>
               </p>
               <p class="text-sm">
-                รายละเอียด: { { product.description }}
+                รายละเอียด:
               </p>
               <p class="text-sm">
-                Lorem ipsum dolor sit, amet consectetur adipisicing, elit. Eos,
-                voluptatum dolorum! Laborum blanditiis consequatur, voluptates,
-                sint enim fugiat saepe, dolor fugit, magnam explicabo eaque quas
-                id quo porro dolorum facilis...
+                {{ this.users }}
               </p>
+              
             </div>
           </div>
         </div>

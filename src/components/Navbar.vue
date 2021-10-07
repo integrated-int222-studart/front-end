@@ -57,7 +57,8 @@
             >
           </div>
         </div>
-
+        
+        <!-- profile after login  -->
         <div class="hidden lg:flex  px-2 mx-2 ">
           <router-link to="/profile">
             <button class="block cursor-pointer ml-auto relative w-8 h-8">
@@ -79,6 +80,7 @@
             </button>
           </router-link>
         </div>
+
       </div>
     </div>
   </nav>

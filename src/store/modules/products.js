@@ -24,21 +24,17 @@ export default {
       // axios.defaults.headers.common["Authorization"] = "Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImlhdCI6MTYzMjQ3MTM1OH0.Bfrbi31zHVZ4XNj-VVIc8ulGGjd8_zuYQNXby_oY_EU";
       // console.log(resource_url);
 
-      const response = await axios.get(
-        resource_url + "/user/allProduct"
-        // "http://13.76.182.102:3000/user/allProduct"
-      );
+      const response = await axios.get(resource_url + "/user/allProduct");
 
       commit("GET_PRODUCTS", response.data);
     },
 
     async addProduct({ commit }, product) {
       axios.defaults.headers.common["Authorization"] =
-        "Bearer " +
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImlhdCI6MTYzMjc1NjQ3NX0.C0gX6ewTcnFpc3lBWq2S-fdfewlt2Ir1WO3uwWM10nA";
+        "Bearer " + localStorage.getItem("token");
+
       const response = await axios.post(
         resource_url + "/user/addProduct",
-        // "http://13.76.182.102:3000/user/addProduct",
         product
       );
 
@@ -48,15 +44,14 @@ export default {
     //   const response = await axios.put(`${resource_url}/${product.prodID}`);
     //   commit("UPDATE_PRODUCT", response.data);
     // },
+
     async removeProduct({ commit }, product) {
       axios.defaults.headers.common["Authorization"] =
-        "Bearer " +
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImlhdCI6MTYzMjQ3MTM1OH0.Bfrbi31zHVZ4XNj-VVIc8ulGGjd8_zuYQNXby_oY_EU";
-      const response = await axios.delete(
+        "Bearer " + localStorage.getItem("token");
+      await axios.delete(
         resource_url + `/user/deleteProduct/${product.prodID}`
       );
 
-      console.log(response.data);
       commit("DELETE_PRODUCT", product);
     },
   },
