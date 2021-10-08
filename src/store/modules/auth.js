@@ -7,15 +7,17 @@ export default {
     user_data: {
       token: "",
       user: {
-        email: "",
-        password: "",
+
       },
     },
+    created_user: true
+
   },
   mutations: {
     LOGIN_USER: (state, payload) => {
       state.user_data = payload;
     },
+
   },
   actions: {
     async login({ commit }, user_auth) {
@@ -25,26 +27,18 @@ export default {
       const response = await axios.post(user_url + "/user/login", user_auth);
       localStorage.setItem("token", response.data.token);
 
-      console.log(response.data.token);
+      // console.log(response.data.token);
+      dispatch('attempt', response.data.token)
       commit("LOGIN_USER", response.data);
     },
 
-    async register({ commit },user_regis) {
-      console.log("test");
-      console.log(user_regis);
-      const response = await axios.post(user_url + "/user/register", user_regis);
-      // const response = await axios.post(user_url + "/user/register", {
-      //   username: "ffffff",
-      //   email: "12345@hotmail.com",
-      //   password: "12345",
-      //   status: "not allowed",
-      //   firstName: "Pantavit",
-      //   lastName: "Hengnalen",
-      //   school: "KMUTT",
-      // });
-
-      console.log(response.data);
+    async register(_, user_regis) {
+      await axios.post(user_url + "/user/register", user_regis);
     },
+
+    async attempt(_,token){
+      console.log(token);
+    }
   },
 
   getters: {

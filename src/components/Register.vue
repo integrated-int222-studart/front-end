@@ -156,21 +156,8 @@ export default {
     },
     submit() {
       if (this.checkPasswordValidate()) {
-        // this.go_next()
-        // console.log("register");
         console.log(this.userRegister);
-
         this.$store.dispatch("register", this.userRegister);
-        // this.$store.dispatch("register", {
-        //   username: "ffffff",
-        //   email: "tanawat@hotmail.com",
-        //   password: "12345",
-        //   status: "not allowed",
-        //   firstName: "Pantavit",
-        //   lastName: "Hengnalen",
-        //   school: "KMUTT",
-        // });
-        // this.$store.dispatch("register");
       }
     },
   },
