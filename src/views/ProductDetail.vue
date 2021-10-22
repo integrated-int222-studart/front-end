@@ -22,19 +22,21 @@
           <div class="w-full md:w-1/2 mt-10 p-3 md:ml-10">
             <div class="mb-10 md:text-left">
               <h1 class="font-bold uppercase text-2xl mb-5">
-                ชื่อผลงาน: { { product.prodname }}
+                ชื่อผลงาน: {{ this.productById.prodName }}
               </h1>
               <p class="text-sm mb-5 cursor-pointer">
-                ศิลปิน: { { product.owner }}
+                ศิลปิน: {{ this.productById.ownerID }}
               </p>
-              <p class="text-sm">
-                รายละเอียด: { { product.description }}
-                <br/>
-                Lorem ipsum dolor sit, amet consectetur adipisicing, elit. Eos,
-                voluptatum dolorum! Laborum blanditiis consequatur, voluptates,
-                sint enim fugiat saepe, dolor fugit, magnam explicabo eaque quas
-                id quo porro dolorum facilis...
+              
+              <p class="text-sm mb-5">
+                รายละเอียด: {{ this.productById.prodDescription }}
               </p>
+              <h1 class="font-bold uppercase text-2xl mb-5">
+                ราคา: {{ this.productById.ownerID }} บาท
+              </h1>
+              <pre>
+                {{ this.productById }}
+              </pre>
             </div>
           </div>
         </div>
@@ -56,16 +58,24 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 // import axios from "axios";
 
 export default {
   props: ["id"],
-  data() {
-    return {
-      productByid: {},
-    };
+  mounted() {
+    this.fetchProductById(this.$route.params.id);
   },
-  methods: {},
+
+  computed: {
+    productById() {
+      return this.$store.getters.getProductById;
+    },
+  },
+  methods: {
+    ...mapActions({ fetchProductById: "fetchProductById" }),
+  },
+
   //   async created() {
   //     try {
   //       const res = await axios.get(`http://localhost:3000/product/${this.id}`);

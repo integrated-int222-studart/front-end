@@ -22,12 +22,14 @@
               เพื่อสนับสนุนผู้มีความสามารถด้านศิลปะ
             </p>
             <div class="flex space-x-3 justify-center lg:justify-start mt-6">
+              <router-link to="/products">
               <button
                 href="#"
                 class="flex items-center justify-center border border-transparent text-base font-medium rounded-md  btn btn-secondary text-black"
               >
                 ดูผลงาน
               </button>
+              </router-link>
               <router-link to="/addproduct">
                 <button
                   href="#"

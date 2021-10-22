@@ -23,12 +23,6 @@ const routes = [
     path: '/products',
     name: 'Products',
     component: Products,
-    // children: [
-    //   {
-    //     path: ':id',
-    //     component: ProductDetail
-    //   }
-    // ]
   },
   {
     path: '/productdetail/:id',
@@ -46,14 +40,15 @@ const routes = [
     component: Register
   },
   {
-    path: '/profile',
+    path: '/profile/:username',
     name: 'Profile',
     component: Profile
   },
   {
     path: '/addproduct',
     name: 'AddProduct',
-    component: AddProduct
+    component: AddProduct,
+    // meta: { requiresAuth: true },
   },
   // { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound },
 ]
@@ -62,5 +57,17 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some((record) => record.meta.requiresAuth)) {
+//     if (store.getters.isAuthenticated) {
+//       next("/posts");
+//       return;
+//     }
+//     next();
+//   } else {
+//     next();
+//   }
+// });
 
 export default router

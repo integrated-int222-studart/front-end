@@ -13,19 +13,31 @@
           <div class="w-full md:w-1/2 mt-10 p-3 md:ml-10">
             <div class="mb-10 md:text-left">
               <h1 class="font-bold uppercase text-2xl mb-5">
-                ไอหนุ่ม
+                ชื่อผู้ใช้ : {{ this.userById.username }}
               </h1>
+              <p class="text-sm mb-5 underline cursor-pointer">
+                <!-- ติดต่อ: {{ this.userById.email }} -->
+                อีเมล: {{ this.userById.email }}
+              </p>
               <p class="text-sm mb-5">
-                ศิลปิน:
-                <span class="underline cursor-pointer">{{ this.users.user.email }}</span>
+                <!-- ติดต่อ: {{ this.userById.email }} -->
+                <span
+                  >{{ this.userById.firstName }}
+                  {{ this.userById.lastName }}</span
+                >
               </p>
-              <p class="text-sm">
+              <div class="text-sm">
                 รายละเอียด:
-              </p>
-              <p class="text-sm">
-                {{ this.users }}
-              </p>
-              
+                <p class="ml-4">
+                  <span>{{ this.userById.description }}</span>
+                </p>
+              </div>
+
+              <div v-if="this.$store.getters.getCurrentUsername == this.userById.username">
+                <button class="btn btn-primary">Edit mode</button>
+              </div>
+
+              <!-- <pre>{{ this.userById }}</pre> -->
             </div>
           </div>
         </div>
@@ -49,11 +61,12 @@
             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 w-full h-full items-center gap-3"
           >
             <product
-              v-for="product in this.products"
+              v-for="product in this.productByUserId"
               :key="product.prodID"
               :product="product"
             ></product>
           </div>
+          <!-- <pre>{{this.productByUserId}}</pre> -->
         </div>
       </div>
     </main>
@@ -62,29 +75,34 @@
 
 <script>
 import { mapActions } from "vuex";
-
 import product from "../components/Product.vue";
-
-// import { useStore } from "vuex";
 
 export default {
   name: "ProfilePage",
+  props: ["username"],
+  data() {
+    return {};
+  },
   components: {
     product,
   },
   mounted() {
-    this.getProduct();
+    this.fetchUserByUsername(this.$route.params.username);
+    this.fetchProductByUserId(this.userById.userID);
   },
+
   computed: {
-    products() {
-      return this.$store.getters.getProducts;
+    userById() {
+      return this.$store.getters.getUserById;
     },
-    users() {
-      return this.$store.getters.getUser;
+    productByUserId() {
+      return this.$store.getters.getProductByUserId;
     },
+    //  ...mapGetters({Posts: "StatePosts", User: "StateUser"}),
   },
   methods: {
-    ...mapActions({ getProduct: "fetchProducts" }),
+    ...mapActions({ fetchUserByUsername: "fetchUserByUsername" }),
+    ...mapActions({ fetchProductByUserId: "fetchProductByUserId" }),
 
     gotoProductDetail(prodid) {
       this.$router.push(`/productdetail/${prodid}`);

@@ -72,11 +72,12 @@
               v-model="this.productInputValue.productType"
               class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
-              ><option value="" hidden disabled selected
+              ><option value=""  disabled selected
                 >Please select one</option
               >
-              <option value="1">Option 1</option>
-              <option value="2">{ { table.productType2 }}</option>
+              <!-- <option value="1">Option 1</option>
+              <option value="2">{ { table.productType2 }}</option> -->
+              <option v-for="type in this.allType" :key="type" :value="type" >{{ type.typeName }}</option>
             </select>
           </div>
 
@@ -128,12 +129,17 @@
         </div>
       </div>
     </div>
-
+  <!-- <p>{{ this.productInputValue }}</p> -->
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
+  mounted() {
+    this.fetchAllType();
+  },
   data() {
     return {
       productInputValue: {
@@ -154,7 +160,13 @@ export default {
       sendSuccess: false,
     };
   },
+  computed: {
+    allType() {
+      return this.$store.getters.getAllType;
+    },
+  },
   methods: {
+    ...mapActions({ fetchAllType: "fetchAllType" }),
     formValidate() {
       if (this.productInputValue.prodName === "") {
         this.checkValidate.errorProdName = true;
@@ -198,6 +210,8 @@ export default {
         // console.log("send form success", this.productInputValue);
       }
     },
+    
+    
   },
 };
 </script>
