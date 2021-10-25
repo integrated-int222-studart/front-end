@@ -7,6 +7,7 @@ export default {
     products: [],
     productById: {},
     all_type: [],
+    all_style: [],
   },
 
   mutations: {
@@ -28,6 +29,9 @@ export default {
     SET_TYPE(state, payload) {
       state.all_type = payload;
     },
+    SET_STYLE(state, payload) {
+      state.all_style = payload;
+    },
   },
   actions: {
     async fetchProducts({ commit }) {
@@ -41,7 +45,7 @@ export default {
     async addProduct({ commit }, product) {
       axios.defaults.headers.common["Authorization"] =
         "Bearer " + localStorage.getItem("userToken");
-      console.log(localStorage.getItem("userToken"));
+
       const response = await axios.post(
         resource_url + "/user/addProduct",
         product
@@ -63,14 +67,21 @@ export default {
 
       commit("DELETE_PRODUCT", product);
     },
-// /prodType
+    // /prodType
     async fetchAllType({ commit }) {
-      const response = await axios.get(resource_url + "/user/allType");
+      const response = await axios.get(resource_url + "/product/allType");
       commit("SET_TYPE", response.data);
     },
 
+    async fetchAllStyle({ commit }) {
+      const response = await axios.get(resource_url + "/product/allStyle");
+      commit("SET_STYLE", response.data);
+    },
+
     async fetchProductById({ commit }, prod_id) {
-      const response = await axios.get(resource_url + "/product/productById/" + prod_id);
+      const response = await axios.get(
+        resource_url + "/product/productById/" + prod_id
+      );
       commit("SET_PRODUCT_BY_ID", response.data);
     },
   },
@@ -83,6 +94,9 @@ export default {
     },
     getAllType: (state) => {
       return state.all_type;
+    },
+    getAllStyle: (state) => {
+      return state.all_style;
     },
   },
 };

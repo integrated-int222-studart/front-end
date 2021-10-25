@@ -8,7 +8,7 @@ export default {
       type: Object,
       default: null,
     },
-    current_username : null,
+    current_username: null,
     auth_token: null,
   },
   mutations: {
@@ -43,9 +43,8 @@ export default {
         let res = await axios.post(user_url + "/user/login", user_auth);
         let username = res.data.user.username;
 
-
         commit("LOGIN_USER", res.data);
-        return {username};
+        return { username };
 
         // return user_auth;
       } catch {
@@ -54,7 +53,13 @@ export default {
     },
 
     async register(_, user_regis) {
-      await axios.post(user_url + "/user/register", user_regis);
+      console.log(user_regis);
+      try {
+        await axios.post(user_url + "/user/register", user_regis);
+        return { user_regis };
+      } catch {
+        return { error: "ERROR" };
+      }
     },
 
     async logout({ commit }) {

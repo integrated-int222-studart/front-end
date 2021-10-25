@@ -39,7 +39,10 @@
                 class="flex items-center font-medium tracking-wide text-red-500 text-sm mt-1 ml-1"
               />
             </div>
-            <button @click="submit" class="btn btn-primary mt-8">
+            <button
+              @click="submit"
+              class="btn btn-md btn-primary rounded-btn text-lg  mt-8"
+            >
               เข้าสู่ระบบ
             </button>
           </Form>
@@ -78,22 +81,20 @@ export default {
       error: false,
     };
   },
-  computed: {
-
-  },
+  computed: {},
   methods: {
     async onSubmit() {
       let user = await this.$store.dispatch("login", this.userLogin);
-      if(user.error){
-        alert(user.error)
-      }else{
-        alert("THX")
+      if (user.error) {
+        alert(user.error);
+      } else {
+        alert("THX");
       }
 
       // .then(this.fetchUser())
       // .then(console.log("USERNAME PLS",this.user))
       // .then(console.log("USERNAME PLS",this.$store.getters.getUser))
-      this.$router.push(`/profile/${user.username}`)
+      this.$router.push(`/profile/${user.username}`);
     },
 
     validateEmail(value) {

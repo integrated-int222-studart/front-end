@@ -1,6 +1,6 @@
 <template>
   <!--form input-->
-  <div class="form-input" @submit.prevent="submit">
+  <div class="form-input">
     <div class="grid place-items-center">
       <div class="w-full h-full px-10 py-2">
         <h1 class="text-xl font-semibold">
@@ -9,99 +9,149 @@
             กรุณากรอกข้อมูลของผลงานที่ต้องการขาย
           </p>
         </h1>
-        <form class="mt-6">
-          <div class="mt-1">
-            <div class="my-2"></div>
+        <!--  -->
+        <Form @submit="onSubmit" class="flex flex-col pt-3">
+          <div class="flex flex-col pt-4">
             <label for="productname" class=""
               >ชื่อผลงาน <span class="text-error">*</span></label
             >
-            <input
+            <Field
+              name="productname"
+              :rules="isRequired"
               id="productname"
               type="text"
               v-model="this.productInputValue.prodName"
               placeholder="ชื่อผลงาน"
               class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
+            />
+            <ErrorMessage
+              name="productname"
+              class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
             />
           </div>
-
-          <div class="flex justify-between">
-            <div class="mt-1 w-6/12">
-              <div class="my-2 ">
+          <div class="flex flex-col pt-4">
+            <div class="flex justify-between">
+              <div class="mt-1 w-6/12">
                 <label for="price" class=""
                   >ราคา <span class="text-error">*</span></label
                 >
+                <Field
+                  name="price"
+                  :rules="isRequired"
+                  id="price"
+                  type="number"
+                  step="0.01"
+                  v-model="this.productInputValue.price"
+                  placeholder="ราคา(บาท)"
+                  class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+                <ErrorMessage
+                  name="price"
+                  class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
+                />
               </div>
-              <input
-                id="price"
-                type="number"
-                step="0.01"
-                v-model="this.productInputValue.price"
-                placeholder="ราคา(บาท)"
-                autocomplete="price"
-                class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
-            </div>
-            <div class="mt-1 w-5/12">
-              <div class="my-2 ">
+              <div class="mt-1 w-5/12">
                 <label for="date" class=""
                   >วันที่สร้างผลงาน <span class="text-error">*</span></label
                 >
+                <Field
+                  name="date"
+                  :rules="isRequired"
+                  id="date"
+                  type="date"
+                  v-model="this.productInputValue.manufacDate"
+                  placeholder="วันที่"
+                  class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+                <ErrorMessage
+                  name="date"
+                  class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
+                />
               </div>
-              <input
-                id="date"
-                type="date"
-                placeholder="วันที่"
-                v-model="this.productInputValue.manufacDate"
-                class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
             </div>
           </div>
+          <div class="flex flex-col pt-4">
+            <label for="type" class=""
+              >ชื่อผลงาน <span class="text-error">*</span></label
+            >
 
-          <div class="mt-1">
-            <div class="my-2 ">
-              <label for="type" class=""
-                >ประเภท <span class="text-error">*</span></label
-              >
-            </div>
-            <select
-              id="type"
+            <Field
               name="type"
+              :rules="isRequired"
+              id="type"
+              as="select"
               v-model="this.productInputValue.productType"
+              placeholder="เลือกประเภทผลงาน"
               class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-              ><option value=""  disabled selected
-                >Please select one</option
+              ><option value="" selected>Please select one</option>
+              <option
+                v-for="type in this.allType"
+                :key="type.typeID"
+                :value="type.typeID"
+                >{{ type.typeName }}</option
               >
-              <!-- <option value="1">Option 1</option>
-              <option value="2">{ { table.productType2 }}</option> -->
-              <option v-for="type in this.allType" :key="type" :value="type" >{{ type.typeName }}</option>
-            </select>
-          </div>
-
-          <div class="mt-1">
-            <div class="my-2">
-              <label for="product-description" class=""
-                >รายละเอียด <span class="text-error">*</span></label
-              >
-            </div>
-            <textarea
-              id="product-description"
-              v-model="this.productInputValue.prodDescription"
-              placeholder="รายละเอียด เช่น ที่มา แรงบันดาลใจ"
-              rows="3"
-              class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            </Field>
+            <ErrorMessage
+              name="type"
+              class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
             />
           </div>
+          <div class="flex flex-col pt-4">
+            <label for="description" class=""
+              >รายละเอียด <span class="text-error">*</span></label
+            >
+
+            <Field
+              name="description"
+              :rules="isRequired"
+              id="description"
+              as="textarea"
+              rows="4"
+              v-model="this.productInputValue.prodDescription"
+              placeholder="รายละเอียด เช่น ที่มา แรงบันดาลใจ"
+              class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+            </Field>
+            <ErrorMessage
+              name="description"
+              class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
+            />
+          </div>
+          <div class="flex flex-col pt-4 ">
+            <div class="">สไตล์ <span class="text-error">*</span></div>
+            <div class="grid grid-cols-2 overflow-y-auto h-32 ">
+              <div
+                v-for="style in this.allStyle"
+                :key="style.styleID"
+                :value="style.styleID"
+                class="flex flex-row "
+              >
+                <label>
+                  <Field
+                    name="style"
+                    type="checkbox"
+                    :value="style.styleID"
+                    :rules="multiCheck"
+                    v-model="this.productInputValue.styleID"
+                  />
+                  {{ style.styleName }}</label
+                >
+              </div>
+            </div>
+            <ErrorMessage
+              name="style"
+              class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
+            />
+            <!-- <label class="">
+                <input type="checkbox" value= 0 v-model="this.productInputValue.styleID">Sunday
+              </label> -->
+          </div>
           <button
-            type="submit"
             class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none"
           >
             สร้างผลงาน
           </button>
-        </form>
+        </Form>
       </div>
     </div>
     <div class="alert bg-success" v-show="sendSuccess">
@@ -129,16 +179,24 @@
         </div>
       </div>
     </div>
-  <!-- <p>{{ this.productInputValue }}</p> -->
+    <!-- <pre>{{this.allStyle}}</pre> -->
+    <!-- <pre>{{ this.productInputValue }}</pre> -->
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+import { Form, Field, ErrorMessage } from "vee-validate";
 
 export default {
+  components: {
+    Form,
+    Field,
+    ErrorMessage,
+  },
   mounted() {
     this.fetchAllType();
+    this.fetchAllStyle();
   },
   data() {
     return {
@@ -147,16 +205,10 @@ export default {
         manufacDate: "",
         price: 0.0,
         prodDescription: "",
-        productType: 1,
-        styleID: [1, 2, 3],
+        productType: "",
+        styleID: "",
       },
-      checkValidate: {
-        errorProdName: false,
-        errorDate: false,
-        errorPrice: false,
-        errorProdDes: false,
-        errorproductType: false,
-      },
+
       sendSuccess: false,
     };
   },
@@ -164,54 +216,26 @@ export default {
     allType() {
       return this.$store.getters.getAllType;
     },
+    allStyle() {
+      return this.$store.getters.getAllStyle;
+    },
   },
   methods: {
     ...mapActions({ fetchAllType: "fetchAllType" }),
-    formValidate() {
-      if (this.productInputValue.prodName === "") {
-        this.checkValidate.errorProdName = true;
-      } else {
-        this.checkValidate.errorProdName = false;
-      }
-      if (this.productInputValue.manufacDate === "") {
-        this.checkValidate.errorDate = true;
-      } else {
-        this.checkValidate.errorDate = false;
-      }
-      if (this.productInputValue.price === "") {
-        this.checkValidate.errorPrice = true;
-      } else {
-        this.checkValidate.errorPrice = false;
-      }
-      if (this.productInputValue.prodDescription === "") {
-        this.checkValidate.errorProdDes = true;
-      } else {
-        this.checkValidate.errorProdDes = false;
-      }
-      if (this.productInputValue.productType === "") {
-        this.checkValidate.errorproductType = true;
-      } else {
-        this.checkValidate.errorproductType = false;
-      }
-    },
+    ...mapActions({ fetchAllStyle: "fetchAllStyle" }),
+
     submit() {
-      this.formValidate();
-      if (
-        this.checkValidate.errorProdName ||
-        this.checkValidate.errorDate ||
-        this.checkValidate.errorPrice ||
-        this.checkValidate.errorProdDes ||
-        this.checkValidate.errorproductType
-      ) {
-        console.log("Input error");
-      } else {
-        this.$store.dispatch("addProduct", this.productInputValue);
-        this.sendSuccess = true;
-        // console.log("send form success", this.productInputValue);
-      }
+      this.$store.dispatch("addProduct", this.productInputValue);
     },
-    
-    
+    async onSubmit() {
+      console.log(this.productInputValue);
+    },
+    isRequired(value) {
+      return value ? true : "* This field is required";
+    },
+    multiCheck(value) {
+      return value[0] ? true : "* This field is required";
+    },
   },
 };
 </script>

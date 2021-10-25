@@ -2,44 +2,55 @@
   <div class="product-detail">
     <div class="">
       <p class="text-4xl font-bold">Product Details</p>
-      <!-- <pre>{{ this.productByid }}</pre> -->
       <p>{{ $route.params.id }}</p>
     </div>
     <!-- component -->
     <main class="p-2 m-2 md:p-8 md:m-6">
       <div class="container mx-auto">
-        <div class="md:flex items-center ">
-          <div class=" h-full w-full md:w-1/2 ">
-            <div class="aspect-w-1 aspect-h-1 border-2 border-black rounded">
-              <img
-                src="https://source.unsplash.com/random/"
-                class="object-cover h-full w-full "
-                alt=""
-              />
-            </div>
-          </div>
-
-          <div class="w-full md:w-1/2 mt-10 p-3 md:ml-10">
-            <div class="mb-10 md:text-left">
-              <h1 class="font-bold uppercase text-2xl mb-5">
+        <!--  -->
+        <div class="container mx-auto px-6">
+          <div class="flex-none lg:flex justify-between items-start  ">
+            <!-- img upload -->
+            <div class="h-full w-full">
+              <!-- <h1 class="font-bold uppercase text-2xl mb-5">
                 ชื่อผลงาน: {{ this.productById.prodName }}
-              </h1>
-              <p class="text-sm mb-5 cursor-pointer">
-                ศิลปิน: {{ this.productById.ownerID }}
-              </p>
-              
-              <p class="text-sm mb-5">
-                รายละเอียด: {{ this.productById.prodDescription }}
-              </p>
-              <h1 class="font-bold uppercase text-2xl mb-5">
-                ราคา: {{ this.productById.ownerID }} บาท
-              </h1>
-              <pre>
-                {{ this.productById }}
-              </pre>
+              </h1> -->
+              <div class="aspect-w-1 aspect-h-1 border-2 border-black rounded">
+                <img
+                  src="https://source.unsplash.com/random/"
+                  class="object-cover h-full w-full "
+                  alt=""
+                />
+              </div>
+            </div>
+            <!-- form -->
+            <div class="h-full w-full p-3 mt-6 ml-0 md:ml-10 md:mt-0">
+              <div class="text-left">
+                <div class="grid place-items-center">
+                  <div class="flex flex-col w-full h-full py-2 ">
+                    <h1 class="font-bold uppercase text-2xl mb-5">
+                      ชื่อผลงาน: {{ this.productById.prodName }}
+                    </h1>
+                    <p class="text-sm mb-5 cursor-pointer">
+                      ศิลปิน: {{ this.productById.ownerID }}
+                    </p>
+
+                    <p class="text-sm mb-5 overflow-y-auto h-32">
+                      รายละเอียด: {{ this.productById.prodDescription }}
+                    </p>
+                    <h1 class="font-bold uppercase text-2xl mb-5">
+                      ราคา: {{ this.productById.ownerID }} บาท
+                    </h1>
+                    <button class="btn btn-md btn-primary rounded-btn text-lg">
+                      ซื้อสินค้า
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <!--  -->
 
         <div class="mt-16">
           <h3 class="text-gray-600 text-2xl font-medium">More Products</h3>
