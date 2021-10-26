@@ -44,6 +44,7 @@
                     <button class="btn btn-md btn-primary rounded-btn text-lg">
                       ซื้อสินค้า
                     </button>
+                    <pre>{{ this.productById }}</pre>
                   </div>
                 </div>
               </div>

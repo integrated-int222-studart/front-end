@@ -42,17 +42,26 @@ export default {
       commit("SET_PRODUCTS", response.data);
     },
 
+    // focus here
+
     async addProduct({ commit }, product) {
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + localStorage.getItem("userToken");
+      try {
+        console.log(product);
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("userToken");
 
-      const response = await axios.post(
-        resource_url + "/user/addProduct",
-        product
-      );
+        const response = await axios.post(
+          resource_url + "/user/addProduct",
+          product
+        );
 
-      commit("ADD_PRODUCT", response.data);
+        commit("ADD_PRODUCT", response.data);
+        return { alert: true };
+      } catch {
+        return { error: "ERROR" };
+      }
     },
+
     // async updateProduct({ commit }, product) {
     //   const response = await axios.put(`${resource_url}/${product.prodID}`);
     //   commit("UPDATE_PRODUCT", response.data);
@@ -78,6 +87,7 @@ export default {
       commit("SET_STYLE", response.data);
     },
 
+    // here
     async fetchProductById({ commit }, prod_id) {
       const response = await axios.get(
         resource_url + "/product/productById/" + prod_id

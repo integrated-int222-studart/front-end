@@ -174,13 +174,13 @@
             สำเร็จ
           </div>
           <div class="alert-description text-sm text-green-600">
-            เพิ่มข้อมูลเรียบร้อย..!
+            เพิ่มผลงานเสร็จสิ้น..!
           </div>
         </div>
       </div>
     </div>
     <!-- <pre>{{this.allStyle}}</pre> -->
-    <!-- <pre>{{ this.productInputValue }}</pre> -->
+    <pre>{{ this.productInputValue }}</pre>
   </div>
 </template>
 
@@ -224,11 +224,20 @@ export default {
     ...mapActions({ fetchAllType: "fetchAllType" }),
     ...mapActions({ fetchAllStyle: "fetchAllStyle" }),
 
-    submit() {
-      this.$store.dispatch("addProduct", this.productInputValue);
-    },
+    // submit() {
+    //   this.$store.dispatch("addProduct", this.productInputValue);
+    // },
     async onSubmit() {
-      console.log(this.productInputValue);
+      let user = await this.$store.dispatch(
+        "addProduct",
+        this.productInputValue
+      );
+      if (user.error) {
+        alert(user.error);
+      } else {
+        this.sendSuccess = true;
+        // alert("เพิ่มผลงานเสร็จสิ้น");
+      }
     },
     isRequired(value) {
       return value ? true : "* This field is required";
