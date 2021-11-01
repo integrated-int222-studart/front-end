@@ -16,17 +16,11 @@ export default {
       localStorage.setItem("userToken", payload.token);
       localStorage.setItem("username", payload.user.username);
 
-      // console.log(payload.token);
-      // console.log(payload.user.username);
-
       state.current_user = payload.user;
       state.current_username = payload.user.username;
       state.auth_token = payload.token;
     },
     SET_USER_INFO(state, payload) {
-      // console.log("USER INFO");
-      // console.log(localStorage.getItem("userToken"));
-      console.log("USER INFO", state.current_user);
       state.current_user = payload;
     },
 
@@ -38,7 +32,6 @@ export default {
   },
   actions: {
     async login({ commit }, user_auth) {
-      // console.log(localStorage.getItem("userToken"));
       try {
         let res = await axios.post(user_url + "/user/login", user_auth);
         let username = res.data.user.username;
@@ -94,8 +87,3 @@ export default {
     isAuthenticated: (state) => !!state.auth_token,
   },
 };
-
-// localStorage.setItem('token',response.data.token)
-// header:{
-//   Authorization: 'Bearer ' + localStorage.getItem('token')
-// }

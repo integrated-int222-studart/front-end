@@ -246,8 +246,6 @@ export default {
       this.step++;
     },
     async onSubmit() {
-      // console.log(this.userRegister);
-
       let user = await this.$store.dispatch("register", this.userRegister);
       if (user.error) {
         alert(user.error);

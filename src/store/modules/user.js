@@ -28,11 +28,11 @@ export default {
     },
   },
   actions: {
-    async fetchUserByUsername({ commit , dispatch }, username) {
+    async fetchUserByUsername({ commit, dispatch }, username) {
       const response = await axios.get(user_url + "/user/profile/" + username);
       await commit("SET_USER_BY_ID", response.data);
 
-      dispatch("fetchProductByUserId",response.data.userID)
+      dispatch("fetchProductByUserId", response.data.userID);
     },
 
     async fetchProductByUserId({ commit }, userid) {

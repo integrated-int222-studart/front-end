@@ -5,14 +5,9 @@
       @click="gotoProductDetail(product.prodID)"
     >
       <div class=" h-full w-full aspect-w-1 aspect-h-1 ">
-        <img :src="this.product.imgurl" class="object-cover " alt="" />
+        <img :src="this.product.images[0].url" class="object-cover " alt="" />
       </div>
-      <!-- <img
-        class="object-cover mx-auto min-w-xs min-h-80 max-w-xs max-h-80 h-full w-full "
-        :src="this.product.imgurl"
-        onerror="this.src='https://source.unsplash.com/random'"
-        alt=""
-      /> -->
+
       <div class="flex justify-between p-2 mt-3 bg-white ">
         <p class="mt-4 ">{{ product.prodName }}</p>
         <p class="mt-4 ">{{ product.price }}</p>
@@ -28,7 +23,15 @@
 export default {
   props: {
     product: {
-      default: "",
+      images: [
+        {
+          imageID: 0,
+          name: "",
+          type: "",
+          url: "",
+          prodID: 0,
+        },
+      ],
     },
   },
   data() {

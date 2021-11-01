@@ -1,14 +1,17 @@
 <template>
   <nav class="bg-base-300 min-h-16 fixed z-10 top-0">
     <div
-      class="w-screen flex min-h-16 justify-between items-center shadow-lg text-black border-b-4 border-primary-focus py-2 px-4"
+      class="w-screen flex min-h-16 justify-between items-center shadow-lg text-black border-b-2 border-primary-focus py-2 px-4"
     >
       <div class="flex px-2 mx-2 ">
         <router-link to="/">
-          <span class="text-2xl font-bold "> Studart </span>
+          <img src="../assets/images/studart.png" class="h-12" />
+
+          <!-- <span class="text-2xl font-bold "> Studart </span> -->
         </router-link>
       </div>
 
+      <!-- dropbox mobile -->
       <div class="flex items-center">
         <div class="flex mx-2 lg:hidden">
           <div class="dropdown dropdown-end">
@@ -38,24 +41,45 @@
               <li>
                 <router-link to="/addproduct">สร้างผลงาน</router-link>
               </li>
+              <li v-if="this.$store.getters.isAuthenticated">
+                <router-link
+                  :to="{
+                    name: 'Profile',
+                    params: { username: this.current_username },
+                  }"
+                  >ข้อมูลของฉัน</router-link
+                >
+              </li>
               <div class="divider"></div>
               <li>
-                <router-link to="/login">
+                <router-link
+                  to="/login"
+                  v-if="!this.$store.getters.isAuthenticated"
+                >
                   เข้าสู่ระบบ
                 </router-link>
               </li>
               <li class="">
                 <router-link
                   to="/register"
+                  v-if="!this.$store.getters.isAuthenticated"
                   class="bg-primary hover:bg-base-200 text-lg"
                 >
                   ลงทะเบียน
                 </router-link>
               </li>
+              <li v-if="this.$store.getters.isAuthenticated">
+                <button
+                  @click="logout"
+                  class="btn btn-md bg-red-500 hover:bg-red-300 text-lg text-white"
+                >
+                  ออกจากระบบ
+                </button>
+              </li>
             </ul>
           </div>
         </div>
-
+        <!-- dropbox desktop -->
         <div class="hidden mx-2 lg:flex ">
           <div class="flex items-stretch">
             <router-link to="/"
@@ -134,11 +158,13 @@
                 <router-link to="/addproduct">สร้างผลงาน</router-link>
               </li>
               <li>
-                <!-- <router-link :to="`/profile/${this.current_user.user.username}`">ข้อมูลของฉัน</router-link> -->
-                <!-- <router-link :to="`/profile/${localStorage.getItem('userToken')}`">ข้อมูลข้อฉัน</router-link> -->
-                <router-link :to="{ name: 'Profile', params: { username: this.current_username }}">ข้อมูลของฉัน</router-link>
-                
-                <!-- <button @click="gotoProfile">ข้อมูลของฉัน</button> -->
+                <router-link
+                  :to="{
+                    name: 'Profile',
+                    params: { username: this.current_username },
+                  }"
+                  >ข้อมูลของฉัน</router-link
+                >
               </li>
               <!-- <li>
                 <router-link to="/login">
@@ -178,7 +204,6 @@ export default {
     current_username() {
       return this.$store.getters.getCurrentUsername;
     },
-
   },
   methods: {
     logout() {

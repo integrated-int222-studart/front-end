@@ -90,10 +90,6 @@ export default {
       } else {
         alert("THX");
       }
-
-      // .then(this.fetchUser())
-      // .then(console.log("USERNAME PLS",this.user))
-      // .then(console.log("USERNAME PLS",this.$store.getters.getUser))
       this.$router.push(`/profile/${user.username}`);
     },
 

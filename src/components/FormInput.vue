@@ -72,9 +72,8 @@
           </div>
           <div class="flex flex-col pt-4">
             <label for="type" class=""
-              >ชื่อผลงาน <span class="text-error">*</span></label
+              >ประเภท <span class="text-error">*</span></label
             >
-
             <Field
               name="type"
               :rules="isRequired"
@@ -82,7 +81,7 @@
               as="select"
               v-model="this.productInputValue.productType"
               placeholder="เลือกประเภทผลงาน"
-              class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="shadow border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               ><option value="" selected>Please select one</option>
               <option
                 v-for="type in this.allType"
@@ -180,7 +179,7 @@
       </div>
     </div>
     <!-- <pre>{{this.allStyle}}</pre> -->
-    <pre>{{ this.productInputValue }}</pre>
+    <!-- <pre>{{ this.productInputValue }}</pre> -->
   </div>
 </template>
 

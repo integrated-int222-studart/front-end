@@ -1,72 +1,102 @@
 <template>
   <div class="image-upload">
-    <!-- <div class="w-full h-64">
-              <img
-                class="h-full w-full rounded-md object-cover max-w-lg mx-auto"
-                src="https://images.unsplash.com/photo-1600551008016-8bef86c12cc2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80"
-                alt="Profile"
-              />
-            </div> -->
-    <div v-if="!preview">
-      <label
-        class="border-2 border-black flex flex-col aspect-w-1 aspect-h-1 mx-auto items-center justify-center cursor-pointer rounded-lg shadow-lg"
-        for="my-file"
-      >
-        <div class="flex justify-center items-center">
-          <svg
-            class="w-8 h-8"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path
-              d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"
-            />
-          </svg>
-          <span class="text-base font-medium leading-normal"
-            >Upload a Image</span
-          >
-        </div>
-      </label>
-      <input
-        type="file"
-        accept="image/*"
-        @change="previewImage"
-        class="hidden form-control-file"
-        id="my-file"
-      />
-    </div>
-
     <!--  -->
-    <div v-if="preview">
+    <div class="col-md-5">
+      <div v-if="!preview_list[image_index]">
+        <label
+          class="border-2 border-black flex flex-col aspect-w-1 aspect-h-1 mx-auto items-center justify-center cursor-pointer rounded-lg shadow-lg"
+          for="my-multi-file"
+        >
+          <div class="flex flex-col justify-center items-center">
+            <svg
+              class="w-8 h-8"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"
+              />
+            </svg>
+            <span class="text-base font-medium leading-normal mx-4"
+              >Upload a Image(s)</span
+            >
+          </div>
+
+          <input
+            type="file"
+            accept="image/*"
+            multiple="multiple"
+            @change="previewMultiImage"
+            class="form-control-file hidden"
+            id="my-multi-file"
+          />
+        </label>
+        <p class="text-left text-base font-medium leading-normal italic">
+          *recommended aspect ratio 1:1
+        </p>
+      </div>
+
       <div
         class="border-2 border-black aspect-w-1 aspect-h-1 flex flex-col mx-auto items-center justify-center shadow-lg"
+        v-if="preview_list[image_index]"
       >
-        <img :src="preview" class="object-cover mx-auto w-full h-full" />
+        <img :src="preview_list[image_index]" class="object-contain mx-auto" />
       </div>
-      <label
-        class="flex flex-col items-center px-3 py-1 mt-2 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white"
-        for="my-file"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
+      <div class="mt-6 grid grid-cols-5 gap-3">
+        <template v-if="preview_list.length">
+          <div
+            v-for="(item, index) in preview_list"
+            :key="index"
+            @click="image_index = index"
+          >
+            <div
+              class="border-2 border-black aspect-w-1 aspect-h-1 w-full mx-auto items-center justify-center shadow-lg"
+            >
+              <img :src="item" class="object-cover mx-auto w-full h-full" />
+
+              <div class=" indicator cursor-pointer">
+                <div
+                  class="indicator-item badge bg-error text-black"
+                  @click="preview_list.splice(index, 1)"
+                >
+                  <p class="absolute text-xl">-</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <!-- input -->
+        <div
+          class="border-2 border-black aspect-w-1 aspect-h-1 w-full mx-auto items-center justify-center shadow-lg"
         >
-          <path
-            d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"
+          <label for="my-multi-file" class="cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="{2}"
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            multiple="multiple"
+            @change="previewMultiImage"
+            class="form-control-file hidden"
+            id="my-multi-file"
           />
-        </svg>
-        <span class="text-sm leading-normal">Upload new Image</span>
-      </label>
-      <input
-        type="file"
-        accept="image/*"
-        @change="previewImage"
-        class="hidden form-control-file"
-        id="my-file"
-      />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -80,9 +110,11 @@ export default {
       preview: null,
       image: null,
       preview_list: [],
+      image_index: 0,
       image_list: [],
     };
   },
+
   methods: {
     previewMultiImage(event) {
       var input = event.target;

@@ -5,7 +5,26 @@ const resource_url = `${process.env.VUE_APP_REST_API}`;
 export default {
   state: {
     products: [],
-    productById: {},
+    productById: {
+      prodID: 0,
+      prodName: "",
+      manufacDate: "",
+      prodDescription: "",
+      price: 0,
+      ownerID: 0,
+      productType: 0,
+      type: {},
+      style: [],
+      images: [
+        {
+          imageID: 0,
+          name: "",
+          type: "",
+          url: "",
+          prodID: 0,
+        },
+      ],
+    },
     all_type: [],
     all_style: [],
   },
@@ -42,8 +61,6 @@ export default {
       commit("SET_PRODUCTS", response.data);
     },
 
-    // focus here
-
     async addProduct({ commit }, product) {
       try {
         console.log(product);
@@ -62,6 +79,18 @@ export default {
       }
     },
 
+    async addImage({ commit }, product) {
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("userToken");
+
+      const response = await axios.post(
+        resource_url + "/user/addProduct",
+        product
+      );
+
+      commit("ADD_PRODUCT", response.data);
+    },
+
     // async updateProduct({ commit }, product) {
     //   const response = await axios.put(`${resource_url}/${product.prodID}`);
     //   commit("UPDATE_PRODUCT", response.data);
@@ -76,7 +105,6 @@ export default {
 
       commit("DELETE_PRODUCT", product);
     },
-    // /prodType
     async fetchAllType({ commit }) {
       const response = await axios.get(resource_url + "/product/allType");
       commit("SET_TYPE", response.data);

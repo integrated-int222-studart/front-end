@@ -10,20 +10,51 @@
         <!--  -->
         <div class="container mx-auto px-6">
           <div class="flex-none lg:flex justify-between items-start  ">
-            <!-- img upload -->
             <div class="h-full w-full">
-              <!-- <h1 class="font-bold uppercase text-2xl mb-5">
-                ชื่อผลงาน: {{ this.productById.prodName }}
-              </h1> -->
-              <div class="aspect-w-1 aspect-h-1 border-2 border-black rounded">
+              <div>
+                <div
+                  class="border-2 border-black aspect-w-1 aspect-h-1 flex flex-col mx-auto items-center justify-center shadow-lg"
+                >
+                  <img
+                    :src="this.productById.images[image_index].url"
+                    class="object-contain mx-auto"
+                  />
+                </div>
+                <!-- <div
+                  class="aspect-w-1 aspect-h-1 border-2 border-black rounded"
+                >
+                  <img
+                    :src="this.show_image"
+                    class="object-cover h-full w-full "
+                    alt=""
+                  />
+                </div> -->
+                <div class="mt-6 grid grid-cols-5 gap-3">
+                  <div
+                    v-for="(item, index) in this.productById.images"
+                    :key="index"
+                    @click="changeIndex(index)"
+                  >
+                    <div
+                      class="border-2 border-black aspect-w-1 aspect-h-1 w-full mx-auto items-center justify-center shadow-lg"
+                    >
+                      <img
+                        :src="item.url"
+                        class="object-cover mx-auto w-full h-full"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="aspect-w-1 aspect-h-1 border-2 border-black rounded">
                 <img
                   src="https://source.unsplash.com/random/"
                   class="object-cover h-full w-full "
                   alt=""
                 />
-              </div>
+              </div> -->
             </div>
-            <!-- form -->
+
             <div class="h-full w-full p-3 mt-6 ml-0 md:ml-10 md:mt-0">
               <div class="text-left">
                 <div class="grid place-items-center">
@@ -38,20 +69,31 @@
                     <p class="text-sm mb-5 overflow-y-auto h-32">
                       รายละเอียด: {{ this.productById.prodDescription }}
                     </p>
+                    <h2 class="mb-5 text-2xl">
+                      <div
+                        class="badge badge-outline badge-lg mr-1"
+                        v-for="style in this.productById.style"
+                        :key="style.styleID"
+                        :value="style.styleID"
+                      >
+                        {{ style.styleName }}
+                      </div>
+                    </h2>
                     <h1 class="font-bold uppercase text-2xl mb-5">
-                      ราคา: {{ this.productById.ownerID }} บาท
+                      ราคา: {{ this.productById.price }} บาท
                     </h1>
                     <button class="btn btn-md btn-primary rounded-btn text-lg">
                       ซื้อสินค้า
                     </button>
-                    <pre>{{ this.productById }}</pre>
+                    <!-- <pre class="max-w-xl overflow-hidden">{{
+                      this.productById
+                    }}</pre> -->
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!--  -->
 
         <div class="mt-16">
           <h3 class="text-gray-600 text-2xl font-medium">More Products</h3>
@@ -75,26 +117,31 @@ import { mapActions } from "vuex";
 
 export default {
   props: ["id"],
+  data() {
+    return {
+      preview_list: [],
+      image_index: 0,
+      show_image: "",
+    };
+  },
   mounted() {
     this.fetchProductById(this.$route.params.id);
   },
 
   computed: {
+    // changeImage() {
+    //   return (this.show_image = this.productById);
+    // },
     productById() {
       return this.$store.getters.getProductById;
     },
   },
   methods: {
     ...mapActions({ fetchProductById: "fetchProductById" }),
+    changeIndex(index) {
+      this.image_index = index;
+      console.log(this.image_index);
+    },
   },
-
-  //   async created() {
-  //     try {
-  //       const res = await axios.get(`http://localhost:3000/product/${this.id}`);
-  //       this.productByid = res.data;
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   },
 };
 </script>
