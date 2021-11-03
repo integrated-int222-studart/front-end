@@ -29,6 +29,10 @@ export default {
       state.current_username = null;
       state.current_user = null;
     },
+    SET_LOCAL_STORAGE_USER(state, payload) {
+      state.auth_token = payload.token;
+      state.current_username = payload.username;
+    },
   },
   actions: {
     async login({ commit }, user_auth) {
@@ -71,6 +75,20 @@ export default {
 
       const response = await axios.get(user_url + "/user/profile");
       commit("SET_USER_INFO", response.data);
+    },
+
+    isStillLogin({ commit }) {
+      if (
+        localStorage.getItem("username") &&
+        localStorage.getItem("userToken")
+      ) {
+        let obj = {
+          token: localStorage.getItem("userToken"),
+          username: localStorage.getItem("username"),
+        };
+
+        commit("SET_LOCAL_STORAGE_USER", obj);
+      }
     },
   },
 
