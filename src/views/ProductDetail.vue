@@ -47,7 +47,8 @@
                     </h1>
                     <div @click="gotoProfile(this.username)">
                       <p class="text-sm mb-5 cursor-pointer">
-                        ศิลปิน {{ this.username }}
+                        ศิลปิน
+                        {{ this.username }}
                       </p>
                     </div>
 
@@ -77,6 +78,12 @@
                     <div class="flex align-bottom">
                       <button
                         class="btn btn-md btn-primary rounded-btn text-lg"
+                        @click="
+                          this.$store.dispatch(
+                            'addProductCollection',
+                            this.$route.params.id
+                          )
+                        "
                       >
                         ซื้อสินค้า
                       </button>
@@ -109,8 +116,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import axios from "axios";
-const resource_url = `${process.env.VUE_APP_REST_API}`;
+
 export default {
   props: ["id"],
   data() {
@@ -118,28 +124,22 @@ export default {
       preview_list: [],
       image_index: 0,
       show_image: "",
-      username: "",
     };
   },
   async mounted() {
     await this.fetchProductById(this.$route.params.id);
-    await this.fetchUsernameByUserId(this.productById.ownerID);
   },
 
   computed: {
     productById() {
       return this.$store.getters.getProductById;
     },
+    username() {
+      return this.$store.getters.getUsername;
+    },
   },
   methods: {
     ...mapActions({ fetchProductById: "fetchProductById" }),
-    async fetchUsernameByUserId(user_id) {
-      const response = await axios.get(
-        resource_url + "/user/username/" + user_id
-      );
-      this.username = await response.data.username;
-      return this.username;
-    },
     gotoProfile(username) {
       this.$router.push(`/profile/${username}`);
     },

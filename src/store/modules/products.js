@@ -25,6 +25,7 @@ export default {
         },
       ],
     },
+    username: "",
     all_type: [],
     all_style: [],
   },
@@ -51,9 +52,9 @@ export default {
     SET_STYLE(state, payload) {
       state.all_style = payload;
     },
-    // SET_USERNAME(state, payload) {
-    //   state.productById.ownerUsername = payload;
-    // },
+    SET_USERNAME(state, payload) {
+      state.username = payload;
+    },
   },
   actions: {
     async fetchProducts({ commit }) {
@@ -95,6 +96,22 @@ export default {
       }
     },
 
+    async addProductCollection(_, prod_id) {
+      // console.log(prod_id);
+
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("userToken");
+      const date = new Date();
+      // console.log(date.toLocaleDateString());
+      const response = await axios.post(
+        resource_url + "/user/addCollection/" + prod_id,
+        {
+          purchaseDate: date.toLocaleDateString(),
+        }
+      );
+      console.log(response.data);
+    },
+
     async removeProduct({ commit }, product) {
       axios.defaults.headers.common["Authorization"] =
         "Bearer " + localStorage.getItem("userToken");
@@ -115,30 +132,19 @@ export default {
     },
 
     // here
-    async fetchProductById({ commit }, prod_id) {
+    async fetchProductById({ commit, dispatch }, prod_id) {
       const response = await axios.get(
         resource_url + "/product/productById/" + prod_id
       );
-      console.log("prod id", response.data.ownerID);
-
-      // const username = await axios.get(
-      //   resource_url + "user/username/" + response.data.ownerID
-      // );
-      // console.log(username.data);
-      // commit("SET_USERNAME", username.data);
-
-      commit("SET_PRODUCT_BY_ID", response.data);
+      await commit("SET_PRODUCT_BY_ID", response.data);
+      await dispatch("fetchUsernameByUserId", response.data);
     },
 
-    async fetchUsernameByUserId(user_id) {
-      // const response = await axios.get(
-      //   resource_url + "user/username/" + this.state.productById.ownerID
-      // );
-      console.log(user_id);
-
-      return user_id;
-      // console.log(this.state.productById);
-      // console.log(response.data);
+    async fetchUsernameByUserId({ commit }, product) {
+      const response = await axios.get(
+        resource_url + "/user/username/" + product.ownerID
+      );
+      commit("SET_USERNAME", response.data.username);
     },
   },
   getters: {
@@ -153,6 +159,9 @@ export default {
     },
     getAllStyle: (state) => {
       return state.all_style;
+    },
+    getUsername: (state) => {
+      return state.username;
     },
   },
 };
