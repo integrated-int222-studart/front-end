@@ -18,6 +18,7 @@ export default {
       imageURL: null,
     },
     productByUserId: null,
+    userImage: "",
   },
   mutations: {
     SET_USER_BY_ID(state, payload) {
@@ -25,6 +26,9 @@ export default {
     },
     SET_PRODUCT_BY_USERID(state, payload) {
       state.productByUserId = payload;
+    },
+    SET_USER_IAMGE(state, payload) {
+      state.userImage = payload;
     },
   },
   actions: {
@@ -39,6 +43,10 @@ export default {
       const response = await axios.get(user_url + "/user/products/" + userid);
       commit("SET_PRODUCT_BY_USERID", response.data);
     },
+    async getImage({ commit }, userid) {
+      const response = await axios.get(user_url + "/user/getImage/" + userid);
+      commit("SET_USER_IAMGE", response);
+    },
   },
 
   getters: {
@@ -47,6 +55,9 @@ export default {
     },
     getProductByUserId: (state) => {
       return state.productByUserId;
+    },
+    getUserImage(state) {
+      return state.userImage;
     },
   },
 };

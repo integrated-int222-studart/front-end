@@ -51,6 +51,9 @@ export default {
     SET_STYLE(state, payload) {
       state.all_style = payload;
     },
+    // SET_USERNAME(state, payload) {
+    //   state.productById.ownerUsername = payload;
+    // },
   },
   actions: {
     async fetchProducts({ commit }) {
@@ -61,40 +64,36 @@ export default {
       commit("SET_PRODUCTS", response.data);
     },
 
-    async addProduct({ commit }, product) {
+    // async addProduct({ commit }, product, image_list) {
+    async addProduct(_, new_input) {
       try {
-        console.log(product);
+        // console.log(new_input);
+        // console.log(new_input.product);
+        // console.log(new_input.image_list);
+
         axios.defaults.headers.common["Authorization"] =
           "Bearer " + localStorage.getItem("userToken");
 
         const response = await axios.post(
           resource_url + "/user/addProduct",
-          product
+          new_input.product
         );
 
-        commit("ADD_PRODUCT", response.data);
+        const fd = new FormData();
+        new_input.image_list.forEach((element) => {
+          fd.append("image", element);
+        });
+        const res = await axios.post(
+          resource_url + "/image/upload/" + response.data.prodID,
+          fd
+        );
+        console.log(res.data);
+
         return { alert: true };
       } catch {
         return { error: "ERROR" };
       }
     },
-
-    async addImage({ commit }, product) {
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + localStorage.getItem("userToken");
-
-      const response = await axios.post(
-        resource_url + "/user/addProduct",
-        product
-      );
-
-      commit("ADD_PRODUCT", response.data);
-    },
-
-    // async updateProduct({ commit }, product) {
-    //   const response = await axios.put(`${resource_url}/${product.prodID}`);
-    //   commit("UPDATE_PRODUCT", response.data);
-    // },
 
     async removeProduct({ commit }, product) {
       axios.defaults.headers.common["Authorization"] =
@@ -120,7 +119,26 @@ export default {
       const response = await axios.get(
         resource_url + "/product/productById/" + prod_id
       );
+      console.log("prod id", response.data.ownerID);
+
+      // const username = await axios.get(
+      //   resource_url + "user/username/" + response.data.ownerID
+      // );
+      // console.log(username.data);
+      // commit("SET_USERNAME", username.data);
+
       commit("SET_PRODUCT_BY_ID", response.data);
+    },
+
+    async fetchUsernameByUserId(user_id) {
+      // const response = await axios.get(
+      //   resource_url + "user/username/" + this.state.productById.ownerID
+      // );
+      console.log(user_id);
+
+      return user_id;
+      // console.log(this.state.productById);
+      // console.log(response.data);
     },
   },
   getters: {

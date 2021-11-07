@@ -2,70 +2,70 @@
   <div class="profile">
     <main class="p-8 m-6">
       <div class="container mx-auto px-6">
-        <div class="md:flex md:items-center">
-          <div class="w-full h-64 md:w-1/2 lg:h-96">
-            <img
-              class="h-full w-full rounded-md object-cover max-w-lg mx-auto"
-              src="https://images.unsplash.com/photo-1600551008016-8bef86c12cc2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80"
-              alt="Profile"
-            />
+        <!-- <div class="md:flex md:items-center"> -->
+        <div class="flex-none lg:flex justify-between items-start ">
+          <div class="w-1/2">
+            <div
+              class="border-2 border-gray-400 aspect-w-1 aspect-h-1 flex flex-col mx-auto items-center justify-center shadow-lg"
+            >
+              <img class="object-cover" :src="this.userById.imageURL" />
+              <!-- src="https://images.unsplash.com/photo-1600551008016-8bef86c12cc2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80" -->
+            </div>
+            <pre>{{ this.userById.imageURL }}</pre>
           </div>
-          <div class="w-full md:w-1/2 mt-10 p-3 md:ml-10">
+
+          <div
+            class="h-full w-full p-3 mt-6 ml-0 md:ml-0 lg:ml-10 md:mt-10 lg:mt-0"
+          >
             <div class="mb-10 md:text-left">
-              <p class="font-bold uppercase text-2xl mb-5">
-                ชื่อผู้ใช้ : {{ this.userById.username }}
+              <p class="font-bold text-4xl mb-3">
+                {{ this.userById.username }}
               </p>
-              <div class="text-sm mb-5 cursor-pointer">
-                <!-- ติดต่อ: {{ this.userById.email }} -->
+              <div class="mb-3">
+                <div class="badge badge-outline badge-md">
+                  {{ this.userById.status }}
+                </div>
+              </div>
+              <div class="text-sm cursor-pointer underline mb-3">
                 <p>
                   {{ this.userById.email }}
-                  <span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </span>
                 </p>
               </div>
-              <p class="text-sm mb-5">
-                <!-- ติดต่อ: {{ this.userById.email }} -->
-                <span
-                  >{{ this.userById.firstName }}
-                  {{ this.userById.lastName }}</span
-                >
-              </p>
-              <div class="text-sm">
-                รายละเอียด:
-                <p class="ml-4">
-                  <span>{{ this.userById.description }}</span>
+
+              <div class="flex flex-col text-sm mb-5 h-32">
+                <p class="text-base">
+                  คำอธิบาย
+                </p>
+                <p class="text-sm mb-5 overflow-ellipsis overflow-y-auto h-32">
+                  {{ this.userById.description }}
                 </p>
               </div>
 
               <div
+                class="flex m-auto flex-col md:flex-row"
                 v-if="
                   this.$store.getters.getCurrentUsername ==
                     this.userById.username
                 "
               >
-                <button @click="editProfile" class="btn btn-primary">
+                <button
+                  @click="
+                    this.$router.push(
+                      `/profile/${this.$route.params.username}/editprofile`
+                    )
+                  "
+                  class="btn btn-primary"
+                >
                   Edit mode
                 </button>
               </div>
-
-              <!-- <pre>{{ this.userById }}</pre> -->
             </div>
           </div>
         </div>
+
+        <!-- </div> -->
+
+        <!--  -->
         <div class="mt-16">
           <h3 class="text-2xl font-medium">More Products</h3>
           <nav class="sm:flex sm:justify-center sm:items-center m-4">

@@ -1,6 +1,5 @@
 <template>
   <div class="image-upload">
-    <!--  -->
     <div class="col-md-5">
       <div v-if="!preview_list[image_index]">
         <label
@@ -98,17 +97,23 @@
         </div>
       </div>
     </div>
+    <pre
+      >{{ this.image_list }}
+
+    </pre>
+    <button v-if="preview_list" class="btn " @click="updateMultiImage(6)">
+      ยืนยันการเพิ่มรูปภาพ
+    </button>
   </div>
 </template>
 
 <script>
-// import axios from 'axios';
+// import { mapActions } from "vuex";
+import axios from "axios";
 
 export default {
   data() {
     return {
-      preview: null,
-      image: null,
       preview_list: [],
       image_index: 0,
       image_list: [],
@@ -132,16 +137,21 @@ export default {
         }
       }
     },
-    previewImage(event) {
-      var input = event.target;
-      if (input.files) {
-        var reader = new FileReader();
-        reader.onload = (e) => {
-          this.preview = e.target.result;
-        };
-        this.image = input.files[0];
-        reader.readAsDataURL(input.files[0]);
-      }
+    async updateMultiImage(prod_id) {
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("userToken");
+
+      const fd = new FormData();
+      this.image_list.forEach((element) => {
+        fd.append("image", element);
+      });
+      console.log(prod_id);
+
+      const response = await axios.post(
+        "http://localhost:3000/image/upload/" + prod_id,
+        fd
+      );
+      console.log(response.data);
     },
   },
 };
