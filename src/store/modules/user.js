@@ -18,6 +18,8 @@ export default {
       imageURL: null,
     },
     productByUserId: null,
+    collectionsByUserId: null,
+    filename: null,
     userImage: "",
   },
   mutations: {
@@ -29,6 +31,12 @@ export default {
     },
     SET_USER_IAMGE(state, payload) {
       state.userImage = payload;
+    },
+    SET_COLLECTION_BY_USERID(state, payload) {
+      state.collectionsByUserId = payload;
+    },
+    SET_FILENAME(state, payload) {
+      state.filename = payload;
     },
   },
   actions: {
@@ -47,6 +55,18 @@ export default {
       const response = await axios.get(user_url + "/user/getImage/" + userid);
       commit("SET_USER_IAMGE", response);
     },
+    async fetchCollectionsByUserId({ commit }, userid) {
+      const response = await axios.get(user_url + "/user/collection/" + userid);
+      commit("SET_FILENAME", response.data.productCollection.images);
+      commit("SET_COLLECTION_BY_USERID", response.data.productCollection);
+    },
+    async downloadCollectionFile(_, filenames) {
+      console.log(filenames);
+      const response = await axios.get(user_url + "/image/download/", {
+        filename: filenames,
+      });
+      console.log(response.data);
+    },
   },
 
   getters: {
@@ -56,8 +76,14 @@ export default {
     getProductByUserId: (state) => {
       return state.productByUserId;
     },
-    getUserImage(state) {
+    getUserImage: (state) => {
       return state.userImage;
+    },
+    getCollectionByUserId: (state) => {
+      return state.collectionsByUserId;
+    },
+    getFilename: (state) => {
+      return state.filename;
     },
   },
 };

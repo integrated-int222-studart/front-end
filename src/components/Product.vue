@@ -2,9 +2,13 @@
   <div class="product  ">
     <div
       class="cursor-pointer p-3 bg-white shadow-lg transform transition duration-500 hover:scale-105"
-      @click="gotoProductDetail(product.prodID)"
     >
-      <div class=" h-full w-full aspect-w-1 aspect-h-1 border-2 ">
+      <!-- @click="gotoProductDetail(product.prodID)" -->
+
+      <div
+        class=" h-full w-full aspect-w-1 aspect-h-1 border-2 "
+        @click="gotoProductDetail(product.prodID)"
+      >
         <img :src="this.product.images[0].url" class="object-cover " alt="" />
       </div>
 
@@ -16,6 +20,8 @@
           <p class="text-md text-gray-800 mt-0">{{ product.price }} บาท</p>
         </div>
         <div class="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
+          <slot name="btn-status"></slot>
+
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6 group-hover:opacity-70"
@@ -37,7 +43,6 @@
         <p class="">{{ product.price }}</p>
       </div> -->
     </div>
-    <slot></slot>
     <!-- <div @click="this.delete">
       <button>Delete</button>
     </div> -->
