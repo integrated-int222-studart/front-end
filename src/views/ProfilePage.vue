@@ -120,25 +120,10 @@
               :product="product"
             >
               <template v-if="this.status == 'collection'" v-slot:btn-status>
-                <a
-                  href="http://localhost:3000/image/download/"
-                  class="btn "
-                  download
-                >
-                  <!-- <a @click="downloadFile(product.prodID)" class="btn " download> -->
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                    /></svg></a></template
+                <downloadFile
+                  :prod_id="product.prodID"
+                  :prod_name="product.prodName"
+                ></downloadFile> </template
             ></product>
           </div>
           <div class="text-left">
@@ -153,8 +138,9 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import { mapActions } from "vuex";
+import downloadFile from "../components/DownloadImages.vue";
 import product from "../components/Product.vue";
 
 export default {
@@ -168,6 +154,7 @@ export default {
   },
   components: {
     product,
+    downloadFile,
   },
   mounted() {
     this.fetchUserByUsername(this.$route.params.username);
@@ -229,21 +216,19 @@ export default {
       }
       return this.productsByStatus;
     },
-    downloadFile(prod_id) {
-      var array = [];
-      this.$store.getters.getCollectionByUserId[prod_id - 1].images.forEach(
-        (element) => {
-          array.push(element.name);
-        }
-      );
+    // downloadFile(prod_id) {
+    //   var array = [];
+    //   this.$store.getters.getCollectionByUserId[prod_id - 1].images.forEach(
+    //     (element) => {
+    //       array.push(element.name);
+    //     }
+    //   );
 
-      axios.get("http://localhost:3000/image/download/", {
-        filename: array,
-      });
+    //   axios.get("http://localhost:3000/image/download/", {
+    //     filename: array,
+    //   });
 
-      // this.$store.dispatch("downloadCollectionFile", array);
-      // return array;
-    },
+    // },
     // async showProductByStatus() {
 
     //   if (this.status == "create") {
