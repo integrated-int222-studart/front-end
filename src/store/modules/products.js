@@ -40,9 +40,9 @@ export default {
     ADD_PRODUCT(state, payload) {
       state.products.push(payload);
     },
-    DELETE_PRODUCT(state, payload) {
-      state.products = state.products.filter((p) => payload.prodID != p.prodID);
-    },
+    // DELETE_PRODUCT(state, payload) {
+    //   state.products = state.products.filter((p) => payload.prodID != p.prodID);
+    // },
 
     UPDATE_PRODUCT() {},
 
@@ -58,15 +58,12 @@ export default {
   },
   actions: {
     async fetchProducts({ commit }) {
-      // axios.defaults.headers.common["Authorization"] = "Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImlhdCI6MTYzMjQ3MTM1OH0.Bfrbi31zHVZ4XNj-VVIc8ulGGjd8_zuYQNXby_oY_EU";
-
       const response = await axios.get(resource_url + "/user/allProduct");
 
       commit("SET_PRODUCTS", response.data);
     },
 
-    // async addProduct({ commit }, product, image_list) {
-    async addProduct(_, new_input) {
+    async addProduct({ dispatch }, new_input) {
       try {
         // console.log(new_input);
         // console.log(new_input.product);
@@ -90,13 +87,21 @@ export default {
         );
         console.log(res.data);
 
-        return { alert: true };
+        dispatch("addNotification", {
+          type: "success",
+          message: "add product seccess",
+        });
+
+        return {
+          // dispatch("set_notification", {type: "success", message: "")
+          alert: true,
+        };
       } catch {
         return { error: "ERROR" };
       }
     },
 
-    async addProductCollection(_, prod_id) {
+    async addProductCollection({ dispatch }, prod_id) {
       // console.log(prod_id);
 
       axios.defaults.headers.common["Authorization"] =
@@ -109,18 +114,23 @@ export default {
           purchaseDate: date.toLocaleDateString(),
         }
       );
+
+      dispatch("addNotification", {
+        type: "success",
+        message: "add collection seccess",
+      });
       console.log(response.data);
     },
 
-    async removeProduct({ commit }, product) {
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + localStorage.getItem("userToken");
-      await axios.delete(
-        resource_url + `/user/deleteProduct/${product.prodID}`
-      );
+    // async removeProduct({ commit }, product) {
+    //   axios.defaults.headers.common["Authorization"] =
+    //     "Bearer " + localStorage.getItem("userToken");
+    //   await axios.delete(
+    //     resource_url + `/user/deleteProduct/${product.prodID}`
+    //   );
 
-      commit("DELETE_PRODUCT", product);
-    },
+    // commit("DELETE_PRODUCT", product);
+    // },
     async fetchAllType({ commit }) {
       const response = await axios.get(resource_url + "/product/allType");
       commit("SET_TYPE", response.data);

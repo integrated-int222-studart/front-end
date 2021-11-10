@@ -5,8 +5,17 @@ const user_url = `${process.env.VUE_APP_REST_API}`;
 export default {
   state: {
     current_user: {
-      type: Object,
-      default: null,
+      userID: null,
+      username: null,
+      email: null,
+      firstName: null,
+      lastName: null,
+      description: null,
+      status: null,
+      school: null,
+      imageName: null,
+      imageType: null,
+      imageURL: null,
     },
     current_username: null,
     auth_token: null,
@@ -35,16 +44,25 @@ export default {
     },
   },
   actions: {
-    async login({ commit }, user_auth) {
+    async login({ commit, dispatch }, user_auth) {
       try {
         let res = await axios.post(user_url + "/user/login", user_auth);
         let username = res.data.user.username;
 
         commit("LOGIN_USER", res.data);
+        dispatch("addNotification", {
+          type: "success",
+          message: "login seccess",
+        });
+
         return { username };
 
         // return user_auth;
       } catch {
+        dispatch("addNotification", {
+          type: "error",
+          message: "login failed",
+        });
         return { error: "ERROR" };
       }
     },
@@ -72,9 +90,12 @@ export default {
     async fetchUser({ commit }) {
       axios.defaults.headers.common["Authorization"] =
         "Bearer " + localStorage.getItem("userToken");
-
-      const response = await axios.get(user_url + "/user/profile");
-      commit("SET_USER_INFO", response.data);
+      try {
+        const response = await axios.get(user_url + "/user/profile");
+        commit("SET_USER_INFO", response.data.user);
+      } catch {
+        console.log({ error: "login" });
+      }
     },
 
     isStillLogin({ commit }) {

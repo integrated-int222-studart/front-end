@@ -5,10 +5,11 @@
         <!-- <div class="md:flex md:items-center"> -->
         <div class="flex-none lg:flex justify-between items-start ">
           <div class="w-1/2">
-            <div
-              class="border-2 border-gray-400 aspect-w-1 aspect-h-1 flex flex-col mx-auto items-center justify-center shadow-lg"
-            >
-              <img class="object-cover" :src="this.userById.imageURL" />
+            <div class="aspect-w-1 aspect-h-1">
+              <img
+                class="rounded-full object-cover"
+                :src="this.userById.imageURL"
+              />
               <!-- src="https://images.unsplash.com/photo-1600551008016-8bef86c12cc2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80" -->
             </div>
             <pre>{{ this.userById.imageURL }}</pre>
@@ -89,38 +90,28 @@
                 ชื่นชอบ
               </button>
             </div>
-            <!-- <div class="flex flex-col sm:flex-row">
-              <button
-                class="mt-3 text-xl hover:underline sm:mx-3 sm:mt-0"
-                @click="this.status = 'create'"
-              >
-                สร้าง
-              </button>
-              <button
-                class="mt-3 text-xl hover:underline sm:mx-3 sm:mt-0"
-                @click="this.status = 'collection'"
-              >
-                สะสม
-              </button>
-              <button
-                class="mt-3 text-xl hover:underline sm:mx-3 sm:mt-0"
-                @click="this.status = 'favorite'"
-              >
-                ชื่นชอบ
-              </button>
-            </div> -->
           </nav>
           <!-- component -->
           <div
             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 w-full h-full items-center gap-3"
           >
             <product
-              v-for="product in this.productsByStatus"
+              v-for="product in this.filter"
               :key="product.prodID"
               :product="product"
             >
-              <template v-if="this.status == 'collection'" v-slot:btn-status>
+              <pre>{{ product }}</pre>
+
+              <template v-slot:btn-status>
+                <button
+                  class="btn"
+                  v-if="this.status == 'create'"
+                  @click="this.delete(product)"
+                >
+                  Delete
+                </button>
                 <downloadFile
+                  v-if="this.status == 'collection'"
                   :prod_id="product.prodID"
                   :prod_name="product.prodName"
                 ></downloadFile> </template
@@ -130,6 +121,7 @@
             <!-- <pre>{{ this.showProductByStatus }}</pre> -->
             <!-- <pre>{{this.productByUserId}}</pre> -->
             <!-- <pre>{{ this.productsByStatus }}</pre> -->
+            <!-- <pre>{{ this.filter }}</pre> -->
           </div>
         </div>
       </div>
@@ -164,27 +156,32 @@ export default {
     userById() {
       return this.$store.getters.getUserById;
     },
-    // this.status
-    // showProductByStatus() {
-    //   var result = this.productByUserId;
-    //   if (this.status == "create") {
-    //     console.log("create");
-    //   }
-    //   if (this.status == "collection") {
-    //     this.fetchCollectionsByUserId(this.userById.userID);
-    //     console.log("collection");
-    //   }
-    //   if (this.status == "favorite") {
-    //     console.log("favorite");
-    //   }
-    //   return result;
-    // },
-    //  ...mapGetters({Posts: "StatePosts", User: "StateUser"}),
+    filter() {
+      var result = this.productsByCreate;
+      if (this.status == "collection") {
+        result = this.productsByCollection;
+      } else if (this.status == "favorite") {
+        result = this.productsByFavourite;
+      } else {
+        result = this.productsByCreate;
+      }
+      return result;
+    },
+    productsByCollection() {
+      return this.$store.getters.getCollectionByUserId;
+    },
+    productsByCreate() {
+      return this.$store.getters.getProductByUserId;
+    },
+    productsByFavourite() {
+      return this.$store.getters.getFavouriteByUserId;
+    },
   },
   methods: {
     ...mapActions({ fetchUserByUsername: "fetchUserByUsername" }),
     ...mapActions({ fetchProductByUserId: "fetchProductByUserId" }),
     ...mapActions({ fetchCollectionsByUserId: "fetchCollectionsByUserId" }),
+    ...mapActions({ fetchFavouriteByUserId: "fetchFavouriteByUserId" }),
 
     gotoProductDetail(prodid) {
       this.$router.push(`/productdetail/${prodid}`);
@@ -193,67 +190,22 @@ export default {
       alert("Edit mode Active");
       console.log("edit mode Active");
     },
+
+    delete(product) {
+      this.$store.dispatch("removeProduct", product);
+    },
     // need actions this.product
     async showProductByStatus(status) {
       this.status = status;
-      if (status == "create") {
-        await this.fetchProductByUserId(this.userById.userID);
-        this.productsByStatus = await this.$store.getters.getProductByUserId;
-        console.log("create");
 
-        console.log(this.productsByStatus);
-      }
-      if (status == "collection") {
+      if (this.status == "collection") {
         await this.fetchCollectionsByUserId(this.userById.userID);
-        this.productsByStatus = await this.$store.getters.getCollectionByUserId;
-        // this.productByUserId = this.$store.getters.getProductByUserId;
-
-        console.log("collection");
-        console.log(this.productsByStatus);
+      } else if (this.status == "favorite") {
+        await this.fetchFavouriteByUserId(this.userById.userID);
+      } else {
+        await this.fetchProductByUserId(this.userById.userID);
       }
-      if (status == "favorite") {
-        console.log("favorite");
-      }
-      return this.productsByStatus;
     },
-    // downloadFile(prod_id) {
-    //   var array = [];
-    //   this.$store.getters.getCollectionByUserId[prod_id - 1].images.forEach(
-    //     (element) => {
-    //       array.push(element.name);
-    //     }
-    //   );
-
-    //   axios.get("http://localhost:3000/image/download/", {
-    //     filename: array,
-    //   });
-
-    // },
-    // async showProductByStatus() {
-
-    //   if (this.status == "create") {
-    //     await this.fetchProductByUserId(this.userById.userID);
-    //     this.productsByStatus = await this.$store.getters.getProductByUserId;
-    //     console.log("create");
-
-    //     console.log(this.productsByStatus);
-    //   }
-    //   if (this.status == "collection") {
-    //     await this.fetchCollectionsByUserId(this.userById.userID);
-    //     this.productsByStatus = await this.$store.getters.getCollectionByUserId;
-    //     // this.productByUserId = this.$store.getters.getProductByUserId;
-
-    //     console.log("collection");
-    //     console.log(this.productsByStatus);
-    //   }
-    //   if (this.status == "favorite") {
-    //     console.log("favorite");
-    //   }
-    //   return this.productsByStatus;
-    // },
   },
-  // created() {
-  //   this.showProductByStatus();
-  // },
 };
 </script>

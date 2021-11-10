@@ -133,8 +133,8 @@ export default {
         alert(user.error);
       } else {
         alert("THX");
+        this.$router.push(`/profile/${user.username}`);
       }
-      this.$router.push(`/profile/${user.username}`);
     },
 
     validateEmail(value) {

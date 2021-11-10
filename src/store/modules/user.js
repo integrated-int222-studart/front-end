@@ -19,6 +19,7 @@ export default {
     },
     productByUserId: null,
     collectionsByUserId: null,
+    favouriteByUserId: null,
     filename: null,
     userImage: "",
   },
@@ -35,8 +36,16 @@ export default {
     SET_COLLECTION_BY_USERID(state, payload) {
       state.collectionsByUserId = payload;
     },
+    SET_FAVOURITE_BY_USERID(state, payload) {
+      state.favouriteByUserId = payload;
+    },
     SET_FILENAME(state, payload) {
       state.filename = payload;
+    },
+    DELETE_PRODUCT(state, payload) {
+      state.productByUserId = state.productByUserId.filter(
+        (p) => payload.prodID != p.prodID
+      );
     },
   },
   actions: {
@@ -59,14 +68,26 @@ export default {
       const response = await axios.get(user_url + "/user/collection/" + userid);
       commit("SET_FILENAME", response.data.productCollection.images);
       commit("SET_COLLECTION_BY_USERID", response.data.productCollection);
+      // return this.state.collectionsByUserId;
     },
-    async downloadCollectionFile(_, filenames) {
-      console.log(filenames);
-      const response = await axios.get(user_url + "/image/download/", {
-        filename: filenames,
-      });
-      console.log(response.data);
+    async fetchFavouriteByUserId({ commit }, userid) {
+      const response = await axios.get(user_url + "/user/favorite/" + userid);
+      commit("SET_FAVOURITE_BY_USERID", response.data.productFavorite);
+      // return this.state.collectionsByUserId;
     },
+    async removeProduct({ commit }, product) {
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("userToken");
+      await axios.delete(user_url + `/user/deleteProduct/${product.prodID}`);
+      commit("DELETE_PRODUCT", product);
+    },
+    // async downloadCollectionFile(_, filenames) {
+    //   console.log(filenames);
+    //   const response = await axios.get(user_url + "/image/download/", {
+    //     filename: filenames,
+    //   });
+    //   console.log(response.data);
+    // },
   },
 
   getters: {
@@ -81,6 +102,9 @@ export default {
     },
     getCollectionByUserId: (state) => {
       return state.collectionsByUserId;
+    },
+    getFavouriteByUserId: (state) => {
+      return state.favouriteByUserId;
     },
     getFilename: (state) => {
       return state.filename;

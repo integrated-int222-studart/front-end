@@ -1,8 +1,4 @@
 <template>
-  <!-- <div class="w-full flex flex-wrap my-10">
-    <div class="container mx-auto px-6">
-      <div class="grid place-items-center items-start min-h-screen">
-        <div class="flex flex-col justify-center md:w-6/12 lg:w-4/12"> -->
   <div class="register">
     <p class="text-3xl font-bold">ลงทะเบียน</p>
     <div class="py-6">
@@ -69,12 +65,6 @@
           v-if="step == 0"
           type="submit"
           class="btn btn-md btn-primary rounded-btn text-lg mt-8 py-3 w-full tracking-widest shadow-lg hover:shadow-none"
-        >
-          ลงทะเบียน
-        </button>
-        <button
-          v-if="step == 0"
-          class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none"
         >
           ลงทะเบียน
         </button>
@@ -152,31 +142,21 @@
           />
         </div>
       </template>
-      <div class="flex justify-between">
+      <div class="flex justify-between mt-8">
         <button
-          class="btn btn-primary mt-8"
+          class="btn btn-primary  w-5/12"
           @click="prevStep"
           type="button"
           v-if="step == 1"
         >
           ย้อนกลับ
         </button>
-        <button v-if="step == 1" class="btn btn-primary mt-8" type="submit">
-          ยืนยัน
-        </button>
-        <button
-          v-if="step == 1"
-          class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none"
-        >
+        <button v-if="step == 1" class="btn btn-primary  w-5/12" type="submit">
           ยืนยัน
         </button>
       </div>
     </Form>
   </div>
-  <!-- </div>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script>
@@ -251,6 +231,7 @@ export default {
         alert(user.error);
       } else {
         alert(user.user_regis);
+        this.$router.push("/login");
       }
     },
   },

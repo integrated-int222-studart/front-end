@@ -24,6 +24,7 @@
 
 <script>
 import axios from "axios";
+import { mapActions } from "vuex";
 export default {
   props: ["prod_id", "prod_name"],
   data() {
@@ -33,6 +34,11 @@ export default {
   },
   methods: {
     async downloadFile(id, name) {
+      this.addNotification({
+        type: "success",
+        message: "ดาวน์โหลดเรียบร้อย",
+      });
+
       axios.defaults.headers.common["Authorization"] =
         "Bearer " + localStorage.getItem("userToken");
 
@@ -53,6 +59,7 @@ export default {
           fileLink.click();
         });
     },
+    ...mapActions(["addNotification"]),
   },
 };
 </script>
