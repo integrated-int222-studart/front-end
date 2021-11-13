@@ -107,28 +107,48 @@
             :key="product.prodID"
             :product="product"
           >
+            <template v-slot:btn-status>
+              <div v-if="this.favoriteChecked == product.prodID">
+                <favorite :prod_id="product.prodID" :fav_product="product" />
+              </div>
+              <!-- <favorite
+                v-if="this.favoriteChecked.prodID == product.prodID"
+                :prod_id="product.prodID"
+                :fav_product="product"
+              /> -->
+              <div v-if="this.favoriteChecked != product.prodID">
+                <favorite :prod_id="product.prodID" />
+              </div>
+            </template>
           </product>
         </div>
       </div>
     </div>
+    <pre>user {{ this.current_user }}</pre>
+    <pre>fav{{ this.favoriteChecked }}</pre>
   </div>
 </template>
 
 <script>
+import Favorite from "../components/Favorite.vue";
 import { mapActions } from "vuex";
 import product from "../components/Product.vue";
 
 export default {
   name: "Products",
   components: {
+    Favorite,
     product,
   },
   data() {
     return {
       search: "",
       category: "",
+      favoriteChecked: "",
+      current_user: "",
     };
   },
+
   mounted() {
     this.getProduct();
     this.fetchAllType();
@@ -139,6 +159,12 @@ export default {
     },
     allType() {
       return this.$store.getters.getAllType;
+    },
+    productsByFavorite() {
+      return this.$store.getters.getFavoriteByUserId;
+    },
+    getCurrentUser() {
+      return this.$store.getters.getCurrentUser;
     },
     filteredList() {
       return this.products.filter((product) => {
@@ -174,10 +200,23 @@ export default {
   methods: {
     ...mapActions({ getProduct: "fetchProducts" }),
     ...mapActions({ fetchAllType: "fetchAllType" }),
+    ...mapActions({ fetchCurrentUser: "fetchCurrentUser" }),
+    ...mapActions({ fetchFavoriteByUserId: "fetchFavoriteByUserId" }),
     clearFiltered() {
       this.category = "";
       this.search = "";
     },
+  },
+  async created() {
+    if (this.$store.getters.isAuthenticated) {
+      await this.fetchCurrentUser();
+      await this.fetchFavoriteByUserId(this.getCurrentUser.userID);
+    }
+    this.current_user = await this.getCurrentUser;
+    let set = new Array();
+    this.productsByFavorite.forEach((id) => set.push(id.prodID));
+    this.favoriteChecked = set;
+    // this.favoriteChecked = await this.productsByFavorite;
   },
 };
 </script>

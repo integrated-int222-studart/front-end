@@ -82,7 +82,7 @@
                       <Field
                         name="username"
                         id="username"
-                        :value="this.userById.username"
+                        v-model="this.editValue.username"
                         :rules="isRequired"
                         type="text"
                         class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -99,7 +99,7 @@
                       <Field
                         name="email"
                         id="email"
-                        :value="this.userById.email"
+                        v-model="this.editValue.email"
                         :rules="validateEmail"
                         type="email"
                         class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -116,7 +116,7 @@
                       <Field
                         name="firstName"
                         id="firstName"
-                        :value="this.userById.firstName"
+                        v-model="this.editValue.firstName"
                         :rules="isRequired"
                         type="text"
                         class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -134,7 +134,7 @@
                       <Field
                         name="lastName"
                         id="lastName"
-                        :value="this.userById.lastName"
+                        v-model="this.editValue.lastName"
                         :rules="isRequired"
                         type="text"
                         class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -152,7 +152,7 @@
                       <Field
                         name="description"
                         id="description"
-                        :value="this.userById.description"
+                        v-model="this.editValue.description"
                         placeholder="ประวัติส่วนตัว"
                         as="textarea"
                         rows="4"
@@ -171,13 +171,39 @@
                         name="status"
                         as="select"
                         :rules="isRequired"
+                        v-model="this.editValue.status"
                         class="shadow border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        ><option :value="this.userById.status">{{
-                          this.userById.status
-                        }}</option>
-                        <option value="Student">นักเรียน/นักศึกษา</option>
-                        <option value="Guest">บุคคลทั่วไป</option></Field
                       >
+                        <!-- <div v-if="this.editValue.status == 'Student'"> -->
+                        <option
+                          value="Student"
+                          v-if="this.editValue.status == 'Student'"
+                          >นักเรียน</option
+                        >
+                        <option
+                          value="Guest"
+                          v-if="this.editValue.status == 'Guest'"
+                          >บุคคลทั่วไป</option
+                        >
+                        <option
+                          v-if="this.editValue.status == 'Student'"
+                          value="Guest"
+                          >บุคคลทั่วไป</option
+                        >
+                        <!-- </div> -->
+
+                        <option
+                          v-if="this.editValue.status == 'Guest'"
+                          value="Student"
+                          >นักเรียน/นักศึกษา</option
+                        >
+                        <!-- <option value="Student">นักเรียน/นักศึกษา</option>
+
+                        <option :value="this.editValue.status">{{
+                          this.editValue.status
+                        }}</option>
+                        <option value="Guest">บุคคลทั่วไป</option> -->
+                      </Field>
                       <ErrorMessage
                         name="status"
                         class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
@@ -185,11 +211,11 @@
                     </div>
                     <div
                       class="flex flex-col pt-4"
-                      v-if="this.userById.status == 'Student'"
+                      v-if="this.editValue.status == 'Student'"
                     >
                       <label for="school" class="text-lg">โรงเรียน</label>
                       <Field
-                        :value="this.userById.school"
+                        v-model="this.editValue.school"
                         name="school"
                         id="school"
                         placeholder="โรงเรียน/มหาวิทยาลัย"
@@ -214,7 +240,7 @@
             <!-- End of about section -->
             <div class="my-4">
               <!-- <img :src="this.userImage" alt="" /> -->
-              <pre>{{ this.userImage }}</pre>
+              <pre>{{ this.editValue }}</pre>
             </div>
           </div>
         </div>
@@ -234,7 +260,7 @@ export default {
     Field,
     ErrorMessage,
   },
-  props: ["username"],
+  // props: ["username"],
   data() {
     return {
       preview: null,
@@ -243,24 +269,27 @@ export default {
         imageObj: "",
         imageName: "",
       },
+      editValue: {
+        username: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        description: "",
+        status: "",
+        school: "",
+      },
     };
   },
   async mounted() {
-    await this.fetchUserByUsername(this.$route.params.username);
-    await this.getImage(this.userById.userID);
+    // await this.fetchUserByUsername(this.$route.params.username);
   },
   computed: {
     userById() {
       return this.$store.getters.getUserById;
     },
-    userImage() {
-      // console.log(this.$store.getters.getUserImage);
-      return this.$store.getters.getUserImage;
-    },
   },
   methods: {
     ...mapActions({ fetchUserByUsername: "fetchUserByUsername" }),
-    ...mapActions({ getImage: "getImage" }),
     isRequired(value) {
       return value ? true : "* This field is required";
     },
@@ -274,8 +303,8 @@ export default {
       }
       return true;
     },
-    onSubmit(values) {
-      console.log(values);
+    async onSubmit() {
+      await this.$store.dispatch("updateUserProfile", this.editValue);
     },
     previewImage(event) {
       this.addImage.imageObj = event.target.files[0];
@@ -292,18 +321,42 @@ export default {
       }
     },
     async updateImage() {
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + localStorage.getItem("userToken");
+      try {
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("userToken");
+      } catch (error) {
+        this.$store.dispatch("addNotification", {
+          type: "error",
+          message: error,
+        });
+      }
+      try {
+        const fd = new FormData();
+        fd.append("image", this.addImage.imageObj);
 
-      const fd = new FormData();
-      fd.append("image", this.addImage.imageObj);
-
-      const response = await axios.post(
-        "http://localhost:3000/user/upload/image",
-        fd
-      );
-      console.log(response.data);
+        await axios.post("http://localhost:3000/user/upload/image", fd);
+        this.$store.dispatch("addNotification", {
+          type: "success",
+          message: "edit profile image seccess",
+        });
+      } catch (error) {
+        this.$store.dispatch("addNotification", {
+          type: "error",
+          message: error,
+        });
+      }
     },
+  },
+  async created() {
+    await this.fetchUserByUsername(this.$route.params.username);
+
+    this.editValue.username = await this.userById.username;
+    this.editValue.email = await this.userById.email;
+    this.editValue.firstName = await this.userById.firstName;
+    this.editValue.lastName = await this.userById.lastName;
+    this.editValue.description = await this.userById.description;
+    this.editValue.status = await this.userById.status;
+    this.editValue.school = await this.userById.school;
   },
 };
 </script>

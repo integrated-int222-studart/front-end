@@ -93,7 +93,7 @@
           </nav>
           <!-- component -->
           <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 w-full h-full items-center gap-3"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 w-full h-full items-center gap-3"
           >
             <product
               v-for="product in this.filter"
@@ -102,9 +102,23 @@
             >
               <pre>{{ product }}</pre>
 
-              <template v-slot:btn-status>
+              <template
+                v-slot:btn-status
+                v-if="
+                  this.$store.getters.getCurrentUsername ==
+                    this.userById.username
+                "
+              >
                 <button
-                  class="btn"
+                  class="btn btn-ghost"
+                  v-if="this.status == 'create'"
+                  @click="this.$router.push(`/edit-product/${product.prodID}`)"
+                >
+                  Edit
+                </button>
+
+                <button
+                  class="btn btn-ghost"
                   v-if="this.status == 'create'"
                   @click="this.delete(product)"
                 >
@@ -114,7 +128,12 @@
                   v-if="this.status == 'collection'"
                   :prod_id="product.prodID"
                   :prod_name="product.prodName"
-                ></downloadFile> </template
+                ></downloadFile>
+                <favorite
+                  v-if="this.status == 'favorite'"
+                  :prod_id="product.prodID"
+                  :fav_product="product"
+                /> </template
             ></product>
           </div>
           <div class="text-left">
@@ -132,6 +151,7 @@
 <script>
 // import axios from "axios";
 import { mapActions } from "vuex";
+import Favorite from "../components/Favorite.vue";
 import downloadFile from "../components/DownloadImages.vue";
 import product from "../components/Product.vue";
 
@@ -147,6 +167,7 @@ export default {
   components: {
     product,
     downloadFile,
+    Favorite,
   },
   mounted() {
     this.fetchUserByUsername(this.$route.params.username);
@@ -161,7 +182,7 @@ export default {
       if (this.status == "collection") {
         result = this.productsByCollection;
       } else if (this.status == "favorite") {
-        result = this.productsByFavourite;
+        result = this.productsByFavorite;
       } else {
         result = this.productsByCreate;
       }
@@ -173,39 +194,40 @@ export default {
     productsByCreate() {
       return this.$store.getters.getProductByUserId;
     },
-    productsByFavourite() {
-      return this.$store.getters.getFavouriteByUserId;
+    productsByFavorite() {
+      return this.$store.getters.getFavoriteByUserId;
     },
   },
   methods: {
     ...mapActions({ fetchUserByUsername: "fetchUserByUsername" }),
     ...mapActions({ fetchProductByUserId: "fetchProductByUserId" }),
     ...mapActions({ fetchCollectionsByUserId: "fetchCollectionsByUserId" }),
-    ...mapActions({ fetchFavouriteByUserId: "fetchFavouriteByUserId" }),
+    ...mapActions({ fetchFavoriteByUserId: "fetchFavoriteByUserId" }),
 
     gotoProductDetail(prodid) {
       this.$router.push(`/productdetail/${prodid}`);
     },
-    editProfile() {
-      alert("Edit mode Active");
-      console.log("edit mode Active");
+    gotoEditProduct(prodid) {
+      this.$router.push(`/editproduct/${prodid}`);
     },
 
     delete(product) {
       this.$store.dispatch("removeProduct", product);
     },
-    // need actions this.product
     async showProductByStatus(status) {
       this.status = status;
 
       if (this.status == "collection") {
         await this.fetchCollectionsByUserId(this.userById.userID);
       } else if (this.status == "favorite") {
-        await this.fetchFavouriteByUserId(this.userById.userID);
+        await this.fetchFavoriteByUserId(this.userById.userID);
       } else {
         await this.fetchProductByUserId(this.userById.userID);
       }
     },
+  },
+  async created() {
+    await this.fetchUserByUsername(this.$route.params.username);
   },
 };
 </script>

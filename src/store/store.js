@@ -1,5 +1,4 @@
 import { createStore } from "vuex";
-
 import productStore from "./modules/products";
 import authStore from "./modules/auth";
 import userStore from "./modules/user";

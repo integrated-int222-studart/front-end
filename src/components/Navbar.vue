@@ -211,6 +211,7 @@ export default {
       defaultImg: "../assets/images/user.png",
     };
   },
+
   computed: {
     current_username() {
       return this.$store.getters.getCurrentUsername;

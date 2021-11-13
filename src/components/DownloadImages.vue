@@ -1,11 +1,10 @@
 <template>
-  <a
+  <button
     :href="this.downloadUrl + prod_id"
-    class="btn "
+    class="btn btn-ghost"
     @click.prevent="downloadFile(prod_id, prod_name)"
     download
   >
-    <!-- <a @click.prevent="downloadFile(prod_id)" class="btn " download> -->
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-6 w-6"
@@ -18,8 +17,9 @@
         stroke-linejoin="round"
         stroke-width="2"
         d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-      /></svg
-  ></a>
+      />
+    </svg>
+  </button>
 </template>
 
 <script>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "../../router/index.js";
 
 const resource_url = `${process.env.VUE_APP_REST_API}`;
 
@@ -12,6 +13,10 @@ export default {
       prodDescription: "",
       price: 0,
       ownerID: 0,
+      // owner: {
+      //   id: 0,
+      //   username: "",
+      // },
       productType: 0,
       type: {},
       style: [],
@@ -28,6 +33,7 @@ export default {
     username: "",
     all_type: [],
     all_style: [],
+    edit_product: {},
   },
 
   mutations: {
@@ -55,6 +61,16 @@ export default {
     SET_USERNAME(state, payload) {
       state.username = payload;
     },
+    SET_EDIT_PRODUCT(state, payload) {
+      state.edit_product = payload;
+    },
+    // UPDATE_EDIT_PRODUCT(state, payload){
+    //   state.favoriteByUserId.push(
+    //     (state.products = state.products.filter(
+    //       (p) => payload == p.prodID
+    //     ))
+    //   );
+    // }
   },
   actions: {
     async fetchProducts({ commit }) {
@@ -65,12 +81,21 @@ export default {
 
     async addProduct({ dispatch }, new_input) {
       try {
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("userToken");
+      } catch {
+        router.push({ path: "/login" });
+
+        dispatch("addNotification", {
+          type: "error",
+          message: "Need Login first",
+        });
+        // dispatch("router/push", { path: "/login" });
+      }
+      try {
         // console.log(new_input);
         // console.log(new_input.product);
         // console.log(new_input.image_list);
-
-        axios.defaults.headers.common["Authorization"] =
-          "Bearer " + localStorage.getItem("userToken");
 
         const response = await axios.post(
           resource_url + "/user/addProduct",
@@ -91,35 +116,12 @@ export default {
           type: "success",
           message: "add product seccess",
         });
-
-        return {
-          // dispatch("set_notification", {type: "success", message: "")
-          alert: true,
-        };
-      } catch {
-        return { error: "ERROR" };
+      } catch (error) {
+        dispatch("addNotification", {
+          type: "error",
+          message: error,
+        });
       }
-    },
-
-    async addProductCollection({ dispatch }, prod_id) {
-      // console.log(prod_id);
-
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + localStorage.getItem("userToken");
-      const date = new Date();
-      // console.log(date.toLocaleDateString());
-      const response = await axios.post(
-        resource_url + "/user/addCollection/" + prod_id,
-        {
-          purchaseDate: date.toLocaleDateString(),
-        }
-      );
-
-      dispatch("addNotification", {
-        type: "success",
-        message: "add collection seccess",
-      });
-      console.log(response.data);
     },
 
     // async removeProduct({ commit }, product) {
@@ -147,6 +149,7 @@ export default {
         resource_url + "/product/productById/" + prod_id
       );
       await commit("SET_PRODUCT_BY_ID", response.data);
+      await commit("SET_EDIT_PRODUCT", response.data);
       await dispatch("fetchUsernameByUserId", response.data);
     },
 
@@ -155,6 +158,37 @@ export default {
         resource_url + "/user/username/" + product.ownerID
       );
       commit("SET_USERNAME", response.data.username);
+    },
+
+    async fetchEditProductById({ commit }, prod_id) {
+      const response = await axios.get(
+        resource_url + "/product/productById/" + prod_id
+      );
+      await commit("SET_EDIT_PRODUCT", response.data);
+      // return response.data;
+      // await dispatch("fetchUsernameByUserId", response.data);
+    },
+
+    async updateEditProductById({ dispatch }, edit_product) {
+      try {
+        await axios.put(
+          resource_url + "/product/edit/" + edit_product.prodID,
+          edit_product.product
+        );
+        // await commit("UPDATE_EDIT_PRODUCT", response.data);
+        dispatch("addNotification", {
+          type: "success",
+          message: "edit product seccess",
+        });
+        // return response.data;
+      } catch (error) {
+        dispatch("addNotification", {
+          type: "error",
+          message: error,
+        });
+      }
+
+      // await dispatch("fetchUsernameByUserId", response.data);
     },
   },
   getters: {
@@ -172,6 +206,9 @@ export default {
     },
     getUsername: (state) => {
       return state.username;
+    },
+    getEditProduct: (state) => {
+      return state.edit_product;
     },
   },
 };

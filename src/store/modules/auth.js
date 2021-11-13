@@ -48,16 +48,15 @@ export default {
       try {
         let res = await axios.post(user_url + "/user/login", user_auth);
         let username = res.data.user.username;
+        console.log(res.data.user.username);
 
         commit("LOGIN_USER", res.data);
+
         dispatch("addNotification", {
           type: "success",
           message: "login seccess",
         });
-
         return { username };
-
-        // return user_auth;
       } catch {
         dispatch("addNotification", {
           type: "error",
@@ -87,7 +86,7 @@ export default {
       commit("LOGOUT_USER");
     },
 
-    async fetchUser({ commit }) {
+    async fetchCurrentUser({ commit }) {
       axios.defaults.headers.common["Authorization"] =
         "Bearer " + localStorage.getItem("userToken");
       try {

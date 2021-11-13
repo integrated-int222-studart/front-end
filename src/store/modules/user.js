@@ -17,9 +17,9 @@ export default {
       imageType: null,
       imageURL: null,
     },
-    productByUserId: null,
-    collectionsByUserId: null,
-    favouriteByUserId: null,
+    productByUserId: [],
+    collectionsByUserId: [],
+    favoriteByUserId: [],
     filename: null,
     userImage: "",
   },
@@ -36,8 +36,8 @@ export default {
     SET_COLLECTION_BY_USERID(state, payload) {
       state.collectionsByUserId = payload;
     },
-    SET_FAVOURITE_BY_USERID(state, payload) {
-      state.favouriteByUserId = payload;
+    SET_FAVORITE_BY_USERID(state, payload) {
+      state.favoriteByUserId = payload;
     },
     SET_FILENAME(state, payload) {
       state.filename = payload;
@@ -47,6 +47,18 @@ export default {
         (p) => payload.prodID != p.prodID
       );
     },
+    ADD_FAVORITE(state, payload) {
+      state.favoriteByUserId.push(
+        (state.favoriteByUserId = state.favoriteByUserId.filter(
+          (p) => payload == p.prodID
+        ))
+      );
+    },
+    DELETE_FAVORITE(state, payload) {
+      state.favoriteByUserId = state.favoriteByUserId.filter(
+        (p) => payload != p.prodID
+      );
+    },
   },
   actions: {
     async fetchUserByUsername({ commit, dispatch }, username) {
@@ -54,6 +66,8 @@ export default {
       await commit("SET_USER_BY_ID", response.data);
 
       dispatch("fetchProductByUserId", response.data.userID);
+
+      // return response.data;
     },
 
     async fetchProductByUserId({ commit }, userid) {
@@ -70,9 +84,9 @@ export default {
       commit("SET_COLLECTION_BY_USERID", response.data.productCollection);
       // return this.state.collectionsByUserId;
     },
-    async fetchFavouriteByUserId({ commit }, userid) {
+    async fetchFavoriteByUserId({ commit }, userid) {
       const response = await axios.get(user_url + "/user/favorite/" + userid);
-      commit("SET_FAVOURITE_BY_USERID", response.data.productFavorite);
+      commit("SET_FAVORITE_BY_USERID", response.data.productFavorite);
       // return this.state.collectionsByUserId;
     },
     async removeProduct({ commit }, product) {
@@ -81,6 +95,107 @@ export default {
       await axios.delete(user_url + `/user/deleteProduct/${product.prodID}`);
       commit("DELETE_PRODUCT", product);
     },
+
+    async addProductCollection({ dispatch }, prod_id) {
+      try {
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("userToken");
+      } catch (error) {
+        dispatch("addNotification", {
+          type: "error",
+          message: error,
+        });
+      }
+
+      try {
+        const date = new Date();
+        const response = await axios.post(
+          user_url + "/user/addCollection/" + prod_id,
+          {
+            purchaseDate: date.toLocaleDateString(),
+          }
+        );
+
+        dispatch("addNotification", {
+          type: "success",
+          message: "add collection seccess",
+        });
+        console.log(response.data);
+      } catch (error) {
+        dispatch("addNotification", {
+          type: "error",
+          message: error,
+        });
+      }
+    },
+
+    async addFavoriteByProdustId({ commit, dispatch }, prod_id) {
+      try {
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("userToken");
+        await axios.post(user_url + "/user/addFavorite/" + prod_id);
+
+        commit("ADD_FAVORITE", prod_id);
+        dispatch("addNotification", {
+          type: "success",
+          message: "add favorite seccess",
+        });
+      } catch (error) {
+        dispatch("addNotification", {
+          type: "error",
+          message: `${error}`,
+        });
+      }
+    },
+    async removeFavoriteByProdustId({ commit, dispatch }, prod_id) {
+      try {
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("userToken");
+
+        await axios.delete(user_url + "/user/deleteFavorite/" + prod_id);
+
+        // commit("ADD_FAVORITE", response.data.productFavorite);
+        commit("DELETE_FAVORITE", prod_id);
+        dispatch("addNotification", {
+          type: "success",
+          message: "remove favorite seccess",
+        });
+      } catch (error) {
+        dispatch("addNotification", {
+          type: "error",
+          message: `${error}`,
+        });
+      }
+    },
+    async updateUserProfile({ dispatch }, updated_product) {
+      try {
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("userToken");
+      } catch (error) {
+        dispatch("addNotification", {
+          type: "error",
+          message: error,
+        });
+      }
+
+      try {
+        await axios.put(user_url + "/user/edit/profile", updated_product);
+        // await commit("UPDATE_EDIT_PRODUCT", response.data);
+        dispatch("addNotification", {
+          type: "success",
+          message: "edit product seccess",
+        });
+        // return response.data;
+      } catch (error) {
+        dispatch("addNotification", {
+          type: "error",
+          message: error,
+        });
+      }
+
+      // await dispatch("fetchUsernameByUserId", response.data);
+    },
+
     // async downloadCollectionFile(_, filenames) {
     //   console.log(filenames);
     //   const response = await axios.get(user_url + "/image/download/", {
@@ -103,8 +218,8 @@ export default {
     getCollectionByUserId: (state) => {
       return state.collectionsByUserId;
     },
-    getFavouriteByUserId: (state) => {
-      return state.favouriteByUserId;
+    getFavoriteByUserId: (state) => {
+      return state.favoriteByUserId;
     },
     getFilename: (state) => {
       return state.filename;

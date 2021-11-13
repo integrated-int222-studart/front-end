@@ -348,16 +348,16 @@ export default {
     // },
 
     async onSubmit() {
-      let user = await this.$store.dispatch("addProduct", {
+      await this.$store.dispatch("addProduct", {
         product: this.productInputValue,
         image_list: this.image_list,
       });
-      if (user.error) {
-        alert(user.error);
-      } else {
-        this.sendSuccess = true;
-        // alert("เพิ่มผลงานเสร็จสิ้น");
-      }
+      // if (user.error) {
+      //   alert(user.error);
+      // } else {
+      //   this.sendSuccess = true;
+      //   // alert("เพิ่มผลงานเสร็จสิ้น");
+      // }
     },
     isRequired(value) {
       return value ? true : "* This field is required";

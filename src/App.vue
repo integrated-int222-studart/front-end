@@ -23,13 +23,14 @@ export default {
   mounted() {
     this.isStillLogin();
     if (this.$store.getters.isAuthenticated) {
-      this.fetchUser();
+      this.fetchCurrentUser();
     }
+    // this.fetchUser();
   },
   computed: {},
   methods: {
     ...mapActions({ isStillLogin: "isStillLogin" }),
-    ...mapActions({ fetchUser: "fetchUser" }),
+    ...mapActions({ fetchCurrentUser: "fetchCurrentUser" }),
   },
 };
 </script>
