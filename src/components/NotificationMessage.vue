@@ -3,14 +3,14 @@
     <div class="mb-4">
       <div
         :class="typeClass"
-        class="flex w-full text-left shadow-md rounded-lg overflow-hidden mx-auto p-2"
+        class="flex w-full text-left shadow-md rounded-lg overflow-hidden mx-auto p-3"
       >
         <div :class="typeClass" class="w-2"></div>
         <div
           class="w-full flex justify-between items-start px-2 py-2 opacity-80 text-black"
         >
           <div class="flex flex-col ">
-            <label class="text-black font-bold">{{
+            <label class="text-xl text-black font-bold">{{
               notification.message
             }}</label>
             <p class="text-black ">

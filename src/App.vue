@@ -1,9 +1,9 @@
 <template>
   <div class="app">
-    <navbar></navbar>
-
     <!--main-->
     <main class="pt-18">
+      <navbar></navbar>
+
       <router-view />
     </main>
 

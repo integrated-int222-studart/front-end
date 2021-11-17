@@ -48,11 +48,7 @@ export default {
       );
     },
     ADD_FAVORITE(state, payload) {
-      state.favoriteByUserId.push(
-        (state.favoriteByUserId = state.favoriteByUserId.filter(
-          (p) => payload == p.prodID
-        ))
-      );
+      state.favoriteByUserId.push(payload);
     },
     DELETE_FAVORITE(state, payload) {
       state.favoriteByUserId = state.favoriteByUserId.filter(
@@ -129,13 +125,13 @@ export default {
       }
     },
 
-    async addFavoriteByProdustId({ commit, dispatch }, prod_id) {
+    async addFavoriteByProdustId({ commit, dispatch }, fav_product) {
       try {
         axios.defaults.headers.common["Authorization"] =
           "Bearer " + localStorage.getItem("userToken");
-        await axios.post(user_url + "/user/addFavorite/" + prod_id);
+        await axios.post(user_url + "/user/addFavorite/" + fav_product.prodID);
 
-        commit("ADD_FAVORITE", prod_id);
+        commit("ADD_FAVORITE", fav_product);
         dispatch("addNotification", {
           type: "success",
           message: "add favorite seccess",

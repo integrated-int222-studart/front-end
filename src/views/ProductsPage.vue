@@ -15,25 +15,6 @@
                   v-model="search"
                   class="w-full pr-16 input input-ghost input-bordered border-2 shadow-sm border-gray-300 bg-white hover:border-black"
                 />
-                <!-- clear -->
-                <!-- <button
-                v-if="this.category || this.search"
-                @click="clearFiltered"
-                class="absolute top-0 right-0 rounded-l-none btn btn-ghost"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 ml-1"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </button> -->
               </div>
             </div>
 
@@ -108,24 +89,23 @@
             :product="product"
           >
             <template v-slot:btn-status>
-              <div v-if="this.favoriteChecked == product.prodID">
-                <favorite :prod_id="product.prodID" :fav_product="product" />
-              </div>
-              <!-- <favorite
-                v-if="this.favoriteChecked.prodID == product.prodID"
-                :prod_id="product.prodID"
-                :fav_product="product"
-              /> -->
-              <div v-if="this.favoriteChecked != product.prodID">
-                <favorite :prod_id="product.prodID" />
-              </div>
+              <favorite
+                v-if="showFav(product).length == 0"
+                :product="product"
+                :status="'like'"
+              ></favorite>
+              <favorite
+                v-if="showFav(product).length == 1"
+                :product="product"
+                :status="'unlike'"
+              ></favorite>
+
+              <!-- <pre>{{ showFav(product).length }}</pre> -->
             </template>
           </product>
         </div>
       </div>
     </div>
-    <pre>user {{ this.current_user }}</pre>
-    <pre>fav{{ this.favoriteChecked }}</pre>
   </div>
 </template>
 
@@ -206,6 +186,12 @@ export default {
       this.category = "";
       this.search = "";
     },
+    showFav(product) {
+      let fav = this.productsByFavorite.filter(
+        (f) => f.prodID == product.prodID
+      );
+      return fav;
+    },
   },
   async created() {
     if (this.$store.getters.isAuthenticated) {
@@ -213,10 +199,6 @@ export default {
       await this.fetchFavoriteByUserId(this.getCurrentUser.userID);
     }
     this.current_user = await this.getCurrentUser;
-    let set = new Array();
-    this.productsByFavorite.forEach((id) => set.push(id.prodID));
-    this.favoriteChecked = set;
-    // this.favoriteChecked = await this.productsByFavorite;
   },
 };
 </script>

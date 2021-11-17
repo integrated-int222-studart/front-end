@@ -13,10 +13,6 @@ export default {
       prodDescription: "",
       price: 0,
       ownerID: 0,
-      // owner: {
-      //   id: 0,
-      //   username: "",
-      // },
       productType: 0,
       type: {},
       style: [],
@@ -64,13 +60,24 @@ export default {
     SET_EDIT_PRODUCT(state, payload) {
       state.edit_product = payload;
     },
-    // UPDATE_EDIT_PRODUCT(state, payload){
-    //   state.favoriteByUserId.push(
-    //     (state.products = state.products.filter(
-    //       (p) => payload == p.prodID
-    //     ))
-    //   );
-    // }
+    UPDATE_EDIT_PRODUCT(state, payload) {
+      let x = state.listProductApprovals.findIndex(
+        (e) => e.prodID == payload.prodID
+      );
+      console.log(x);
+      // state.products[x].prodName = payload.prodName;
+      // state.products[x].manufacDate = payload.manufacDate;
+      // state.products[x].price = payload.price;
+      // state.products[x].prodDescription = payload.prodDescription;
+      // state.products[x].style = payload.styleID;
+
+      // prodName: "",
+      //   manufacDate: "",
+      //   price: 0.0,
+      //   prodDescription: "",
+      //   productType: "",
+      //   styleID: [],
+    },
   },
   actions: {
     async fetchProducts({ commit }) {
@@ -169,13 +176,18 @@ export default {
       // await dispatch("fetchUsernameByUserId", response.data);
     },
 
-    async updateEditProductById({ dispatch }, edit_product) {
+    async updateEditProductById({ dispatch, commit }, edit_product) {
       try {
         await axios.put(
           resource_url + "/product/edit/" + edit_product.prodID,
           edit_product.product
         );
-        // await commit("UPDATE_EDIT_PRODUCT", response.data);
+        await axios.put(
+          resource_url + "/product/editStyle/" + edit_product.prodID,
+          edit_product.product.styleID
+        );
+
+        await commit("UPDATE_EDIT_PRODUCT", edit_product);
         dispatch("addNotification", {
           type: "success",
           message: "edit product seccess",

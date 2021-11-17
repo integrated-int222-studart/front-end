@@ -2,7 +2,7 @@
   <div>
     <button
       class="btn btn-ghost"
-      v-if="!this.fav_product"
+      v-if="this.status == 'like'"
       @click="activeFavorite"
     >
       <svg
@@ -21,7 +21,11 @@
       </svg>
     </button>
 
-    <button class="btn btn-ghost" v-if="this.fav_product" @click="unFavorite">
+    <button
+      class="btn btn-ghost"
+      v-if="this.status == 'unlike'"
+      @click="unFavorite"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="fill-current text-red-500  h-6 w-6 group-hover:opacity-70"
@@ -42,7 +46,7 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-  props: ["fav_product", "prod_id"],
+  props: ["fav_product", "status", "prod_id", "product"],
   data() {
     return {};
   },
@@ -54,14 +58,10 @@ export default {
       removeFavoriteByProdustId: "removeFavoriteByProdustId",
     }),
     activeFavorite() {
-      console.log("fav");
-      console.log(this.prod_id);
-      this.addFavoriteByProdustId(this.prod_id);
+      this.addFavoriteByProdustId(this.product);
     },
     unFavorite() {
-      console.log("delete");
-      console.log(this.prod_id);
-      this.removeFavoriteByProdustId(this.prod_id);
+      this.removeFavoriteByProdustId(this.product.prodID);
     },
   },
 };

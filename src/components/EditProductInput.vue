@@ -1,12 +1,10 @@
 <template>
   <div class="edit-product">
     <div class="heading mt-10">
-      <p class="text-3xl font-bold">สร้างผลงาน</p>
-      <pre>{{ this.prod_id }}</pre>
-      <!-- <pre>test{{ this.inputData }}</pre> -->
+      <p class="text-3xl font-bold">แก้ไขผลงาน</p>
     </div>
 
-    <!-- add form -->
+    <!-- edit form -->
     <main class="p-2 m-2 md:p-4 md:m-4">
       <!-- :product="this.$route.props.product" -->
       <div class="h-full w-full  mt-6 ml-0 md:ml-10 md:mt-0 text-left">
@@ -147,7 +145,7 @@
                     v-for="style in this.allStyle"
                     :key="style.styleID"
                     :value="style.styleID"
-                    class="flex flex-row "
+                    class="flex flex-row items-center"
                   >
                     <label>
                       <Field
@@ -178,10 +176,10 @@
             </Form>
           </div>
         </div>
+        <!-- <pre>{{}}</pre> -->
       </div>
       <!-- <form-product-input editform></form-product-input> -->
     </main>
-    <pre class="text-left">{{ this.inputData }}</pre>
   </div>
 </template>
 

@@ -127,7 +127,6 @@
                     <img
                       v-if="this.$store.getters.getCurrentUser.imageURL"
                       :src="this.$store.getters.getCurrentUser.imageURL"
-                      onerror="this.src='../assets/images/user.png'"
                       class="rounded-full object-cover w-8 h-8"
                     />
 

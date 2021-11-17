@@ -6,10 +6,6 @@
       :notification="notification"
     >
     </notification-message>
-    <!-- <notification-message />
-    <notification-message />
-    <notification-message /> -->
-    <!-- <pre>{{ this.getNotificationList }}</pre> -->
   </div>
 </template>
 

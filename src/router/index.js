@@ -18,11 +18,6 @@ const routes = [
     component: Home,
   },
   {
-    path: "/about",
-    name: "About",
-    component: () => import("../views/About.vue"),
-  },
-  {
     path: "/products",
     name: "Products",
     component: () => import("../views/ProductsPage.vue"),
@@ -73,7 +68,17 @@ const routes = [
     // props: { edit_product: {} },
     // meta: { requiresAuth: true },
   },
+  {
+    path: "/admin/login",
+    name: "AdminLogin",
+    component: () => import("../views/adminPage/adminLoginPage.vue"),
+  },
 
+  {
+    path: "/admin/adminApprovePage",
+    name: "AdminApprovePage",
+    component: () => import("../views/adminPage/adminApprovePage.vue"),
+  },
   // { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound },
 ];
 

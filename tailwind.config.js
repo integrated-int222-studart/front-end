@@ -58,9 +58,9 @@ module.exports = {
             "#000000" /* Foreground content color to use on base color */,
 
           info: "#2094f3" /* Info */,
-          success: "#a7f3d0" /* Success */,
-          warning: "#ff9900" /* Warning */,
-          error: "#ff5724" /* Error */,
+          success: "#00ff84" /* Success */,
+          warning: "#fcd80a" /* Warning */,
+          error: "#ff4242" /* Error */,
 
           "--rounded-box":
             "1rem" /* border-radius for cards and other big elements */,
