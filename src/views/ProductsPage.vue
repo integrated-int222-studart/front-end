@@ -127,7 +127,6 @@ export default {
     return {
       search: "",
       category: "",
-      favoriteChecked: "",
       current_user: "",
     };
   },

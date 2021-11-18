@@ -123,18 +123,14 @@ export default {
 
       try {
         const date = new Date();
-        const response = await axios.post(
-          user_url + "/user/addCollection/" + prod_id,
-          {
-            purchaseDate: date.toLocaleDateString(),
-          }
-        );
+        await axios.post(user_url + "/user/addCollection/" + prod_id, {
+          purchaseDate: date.toLocaleDateString(),
+        });
 
         dispatch("addNotification", {
           type: "success",
           message: "add collection seccess",
         });
-        console.log(response.data);
       } catch (error) {
         dispatch("addNotification", {
           type: "error",
@@ -169,10 +165,11 @@ export default {
           type: "error",
           message: "กรุณาเข้าสู่ระบบก่อน",
         });
-        dispatch("addNotification", {
-          type: "error",
-          message: `${error}`,
-        });
+
+        // dispatch("addNotification", {
+        //   type: "error",
+        //   message: `${error}`,
+        // });
       }
     },
     async removeFavoriteByProdustId({ commit, dispatch }, prod_id) {

@@ -112,7 +112,6 @@
               :key="product.prodID"
               :product="product"
             >
-              >
               <template
                 v-if="
                   this.status == 'create' &&
@@ -121,6 +120,8 @@
                 "
                 v-slot:badge-status
               >
+                <pre>{{ product.status }}</pre>
+
                 <ApproveStatus
                   v-if="
                     product.adminApproval[0] == [] ||
@@ -219,13 +220,19 @@ export default {
       return this.$store.getters.getUserById;
     },
     filter() {
-      var result = this.productsByCreate;
+      var result = this.productsByCreate.filter(
+        (product) => product.status != 2
+      );
       if (this.status == "collection") {
-        result = this.productsByCollection;
+        result = this.productsByCollection.filter(
+          (product) => product.status == 1 || product.status == 2
+        );
       } else if (this.status == "favorite") {
-        result = this.productsByFavorite;
+        result = this.productsByFavorite.filter(
+          (product) => product.status == 1
+        );
       } else {
-        result = this.productsByCreate;
+        result = this.productsByCreate.filter((product) => product.status != 2);
       }
       return result;
     },

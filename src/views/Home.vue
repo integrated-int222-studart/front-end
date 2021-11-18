@@ -23,12 +23,12 @@
             </p>
             <div class="flex space-x-3 justify-center lg:justify-start mt-6">
               <router-link to="/products">
-              <button
-                href="#"
-                class="flex items-center justify-center border border-transparent text-base font-medium rounded-md  btn btn-secondary text-black"
-              >
-                ดูผลงาน
-              </button>
+                <button
+                  href="#"
+                  class="flex items-center justify-center border border-transparent text-base font-medium rounded-md  btn btn-secondary text-black"
+                >
+                  ดูผลงาน
+                </button>
               </router-link>
               <router-link to="/addproduct">
                 <button
@@ -61,55 +61,15 @@
       </div>
       <!--card product 1-->
       <div class=" container mx-auto mt-4">
-        <div class="grid grid-cols-3">
-          <div class=" flex justify-center items-center">
-            <div
-              class="w-80 rounded-md cursor-pointer shadow-lg overflow-hidden "
-            >
-              <img
-                src="https://images.unsplash.com/photo-1463320898484-cdee8141c787?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                alt=""
-              />
-              <div class="p-4 ">
-                <p class="mt-4 font-bold text-2xl">Planta Minimalista</p>
-              </div>
-            </div>
+        <main class="items-center justify-center">
+          <div class="grid grid-cols-3 w-full h-full items-center gap-3">
+            <MoreProduct></MoreProduct>
           </div>
-          <!--2-->
-          <div class=" flex justify-center items-center">
-            <div
-              class="w-80 rounded-md cursor-pointer shadow-lg overflow-hidden "
-            >
-              <img
-                src="https://images.unsplash.com/photo-1463320898484-cdee8141c787?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                alt=""
-              />
-              <div class="p-4 ">
-                <p class="mt-4 font-bold text-2xl">Planta Minimalista</p>
-              </div>
-            </div>
-          </div>
-          <!--3-->
-          <div class=" flex justify-center items-center">
-            <div
-              class="w-80 rounded-md cursor-pointer shadow-lg overflow-hidden "
-            >
-              <img
-                src="https://images.unsplash.com/photo-1463320898484-cdee8141c787?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                alt=""
-              />
-              <div class="p-4 ">
-                <p class="mt-4 font-bold text-2xl">Planta Minimalista</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        </main>
       </div>
     </div>
 
-    <footer
-      class="p-10 footer  text-base-content footer-center mt-10"
-    >
+    <footer class="p-10 footer  text-base-content footer-center mt-10">
       <div class="grid grid-flow-col gap-4">
         <a class="link link-hover">About us</a>
         <a class="link link-hover">Contact</a>
@@ -163,12 +123,15 @@
         <p>Copyright © 2021 - All right reserved by ACME Industries Ltd</p>
       </div>
     </footer>
-    
   </div>
 </template>
 
 <script>
+import MoreProduct from "../components/MoreProduct.vue";
 export default {
   name: "Home",
+  components: {
+    MoreProduct,
+  },
 };
 </script>

@@ -37,7 +37,6 @@ export default {
       commit("REMOVE_NOTIFICATION", notification);
     },
     addAlertCard({ commit }, alert) {
-      console.log(alert);
       commit("SET_ALERT_CARD", alert);
     },
     removeAlertCard({ commit }, alert) {

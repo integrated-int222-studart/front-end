@@ -25,6 +25,7 @@ export default {
         },
       ],
     },
+    random_products: [],
     username: "",
     all_type: [],
     all_style: [],
@@ -38,15 +39,12 @@ export default {
     SET_PRODUCT_BY_ID(state, payload) {
       state.productById = payload;
     },
+    SET_RANDOM_PRODUCT(state, payload) {
+      state.random_products = payload;
+    },
     ADD_PRODUCT(state, payload) {
       state.products.push(payload);
     },
-    // DELETE_PRODUCT(state, payload) {
-    //   state.products = state.products.filter((p) => payload.prodID != p.prodID);
-    // },
-
-    UPDATE_PRODUCT() {},
-
     SET_TYPE(state, payload) {
       state.all_type = payload;
     },
@@ -59,6 +57,7 @@ export default {
     SET_EDIT_PRODUCT(state, payload) {
       state.edit_product = payload;
     },
+
     UPDATE_EDIT_PRODUCT(state, payload) {
       let find = state.products.findIndex((e) => e.prodID == payload.prodID);
       console.log(find);
@@ -110,15 +109,6 @@ export default {
       }
     },
 
-    // async removeProduct({ commit }, product) {
-    //   axios.defaults.headers.common["Authorization"] =
-    //     "Bearer " + localStorage.getItem("userToken");
-    //   await axios.delete(
-    //     resource_url + `/user/deleteProduct/${product.prodID}`
-    //   );
-
-    // commit("DELETE_PRODUCT", product);
-    // },
     async fetchAllType({ commit }) {
       const response = await axios.get(resource_url + "/product/allType");
       commit("SET_TYPE", response.data);
@@ -129,7 +119,6 @@ export default {
       commit("SET_STYLE", response.data);
     },
 
-    // here
     async fetchProductById({ commit, dispatch }, prod_id) {
       const response = await axios.get(
         resource_url + "/product/productById/" + prod_id
@@ -137,6 +126,13 @@ export default {
       await commit("SET_PRODUCT_BY_ID", response.data);
       await commit("SET_EDIT_PRODUCT", response.data);
       await dispatch("fetchUsernameByUserId", response.data);
+    },
+
+    async fetchRandomProduct({ commit }) {
+      const response = await axios.get(resource_url + "/product/random");
+      console.log(response.data);
+      await commit("SET_RANDOM_PRODUCT", response.data);
+      // await dispatch("fetchUsernameByUserId", response.data);
     },
 
     async fetchUsernameByUserId({ commit }, product) {
@@ -190,6 +186,9 @@ export default {
     },
     getProductById: (state) => {
       return state.productById;
+    },
+    getRandomProducts: (state) => {
+      return state.random_products;
     },
     getAllType: (state) => {
       return state.all_type;

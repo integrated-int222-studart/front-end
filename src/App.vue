@@ -8,6 +8,7 @@
     </main>
 
     <notification-list />
+    <alert-card />
   </div>
 </template>
 
@@ -15,10 +16,11 @@
 import { mapActions } from "vuex";
 import navbar from "./components/Navbar.vue";
 import NotificationList from "./components/NotificationList.vue";
+import AlertCard from "./components/AlertCard.vue";
 
 export default {
   name: "app",
-  components: { navbar, NotificationList },
+  components: { navbar, NotificationList, AlertCard },
 
   mounted() {
     this.isStillLogin();

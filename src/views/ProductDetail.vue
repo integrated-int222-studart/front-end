@@ -102,11 +102,16 @@
           <h3 class="text-gray-600 text-2xl font-medium">More Products</h3>
 
           <main class="grid place-items-center items-start ">
-            <div>
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 w-full h-full items-center gap-3"
+            >
+              <MoreProduct></MoreProduct>
+            </div>
+            <!-- <div>
               <div
                 class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
               ></div>
-            </div>
+            </div> -->
           </main>
         </div>
       </div>
@@ -115,6 +120,7 @@
 </template>
 
 <script>
+import MoreProduct from "../components/MoreProduct.vue";
 import { mapActions } from "vuex";
 
 export default {
@@ -125,6 +131,9 @@ export default {
       image_index: 0,
       show_image: "",
     };
+  },
+  components: {
+    MoreProduct,
   },
   async mounted() {
     await this.fetchProductById(this.$route.params.id);
