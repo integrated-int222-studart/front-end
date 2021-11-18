@@ -346,7 +346,10 @@ export default {
         const fd = new FormData();
         fd.append("image", this.addImage.imageObj);
 
-        await axios.post("http://localhost:3000/user/upload/image", fd);
+        await axios.post(
+          `${process.env.VUE_APP_REST_API}` + "/user/upload/image",
+          fd
+        );
         this.$store.dispatch("addNotification", {
           type: "success",
           message: "edit profile image seccess",

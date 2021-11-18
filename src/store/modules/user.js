@@ -62,8 +62,6 @@ export default {
       await commit("SET_USER_BY_ID", response.data);
 
       dispatch("fetchProductByUserId", response.data.userID);
-
-      // return response.data;
     },
 
     async fetchProductByUserId({ commit }, userid) {
@@ -78,12 +76,10 @@ export default {
       const response = await axios.get(user_url + "/user/collection/" + userid);
       commit("SET_FILENAME", response.data.productCollection.images);
       commit("SET_COLLECTION_BY_USERID", response.data.productCollection);
-      // return this.state.collectionsByUserId;
     },
     async fetchFavoriteByUserId({ commit }, userid) {
       const response = await axios.get(user_url + "/user/favorite/" + userid);
       commit("SET_FAVORITE_BY_USERID", response.data.productFavorite);
-      // return this.state.collectionsByUserId;
     },
     async removeProduct({ commit, dispatch }, product) {
       try {
