@@ -63,7 +63,7 @@ export default {
       // );
       if (
         state.listProductApprovals[find].adminApproval == [] ||
-        state.listProductApprovals[find].adminApproval == [] ||
+        // state.listProductApprovals[find].adminApproval == [] ||
         state.listProductApprovals[find].adminApproval.length == 0
       ) {
         console.log("empty");

@@ -85,11 +85,29 @@ export default {
       commit("SET_FAVORITE_BY_USERID", response.data.productFavorite);
       // return this.state.collectionsByUserId;
     },
-    async removeProduct({ commit }, product) {
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + localStorage.getItem("userToken");
-      await axios.delete(user_url + `/user/deleteProduct/${product.prodID}`);
-      commit("DELETE_PRODUCT", product);
+    async removeProduct({ commit, dispatch }, product) {
+      try {
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("userToken");
+      } catch (error) {
+        dispatch("addNotification", {
+          type: "error",
+          message: error,
+        });
+      }
+      try {
+        await axios.delete(user_url + `/user/deleteProduct/${product.prodID}`);
+        commit("DELETE_PRODUCT", product);
+        dispatch("addNotification", {
+          type: "success",
+          message: "remove seccess",
+        });
+      } catch (error) {
+        dispatch("addNotification", {
+          type: "error",
+          message: error,
+        });
+      }
     },
 
     async addProductCollection({ dispatch }, prod_id) {
@@ -126,6 +144,16 @@ export default {
     },
 
     async addFavoriteByProdustId({ commit, dispatch }, fav_product) {
+      // try {
+      //   axios.defaults.headers.common["Authorization"] =
+      //     "Bearer " + localStorage.getItem("userToken");
+      // } catch {
+      //   dispatch("addAlertCard", {
+      //     type: "error",
+      //     message: "กรุณาเข้าสู่ระบบก่อน",
+      //   });
+      // }
+
       try {
         axios.defaults.headers.common["Authorization"] =
           "Bearer " + localStorage.getItem("userToken");
@@ -137,6 +165,10 @@ export default {
           message: "add favorite seccess",
         });
       } catch (error) {
+        dispatch("addAlertCard", {
+          type: "error",
+          message: "กรุณาเข้าสู่ระบบก่อน",
+        });
         dispatch("addNotification", {
           type: "error",
           message: `${error}`,
@@ -150,7 +182,6 @@ export default {
 
         await axios.delete(user_url + "/user/deleteFavorite/" + prod_id);
 
-        // commit("ADD_FAVORITE", response.data.productFavorite);
         commit("DELETE_FAVORITE", prod_id);
         dispatch("addNotification", {
           type: "success",

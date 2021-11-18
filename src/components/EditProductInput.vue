@@ -176,7 +176,7 @@
             </Form>
           </div>
         </div>
-        <!-- <pre>{{}}</pre> -->
+        <pre>{{ this.inputData }}</pre>
       </div>
       <!-- <form-product-input editform></form-product-input> -->
     </main>
@@ -243,8 +243,10 @@ export default {
     // ...mapActions({ fetchProductById: "fetchProductById" }),
     ...mapActions({ fetchEditProductById: "fetchEditProductById" }),
 
-    async onSubmit(values) {
-      console.log(values);
+    async onSubmit() {
+      // let styleID = []
+      // styleID.push()
+      // console.log(this.styleID);
       await this.$store.dispatch("updateEditProductById", {
         product: this.inputData,
         prodID: this.prod_id,

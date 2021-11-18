@@ -1,14 +1,9 @@
 <template>
   <div class="overflow-x-auto">
-    <table class="table w-full">
-      <thead>
+    <table class="table  w-full">
+      <thead class="">
         <tr>
-          <th>
-            <label>
-              <input type="checkbox" class="checkbox" />
-            </label>
-          </th>
-          <th>Product ID</th>
+          <th>ID</th>
           <th>Product Name</th>
           <th>Description</th>
           <th>Status</th>
@@ -17,7 +12,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="product in this.productTable" :key="product.prodID">
+        <tr
+          v-for="product in this.productTable"
+          :key="product.prodID"
+          class="hover"
+        >
           <AdminEachProduct
             v-if="
               product.adminApproval[0] == null || product.adminApproval == null
@@ -34,8 +33,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <th></th>
-          <th>Product ID</th>
+          <th>ID</th>
           <th>Product Name</th>
           <th>Description</th>
           <th>Status</th>

@@ -182,6 +182,8 @@
                       />
                     </div>
                     <div class="flex flex-col pt-4">
+                      <pre>{{ this.editValue.status }}</pre>
+
                       <label for="status" class="text-lg">สถานะ</label>
                       <Field
                         id="status"
@@ -191,7 +193,6 @@
                         v-model="this.editValue.status"
                         class="shadow border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       >
-                        <!-- <div v-if="this.editValue.status == 'Student'"> -->
                         <option
                           value="Student"
                           v-if="this.editValue.status == 'Student'"
@@ -207,8 +208,6 @@
                           value="Guest"
                           >บุคคลทั่วไป</option
                         >
-                        <!-- </div> -->
-
                         <option
                           v-if="this.editValue.status == 'Guest'"
                           value="Student"
@@ -250,6 +249,7 @@
               </div>
               <button
                 class="w-full py-3 mt-6 font-medium tracking-widest text-black uppercase bg-gray-200 shadow-lg focus:outline-none hover:bg-gray-300 hover:shadow-none"
+                @click="this.$router.go(-1)"
               >
                 ย้อนกลับ
               </button>

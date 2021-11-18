@@ -1,9 +1,4 @@
 <template>
-  <th>
-    <label>
-      <input type="checkbox" class="checkbox" />
-    </label>
-  </th>
   <td>
     {{ this.product.prodID }}
   </td>
@@ -112,7 +107,7 @@ export default {
     clickReject() {
       let value = {
         prodID: this.product.prodID,
-        status: 0,
+        status: 2,
       };
       this.$store.dispatch("updateApproveProduct", value);
     },

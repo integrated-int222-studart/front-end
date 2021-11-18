@@ -3,8 +3,7 @@
     <!--Nav-->
     <AdminNavbar />
 
-    <main class="bg-gray-300 ">
-      <!-- <AdminSidebar /> -->
+    <main class="bg-gray-800">
       <div class="flex flex-col md:flex-row">
         <AdminSidebar />
         <div class="main-content flex-1 bg-gray-100 pb-24 md:pb-5">
@@ -15,19 +14,9 @@
               <h3 class="font-bold pl-2">Admin Approval Table</h3>
             </div>
           </div>
-          <div class="pt-3 my-6">
-            <div class="form-control">
-              <div class="flex space-x-2">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  class="w-full input input-primary input-bordered"
-                />
-                <button class="btn btn-primary">go</button>
-              </div>
-            </div>
+          <div class="m-2 shadow-2xl">
+            <AdminTable />
           </div>
-          <AdminTable />
         </div>
       </div>
     </main>

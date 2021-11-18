@@ -99,13 +99,16 @@
                 :product="product"
                 :status="'unlike'"
               ></favorite>
-
-              <!-- <pre>{{ showFav(product).length }}</pre> -->
             </template>
           </product>
         </div>
       </div>
     </div>
+    <!-- <pre
+      class="text-left
+    "
+      >{{ this.products }}</pre
+    > -->
   </div>
 </template>
 
@@ -161,7 +164,7 @@ export default {
       });
     },
     filteredResult() {
-      var result = this.products;
+      var result = this.products.filter((product) => product.status == 1);
       if (this.filteredList) {
         result = result.filter((product) =>
           product.prodName.toLowerCase().includes(this.search.toLowerCase())

@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   props: ["notification"],
@@ -51,8 +51,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getNotificationList"]),
-
     typeClass() {
       return `bg-${this.notification.type}`;
     },

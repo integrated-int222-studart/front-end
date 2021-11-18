@@ -1,5 +1,4 @@
 import axios from "axios";
-import router from "../../router/index.js";
 
 const resource_url = `${process.env.VUE_APP_REST_API}`;
 
@@ -61,22 +60,9 @@ export default {
       state.edit_product = payload;
     },
     UPDATE_EDIT_PRODUCT(state, payload) {
-      let x = state.listProductApprovals.findIndex(
-        (e) => e.prodID == payload.prodID
-      );
-      console.log(x);
-      // state.products[x].prodName = payload.prodName;
-      // state.products[x].manufacDate = payload.manufacDate;
-      // state.products[x].price = payload.price;
-      // state.products[x].prodDescription = payload.prodDescription;
-      // state.products[x].style = payload.styleID;
-
-      // prodName: "",
-      //   manufacDate: "",
-      //   price: 0.0,
-      //   prodDescription: "",
-      //   productType: "",
-      //   styleID: [],
+      let find = state.products.findIndex((e) => e.prodID == payload.prodID);
+      console.log(find);
+      state.products[find] = payload;
     },
   },
   actions: {
@@ -91,19 +77,12 @@ export default {
         axios.defaults.headers.common["Authorization"] =
           "Bearer " + localStorage.getItem("userToken");
       } catch {
-        router.push({ path: "/login" });
-
         dispatch("addNotification", {
           type: "error",
           message: "Need Login first",
         });
-        // dispatch("router/push", { path: "/login" });
       }
       try {
-        // console.log(new_input);
-        // console.log(new_input.product);
-        // console.log(new_input.image_list);
-
         const response = await axios.post(
           resource_url + "/user/addProduct",
           new_input.product
@@ -182,12 +161,14 @@ export default {
           resource_url + "/product/edit/" + edit_product.prodID,
           edit_product.product
         );
-        await axios.put(
+        console.log(edit_product.prodID);
+        console.log(edit_product.product.styleID);
+        const response = await axios.put(
           resource_url + "/product/editStyle/" + edit_product.prodID,
-          edit_product.product.styleID
+          { styleID: edit_product.product.styleID }
         );
-
-        await commit("UPDATE_EDIT_PRODUCT", edit_product);
+        console.log(response.data);
+        await commit("UPDATE_EDIT_PRODUCT", response.data);
         dispatch("addNotification", {
           type: "success",
           message: "edit product seccess",

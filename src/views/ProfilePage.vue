@@ -2,7 +2,6 @@
   <div class="profile">
     <main class="p-8 m-6">
       <div class="container mx-auto px-6">
-        <!-- <div class="md:flex md:items-center"> -->
         <div class="flex-none lg:flex justify-between items-start ">
           <div class="w-1/2">
             <div class="aspect-w-1 aspect-h-1">
@@ -80,9 +79,6 @@
           </div>
         </div>
 
-        <!-- </div> -->
-
-        <!--  -->
         <div class="mt-16">
           <h3 class="text-2xl font-medium">More Products</h3>
           <nav class="sm:flex sm:justify-center sm:items-center m-4">
@@ -116,7 +112,28 @@
               :key="product.prodID"
               :product="product"
             >
-              <pre>{{ product }}</pre>
+              >
+              <template
+                v-if="
+                  this.status == 'create' &&
+                    this.$store.getters.getCurrentUsername ==
+                      this.userById.username
+                "
+                v-slot:badge-status
+              >
+                <ApproveStatus
+                  v-if="
+                    product.adminApproval[0] == [] ||
+                      product.adminApproval == [] ||
+                      product.adminApproval.length == 0
+                  "
+                  :approve="this.adminAppoval"
+                ></ApproveStatus>
+                <ApproveStatus
+                  v-else
+                  :approve="product.adminApproval[0]"
+                ></ApproveStatus>
+              </template>
 
               <template
                 v-slot:btn-status
@@ -140,24 +157,19 @@
                 >
                   Delete
                 </button>
-                <downloadFile
+                <DownloadFile
                   v-if="this.status == 'collection'"
                   :prod_id="product.prodID"
                   :prod_name="product.prodName"
-                ></downloadFile>
-                <favorite
+                ></DownloadFile>
+                <Favorite
                   v-if="this.status == 'favorite'"
                   :product="product"
                   :status="'unlike'"
                 /> </template
             ></product>
           </div>
-          <div class="text-left">
-            <!-- <pre>{{ this.showProductByStatus }}</pre> -->
-            <!-- <pre>{{this.productByUserId}}</pre> -->
-            <!-- <pre>{{ this.productsByStatus }}</pre> -->
-            <!-- <pre>{{ this.filter }}</pre> -->
-          </div>
+          <div class="text-left"></div>
         </div>
       </div>
     </main>
@@ -167,8 +179,9 @@
 <script>
 // import axios from "axios";
 import { mapActions } from "vuex";
+import ApproveStatus from "../components/ApprovalBadge.vue";
 import Favorite from "../components/Favorite.vue";
-import downloadFile from "../components/DownloadImages.vue";
+import DownloadFile from "../components/DownloadImages.vue";
 import product from "../components/Product.vue";
 
 export default {
@@ -178,11 +191,23 @@ export default {
     return {
       status: "create",
       productsByStatus: "",
+      adminAppoval: {
+        adminID: null,
+        email: null,
+        approval: {
+          approvalID: null,
+          adminID: null,
+          prodID: null,
+          approveDate: null,
+          status: 0,
+        },
+      },
     };
   },
   components: {
     product,
-    downloadFile,
+    ApproveStatus,
+    DownloadFile,
     Favorite,
   },
   mounted() {
