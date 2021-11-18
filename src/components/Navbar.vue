@@ -10,11 +10,11 @@
       </div>
 
       <div class="flex items-center">
-        <div class="flex mx-2 lg:hidden">
+        <div class="flex mx-2 md:hidden">
           <div class="dropdown dropdown-end">
             <div tabindex="0" class="">
               <button
-                class="block lg:hidden cursor-pointer ml-auto relative w-8 h-8"
+                class="block md:hidden cursor-pointer ml-auto relative w-8 h-8"
               >
                 <svg
                   class="fill-current text-base-content"
@@ -78,7 +78,7 @@
         </div>
 
         <!-- main desktop -->
-        <div class="hidden mx-2 lg:flex ">
+        <div class="hidden mx-2 md:flex ">
           <div class="flex items-stretch">
             <router-link to="/"
               ><button

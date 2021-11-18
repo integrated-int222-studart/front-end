@@ -101,11 +101,13 @@ export default {
           type: "success",
           message: "add product seccess",
         });
+        return { username: localStorage.getItem("username") };
       } catch (error) {
         dispatch("addNotification", {
           type: "error",
           message: error,
         });
+        return "error";
       }
     },
 

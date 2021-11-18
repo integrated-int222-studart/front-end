@@ -293,9 +293,6 @@
           </div>
         </div>
       </div>
-      <!-- <pre>{{this.allStyle}}</pre> -->
-      <!-- <pre>{{ this.productInputValue }}</pre> -->
-      <pre>{{ this.image_list }}</pre>
     </div>
   </div>
 </template>
@@ -343,21 +340,24 @@ export default {
     ...mapActions({ fetchAllType: "fetchAllType" }),
     ...mapActions({ fetchAllStyle: "fetchAllStyle" }),
 
-    // submit() {
-    //   this.$store.dispatch("addProduct", this.productInputValue);
-    // },
-
     async onSubmit() {
-      await this.$store.dispatch("addProduct", {
+      const result = await this.$store.dispatch("addProduct", {
         product: this.productInputValue,
         image_list: this.image_list,
       });
-      // if (user.error) {
-      //   alert(user.error);
-      // } else {
-      //   this.sendSuccess = true;
-      //   // alert("เพิ่มผลงานเสร็จสิ้น");
-      // }
+      if (result == "error") {
+        this.$store.dispatch("addAlertCard", {
+          type: "error",
+          message: "กรุณาเข้าสู่ระบบก่อน",
+        });
+      } else {
+        this.$store.dispatch("addAlertCard", {
+          type: "success",
+          message: "เพิ่มข้อมูลเรียบร้อย โปรดรอผู้ดูแลอนุมัติ",
+        });
+        this.$router.push(`/profile/${result.username}`);
+        // alert("เพิ่มผลงานเสร็จสิ้น");
+      }
     },
     isRequired(value) {
       return value ? true : "* This field is required";
