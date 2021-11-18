@@ -31,16 +31,6 @@
           ></AdminEachProduct>
         </tr>
       </tbody>
-      <tfoot>
-        <tr>
-          <th>ID</th>
-          <th>Product Name</th>
-          <th>Description</th>
-          <th>Status</th>
-          <th>Rejected</th>
-          <th>Approve</th>
-        </tr>
-      </tfoot>
     </table>
   </div>
 </template>
