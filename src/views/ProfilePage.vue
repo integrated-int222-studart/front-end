@@ -80,7 +80,7 @@
         </div>
 
         <div class="mt-16">
-          <h3 class="text-2xl font-medium">More Products</h3>
+          <h3 class="text-2xl font-semibold">More Products</h3>
           <nav class="sm:flex sm:justify-center sm:items-center m-4">
             <div class="flex flex-col sm:flex-row">
               <button
@@ -105,7 +105,7 @@
           </nav>
           <!-- component -->
           <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 w-full h-full items-center gap-3"
+            class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 w-full h-full items-center gap-3"
           >
             <product
               v-for="product in this.filter"
@@ -120,8 +120,6 @@
                 "
                 v-slot:badge-status
               >
-                <pre>{{ product.status }}</pre>
-
                 <ApproveStatus
                   v-if="
                     product.adminApproval[0] == [] ||
@@ -144,7 +142,7 @@
                 "
               >
                 <button
-                  class="btn btn-ghost"
+                  class="btn btn-ghost bg-gray-100 mr-2 shadow-md"
                   v-if="this.status == 'create'"
                   @click="this.$router.push(`/edit-product/${product.prodID}`)"
                 >
@@ -152,7 +150,7 @@
                 </button>
 
                 <button
-                  class="btn btn-ghost"
+                  class="btn btn-ghost bg-red-400 shadow-md"
                   v-if="this.status == 'create'"
                   @click="this.delete(product)"
                 >

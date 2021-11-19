@@ -2,7 +2,7 @@
   <div class="home">
     <!-- component -->
     <div class="w-full">
-      <div class="flex max-h-screen md:h-screen">
+      <div class="flex max-h-screen sm:h-screen md:h-screen">
         <div
           class="flex items-center text-center lg:text-left px-8 md:px-12 lg:w-1/2"
         >
@@ -25,7 +25,7 @@
               <router-link to="/products">
                 <button
                   href="#"
-                  class="flex items-center justify-center border border-transparent text-base font-medium rounded-md  btn btn-secondary text-black"
+                  class="flex items-center justify-center border border-transparent rounded-md text-lg btn btn-primary shadow-lg font-bold"
                 >
                   ดูผลงาน
                 </button>
@@ -33,7 +33,7 @@
               <router-link to="/addproduct">
                 <button
                   href="#"
-                  class="flex items-center justify-center border border-transparent text-base font-medium rounded-md  btn btn-secondary text-black"
+                  class="flex items-center justify-center border border-transparent rounded-md text-lg btn btn-primary shadow-lg font-bold"
                 >
                   สร้างผลงาน
                 </button>
@@ -53,7 +53,10 @@
       </div>
     </div>
     <!-- about -->
-    <section class="bg-red-50 ">
+    <section
+      class="bg-red-50 "
+      style="background-image: ../assets/images/painting_girl.png"
+    >
       <div class="max-w-5xl px-6 py-16 mx-auto">
         <div class="">
           <p class="text-2xl font-semibold text-gray-800 md:text-4xl">
@@ -61,7 +64,7 @@
           </p>
         </div>
 
-        <div class="grid gap-8 mt-10 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid gap-8 mt-10 grid-cols-1 md:grid-cols-3">
           <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-md ">
             <h2 class="text-xl font-medium text-gray-800">ศิลปะ</h2>
             <p class="mt-4 text-gray-400 ">
@@ -99,15 +102,67 @@
       <!--card product 1-->
       <div class=" container mx-auto mt-4">
         <main class="items-center justify-center">
-          <div class="grid grid-cols-3 w-full h-full items-center gap-3">
-            <MoreProduct></MoreProduct>
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 w-full h-full items-center gap-3"
+          >
+            <MoreProduct :size="3"></MoreProduct>
           </div>
         </main>
       </div>
     </div>
+    <!-- about -->
+    <section class="bg-red-50 ">
+      <div class="max-w-5xl px-6 py-16 mx-auto">
+        <div class="">
+          <p class="text-2xl font-semibold text-gray-800 md:text-4xl">
+            ผู้จัดทำ
+          </p>
+        </div>
 
-    <!--  -->
-    <footer class="flex items-center justify-center bg-black">
+        <div class="grid gap-8 mt-10 grid-cols-1 md:grid-cols-3">
+          <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-md">
+            <div class="w-full aspect-w-1 aspect-h-1 shadow-md">
+              <img class="object-cover" src="../assets/images/Tanawat.jpg" />
+            </div>
+            <h2 class="mt-3 text-xl font-bold text-gray-800">กาย</h2>
+            <p class="mt-4 text-gray-400 ">
+              Lorem ipsum dolor sit amet, consectetur adipiscing Ac aliquam ac
+              volutpat, viverra magna risus aliquam massa.
+            </p>
+          </div>
+          <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-md">
+            <div class="w-full aspect-w-1 aspect-h-1 shadow-md">
+              <img
+                class="w-full h-full object-cover "
+                src="../assets/images/teinlama.jpg"
+              />
+            </div>
+            <h2 class="mt-3 text-xl font-bold text-gray-800">เทียน</h2>
+            <p class="mt-4 text-gray-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing Ac aliquam ac
+              volutpat, viverra magna risus aliquam massa.
+            </p>
+          </div>
+          <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-md ">
+            <div class="w-full aspect-w-1 aspect-h-1 shadow-md">
+              <img
+                class="object-cover"
+                src="../assets/images/painting_girl.png"
+                alt="Painting Girl"
+              />
+            </div>
+
+            <h2 class="mt-3 text-xl font-bold text-gray-800">ต้า</h2>
+            <p class="mt-4 text-gray-400 ">
+              Lorem ipsum dolor sit amet, consectetur adipiscing Ac aliquam ac
+              volutpat, viverra magna risus aliquam massa.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- footer -->
+    <footer class="flex items-center justify-center bg-base-300">
       <div class="md:w-11/12 w-full px-4 text-white flex flex-col">
         <div class="flex flex-col">
           <div class="flex mt-6 mb-6 flex-row justify-between items-center">

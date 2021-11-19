@@ -36,6 +36,11 @@
         class="badge badge-outline badge-md bg-success border-0 text-green-900 "
         >showed</span
       >
+      <span
+        v-if="this.product.status == 2"
+        class="badge badge-outline badge-md bg-gray-300 border-0 text-black"
+        >Deleted</span
+      >
     </div>
   </td>
   <!-- <td>props{{ this.product.status }} this{{ this.productApproval.status }}</td> -->

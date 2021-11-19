@@ -8,8 +8,9 @@
       >
         <div class="flex px-2 mx-2 relative">
           <router-link to="/admin/adminApprovePage">
-            <button class="btn btn-ghost text-white">Admin Page</button>
-            <!-- <img src="../../assets/images/studart.png" class="h-12" /> -->
+            <button class="btn btn-ghost text-white">
+              <img src="../../assets/images/logo-white.png" class="h-12" />
+            </button>
           </router-link>
         </div>
         <a href="#">
@@ -28,16 +29,11 @@
           class="list-reset flex justify-between flex-1 md:flex-none items-center"
         >
           <li class="flex-1 md:flex-none md:mr-3">
-            <a class="inline-block py-2 px-4 text-white no-underline" href="#"
-              >Active</a
-            >
-          </li>
-          <li class="flex-1 md:flex-none md:mr-3">
-            <a
-              class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
-              href="#"
-              >link</a
-            >
+            <div class="relative inline-block">
+              <p class=" text-white font-bold">
+                Admin Page
+              </p>
+            </div>
           </li>
           <li class="flex-1 md:flex-none md:mr-3">
             <div class="relative inline-block">

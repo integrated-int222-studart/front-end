@@ -132,9 +132,7 @@ export default {
 
     async fetchRandomProduct({ commit }) {
       const response = await axios.get(resource_url + "/product/random");
-      console.log(response.data);
       await commit("SET_RANDOM_PRODUCT", response.data);
-      // await dispatch("fetchUsernameByUserId", response.data);
     },
 
     async fetchUsernameByUserId({ commit }, product) {
