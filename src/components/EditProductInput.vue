@@ -6,7 +6,6 @@
 
     <!-- edit form -->
     <main class="p-2 m-2 md:p-4 md:m-4">
-      <!-- :product="this.$route.props.product" -->
       <div class="h-full w-full  mt-6 ml-0 md:ml-10 md:mt-0 text-left">
         <div class="grid place-items-center">
           <div class="w-full h-full px-10 py-2">
@@ -31,8 +30,6 @@
                   placeholder="ชื่อผลงาน"
                   class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
-                <!-- :value="this.getEditProduct.prodName" -->
-
                 <ErrorMessage
                   name="productname"
                   class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
@@ -54,8 +51,6 @@
                       placeholder="ราคา(บาท)"
                       class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
-                    <!-- :value="this.getEditProduct.price" -->
-
                     <ErrorMessage
                       name="price"
                       class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
@@ -74,8 +69,6 @@
                       placeholder="วันที่"
                       class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
-                    <!-- :value="this.getEditProduct.manufacDate" -->
-
                     <ErrorMessage
                       name="date"
                       class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
@@ -96,7 +89,6 @@
                   placeholder="เลือกประเภทผลงาน"
                   class="shadow border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 >
-                  <!-- :value="this.getEditProduct.productType" -->
                   <option value="" selected>Please select one</option>
                   <option
                     v-for="type in this.allType"
@@ -125,7 +117,6 @@
                   placeholder="รายละเอียด เช่น ที่มา แรงบันดาลใจ"
                   class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 >
-                  <!-- :value="this.getEditProduct.prodDescription" -->
                 </Field>
                 <ErrorMessage
                   name="description"
@@ -135,12 +126,6 @@
               <div class="flex flex-col pt-4 ">
                 <div class="">สไตล์ <span class="text-error">*</span></div>
                 <div class="grid grid-cols-2 overflow-y-auto h-32 ">
-                  <!-- <div
-                    v-for="inputStyle in this.inputData.style"
-                    :key="inputStyle.styleID"
-                    :value="inputStyle.styleID"
-                  ></div> -->
-
                   <div
                     v-for="style in this.allStyle"
                     :key="style.styleID"
@@ -151,11 +136,10 @@
                       <Field
                         name="style"
                         type="checkbox"
+                        :rules="multiCheck"
                         :value="style.styleID"
                         v-model="this.inputData.styleID"
                       />
-                      <!-- :rules="multiCheck" -->
-                      <!-- :value="style.styleID" -->
                       {{ style.styleName }}</label
                     >
                   </div>
@@ -164,9 +148,6 @@
                   name="style"
                   class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
                 />
-                <!-- <label class="">
-                <input type="checkbox" value= 0 :value="this.getEditProduct.styleID">Sunday
-              </label> -->
               </div>
               <button
                 class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none"
@@ -176,9 +157,7 @@
             </Form>
           </div>
         </div>
-        <pre>{{ this.inputData }}</pre>
       </div>
-      <!-- <form-product-input editform></form-product-input> -->
     </main>
   </div>
 </template>

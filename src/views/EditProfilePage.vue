@@ -3,7 +3,7 @@
     <p class="text-3xl font-bold">edit profile id :</p>
     <p>{{ this.$route.params.username }}</p>
     <!--  -->
-    <div class="bg-gray-100">
+    <div class="">
       <div class="w-full text-white bg-main-color"></div>
       <!-- End of Navbar -->
 
@@ -12,7 +12,7 @@
           <!-- Left Side -->
           <div class="w-full md:w-3/12 md:mx-2">
             <!-- Profile Card -->
-            <div class="bg-white p-3 border-t-4 border-primary">
+            <div class="bg-white p-3 border-t-4 border-primary shadow-2xl">
               <div v-if="!preview">
                 <div class="image h-full w-full aspect-w-1 aspect-h-1 mb-4">
                   <img
@@ -56,8 +56,8 @@
                   เปลี่ยนรูปภาพ
                 </span>
               </label>
-              <button v-if="preview" class="btn " @click="updateImage">
-                ยืนนันเปลี่ยนรูปภาพ
+              <button v-if="preview" class="btn mt-4" @click="updateImage">
+                ยืนยันเปลี่ยนรูปภาพ
               </button>
             </div>
             <!-- End of profile card -->
@@ -66,7 +66,7 @@
           <!-- Right Side -->
           <div class="w-full md:w-9/12 mx-2 h-64">
             <!-- Profile tab -->
-            <div class="bg-white p-3 shadow-sm rounded-sm">
+            <div class="bg-white p-3 shadow-sm rounded-sm shadow-2xl text-left">
               <div
                 class="flex items-center space-x-2 font-semibold text-gray-900 leading-8"
               >
@@ -182,8 +182,6 @@
                       />
                     </div>
                     <div class="flex flex-col pt-4">
-                      <pre>{{ this.editValue.status }}</pre>
-
                       <label for="status" class="text-lg">สถานะ</label>
                       <Field
                         id="status"
@@ -239,17 +237,17 @@
                       />
                     </div>
 
-                    <button
-                      class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none"
-                    >
+                    <button class="btn btn-primary w-full mt-4">
                       comfirm change
                     </button>
                   </Form>
                 </div>
               </div>
               <button
-                class="w-full py-3 mt-6 font-medium tracking-widest text-black uppercase bg-gray-200 shadow-lg focus:outline-none hover:bg-gray-300 hover:shadow-none"
-                @click="this.$router.go(-1)"
+                class="btn  w-full mt-4"
+                @click="
+                  this.$router.push(`/profile/${this.$route.params.username}`)
+                "
               >
                 ย้อนกลับ
               </button>
@@ -272,7 +270,6 @@ export default {
     Field,
     ErrorMessage,
   },
-  // props: ["username"],
   data() {
     return {
       preview: null,
@@ -291,9 +288,6 @@ export default {
         school: "",
       },
     };
-  },
-  async mounted() {
-    // await this.fetchUserByUsername(this.$route.params.username);
   },
   computed: {
     userById() {

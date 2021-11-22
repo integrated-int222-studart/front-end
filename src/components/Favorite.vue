@@ -46,7 +46,7 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-  props: ["fav_product", "status", "prod_id", "product"],
+  props: ["status", "product"],
   data() {
     return {};
   },

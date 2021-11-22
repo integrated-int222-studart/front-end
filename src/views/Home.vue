@@ -53,8 +53,9 @@
       </div>
     </div>
     <!-- about -->
+    <div class="divider mx-12 "></div>
     <section
-      class="bg-red-50 "
+      class="my-10"
       style="background-image: ../assets/images/painting_girl.png"
     >
       <div class="max-w-5xl px-6 py-16 mx-auto">
@@ -65,25 +66,44 @@
         </div>
 
         <div class="grid gap-8 mt-10 grid-cols-1 md:grid-cols-3">
-          <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-md ">
-            <h2 class="text-xl font-medium text-gray-800">ศิลปะ</h2>
-            <p class="mt-4 text-gray-400 ">
-              Lorem ipsum dolor sit amet, consectetur adipiscing Ac aliquam ac
-              volutpat, viverra magna risus aliquam massa.
+          <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-lg ">
+            <div class="w-full aspect-w-1 aspect-h-1 shadow-lg">
+              <img
+                class="object-cover"
+                src="../assets/images/Left_hander-rafiki.png"
+              />
+            </div>
+            <h2 class="mt-4 text-xl font-bold text-gray-800">ศิลปะ</h2>
+            <p class="mt-4 ttext-gray-700">
+              เราเริ่มต้นสร้างเว็บไซต์นี้จากความเชื่อว่าคนทุกคนมักจะมีความศิลปะอยู่ในตัวเอง
+              เราจึงต้องการก่อเกิดสังคมทางด้านศิลปะให้ผู้ที่อยากปล่อยของได้มีพื้นที่
             </p>
           </div>
 
           <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-md">
-            <h2 class="text-xl font-medium text-gray-800">การศึกษา</h2>
-            <p class="mt-4 text-gray-400 ">
-              Lorem ipsum dolor sit amet, consectetur adipiscing Ac aliquam ac
-              volutpat, viverra magna risus aliquam massa.
+            <div class="w-full aspect-w-1 aspect-h-1 shadow-lg">
+              <img
+                class="object-cover"
+                src="../assets/images/Left_hander-cuate.png"
+              />
+            </div>
+            <h2 class="mt-4 text-xl font-bold text-gray-800">การศึกษา</h2>
+            <p class="mt-4 text-gray-700 ">
+              เราต้องการสนันสนุน
+              <b>นักเรียน/นักศึกษา</b>
+              ได้มีพื้นที่ในการปล่อยของเพื่อให้ตนเองโดดเด่นและสามารถพัฒนาทักษะความสามารถต่อในสาขาอาชีพนี้
             </p>
           </div>
 
           <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-md">
-            <h2 class="text-xl font-medium text-gray-800">แบ่งปัน</h2>
-            <p class="mt-4 text-gray-400">
+            <div class="w-full aspect-w-1 aspect-h-1 shadow-lg">
+              <img
+                class="object-cover"
+                src="../assets/images/Social_share-pana.png"
+              />
+            </div>
+            <h2 class="mt-4 text-xl font-bold text-gray-800">แบ่งปัน</h2>
+            <p class="mt-4 text-gray-700">
               แบ่งปันผลงานศิลปะที่ทรงคุณค่าให้กับผู้อื่นได้ชื่นชม
               รวมถึงสามารถมีส่วนร่วมในการสนับสนุนผลงานของ
               <b>นักเรียน/นักศึกษา </b>หรือบุคคลทั่วไป
@@ -111,7 +131,7 @@
       </div>
     </div>
     <!-- about -->
-    <section class="bg-red-50 ">
+    <section class="my-10">
       <div class="max-w-5xl px-6 py-16 mx-auto">
         <div class="">
           <p class="text-2xl font-semibold text-gray-800 md:text-4xl">
@@ -120,42 +140,50 @@
         </div>
 
         <div class="grid gap-8 mt-10 grid-cols-1 md:grid-cols-3">
-          <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-md">
-            <div class="w-full aspect-w-1 aspect-h-1 shadow-md">
+          <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-lg">
+            <div class="w-full aspect-w-1 aspect-h-1 shadow-lg">
               <img class="object-cover" src="../assets/images/Tanawat.jpg" />
             </div>
-            <h2 class="mt-3 text-xl font-bold text-gray-800">กาย</h2>
+            <h2 class="mt-4 text-xl font-bold text-gray-800">62130500035</h2>
+            <h2 class="mt-4 text-xl font-bold text-gray-800">
+              ธนวรรธน์ ศรีจรัสตานนท์
+            </h2>
             <p class="mt-4 text-gray-400 ">
-              Lorem ipsum dolor sit amet, consectetur adipiscing Ac aliquam ac
-              volutpat, viverra magna risus aliquam massa.
+              Front-end Dev
             </p>
           </div>
-          <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-md">
-            <div class="w-full aspect-w-1 aspect-h-1 shadow-md">
+          <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-lg">
+            <div class="w-full aspect-w-1 aspect-h-1 shadow-lg">
               <img
                 class="w-full h-full object-cover "
-                src="../assets/images/teinlama.jpg"
+                src="../assets/images/teinProfile.jpg"
               />
             </div>
-            <h2 class="mt-3 text-xl font-bold text-gray-800">เทียน</h2>
+            <h2 class="mt-4 text-xl font-bold text-gray-800">62130500066</h2>
+            <h2 class="mt-4 text-xl font-bold text-gray-800">
+              พันธวิศ เห่งนาเลน
+            </h2>
             <p class="mt-4 text-gray-400">
-              Lorem ipsum dolor sit amet, consectetur adipiscing Ac aliquam ac
-              volutpat, viverra magna risus aliquam massa.
+              Back-end Dev
             </p>
           </div>
-          <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-md ">
-            <div class="w-full aspect-w-1 aspect-h-1 shadow-md">
+          <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-lg ">
+            <div class="w-full aspect-w-1 aspect-h-1 shadow-lg">
               <img
                 class="object-cover"
-                src="../assets/images/painting_girl.png"
+                src="../assets/images/tar.jpg"
                 alt="Painting Girl"
               />
             </div>
-
-            <h2 class="mt-3 text-xl font-bold text-gray-800">ต้า</h2>
+            <h2 class="mt-4 text-xl font-bold text-gray-800">62130500087</h2>
+            <h2 class="mt-4 text-xl font-bold text-gray-800">
+              ศุภกิตติ์ เทพพงษ์
+            </h2>
             <p class="mt-4 text-gray-400 ">
-              Lorem ipsum dolor sit amet, consectetur adipiscing Ac aliquam ac
-              volutpat, viverra magna risus aliquam massa.
+              DevOps
+            </p>
+            <p class="text-gray-400 ">
+              Database
             </p>
           </div>
         </div>
@@ -167,25 +195,10 @@
         <div class="flex flex-col">
           <div class="flex mt-6 mb-6 flex-row justify-between items-center">
             <div class="">
-              <img src="../assets/images/logo-white.png" class="h-40" />
+              <img src="../assets/images/logo-black.png" class="h-32" />
             </div>
-            <div class="flex flex-row">
-              <a
-                class="p-4 md:block cursor-pointer text-gray-600 hover:text-white uppercase "
-                >เกี่ยวกับ</a
-              >
-              <a
-                class="p-4 md:block cursor-pointer text-gray-600 hover:text-white uppercase"
-                >ผลงานทั้งหมด</a
-              >
-              <a
-                class="p-4 md:block cursor-pointer text-gray-600 hover:text-white uppercase"
-                >สร้างผลงาน</a
-              >
-              <a
-                class="p-4 md:block cursor-pointer text-gray-600 hover:text-white uppercase"
-                >สมาชิก</a
-              >
+            <div class="flex flex-row text-black">
+              <p>INT222 Information Technology Integrated Project ||</p>
             </div>
           </div>
         </div>

@@ -254,18 +254,10 @@
                     name="style"
                     class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
                   />
-                  <!-- <label class="">
-                <input type="checkbox" value= 0 v-model="this.productInputValue.styleID">Sunday
-              </label> -->
                 </div>
                 <button class="btn btn-primary py-3 mt-6 text-lg  shadow-xl">
                   สร้างผลงาน
                 </button>
-                <!-- <button
-                  class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none"
-                >
-                  สร้างผลงาน
-                </button> -->
               </Form>
             </div>
           </div>
@@ -332,7 +324,6 @@ export default {
           message: "เพิ่มข้อมูลเรียบร้อย โปรดรอผู้ดูแลอนุมัติ",
         });
         this.$router.push(`/profile/${result.username}`);
-        // alert("เพิ่มผลงานเสร็จสิ้น");
       }
     },
     isRequired(value) {

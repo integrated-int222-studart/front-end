@@ -162,8 +162,6 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 
-// import axios from "axios";
-
 export default {
   components: {
     Form,
@@ -187,35 +185,39 @@ export default {
   },
   methods: {
     isRequired(value) {
-      return value ? true : "This field is required";
+      return value ? true : "จำเป็นต้องใส่ช่องนี้";
     },
     validateEmail(value) {
       if (!value) {
-        return "This field is required";
+        return "จำเป็นต้องใส่อีเมล";
       }
       const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
       if (!regex.test(value)) {
-        return "This field must be a valid email";
+        return "รูปแบบอีเมลไม่ถูกต้อง";
       }
       return true;
     },
     isRequiredMin8(value) {
       if (!value) {
-        return "This field is required";
+        return "จำเป็นต้องใส่รหัสผ่าน";
       }
+      const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).*$/;
       if (value.length < 8) {
-        return `This field must be at least 8 characters`;
+        return `รหัสผ่านจำเป็นต้องมีอย่างน้อย 8 ตัวอักษร`;
       }
-      return value ? true : "This field is required";
+      if (!regex.test(value)) {
+        return "รหัสผ่านจำเป็นต้องมีอย่างน้อย 1 Uppercase, 1 Lowercase, 1 Number และ 1 Special Letter";
+      }
+      return value ? true : "จำเป็นต้องใส่รหัสผ่าน";
     },
     confirmCheck(value) {
       if (!value) {
-        return "This field is required";
+        return "จำเป็นต้องยืนยันรหัสผ่าน";
       }
       if (value === this.userRegister.password) {
         return true;
       }
-      return "Passwords must match";
+      return "ยืนยันรหัสผ่านไม่ตรงกัน";
     },
     prevStep() {
       console.log("back", this.step);
@@ -228,9 +230,15 @@ export default {
     async onSubmit() {
       let user = await this.$store.dispatch("register", this.userRegister);
       if (user.error) {
-        alert(user.error);
+        this.$store.dispatch("addAlertCard", {
+          type: "error",
+          message: "ลงทะเบียนไม่สำเร็จ",
+        });
       } else {
-        alert(user.user_regis);
+        this.$store.dispatch("addAlertCard", {
+          type: "success",
+          message: "ลงทะเบียนสำเร็จ",
+        });
         this.$router.push("/login");
       }
     },

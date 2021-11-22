@@ -57,24 +57,14 @@ export default {
       let find = state.listProductApprovals.findIndex(
         (e) => e.prodID == payload.prodID
       );
-
-      // console.log(
-      //   state.listProductApprovals[find].adminApproval[0].approval.status
-      // );
       if (
         state.listProductApprovals[find].adminApproval == [] ||
-        // state.listProductApprovals[find].adminApproval == [] ||
         state.listProductApprovals[find].adminApproval.length == 0
       ) {
         console.log("empty");
         state.listProductApprovals[find] = payload;
       }
-
       state.listProductApprovals[find] = payload;
-
-      // console.log(
-      //   state.listProductApprovals[find].adminApproval[0].approval.status
-      // );
     },
   },
   actions: {

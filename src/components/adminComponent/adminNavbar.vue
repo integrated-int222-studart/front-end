@@ -31,7 +31,7 @@
           <li class="flex-1 md:flex-none md:mr-3">
             <div class="relative inline-block">
               <p class=" text-white font-bold">
-                Admin Page
+                {{ this.admin.email }}
               </p>
             </div>
           </li>
@@ -58,7 +58,11 @@ export default {
     return {};
   },
 
-  computed: {},
+  computed: {
+    admin() {
+      return this.$store.getters.getCurrentAdmin;
+    },
+  },
   methods: {
     logout() {
       this.$store

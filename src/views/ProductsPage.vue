@@ -92,12 +92,12 @@
           >
             <template v-slot:btn-status>
               <favorite
-                v-if="showFav(product).length == 0"
+                v-if="myFavoriteList(product).length == 0"
                 :product="product"
                 :status="'like'"
               ></favorite>
               <favorite
-                v-if="showFav(product).length == 1"
+                v-if="myFavoriteList(product).length == 1"
                 :product="product"
                 :status="'unlike'"
               ></favorite>
@@ -179,13 +179,14 @@ export default {
   methods: {
     ...mapActions({ getProduct: "fetchProducts" }),
     ...mapActions({ fetchAllType: "fetchAllType" }),
+
     ...mapActions({ fetchCurrentUser: "fetchCurrentUser" }),
     ...mapActions({ fetchFavoriteByUserId: "fetchFavoriteByUserId" }),
     clearFiltered() {
       this.category = "";
       this.search = "";
     },
-    showFav(product) {
+    myFavoriteList(product) {
       let fav = this.productsByFavorite.filter(
         (f) => f.prodID == product.prodID
       );

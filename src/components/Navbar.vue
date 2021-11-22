@@ -34,17 +34,21 @@
               class="p-6 shadow menu dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <div class="flex items-center justify-center">
-                  <img
-                    v-if="this.$store.getters.getCurrentUser.imageURL"
-                    :src="this.$store.getters.getCurrentUser.imageURL"
-                    class="rounded-full object-cover w-12 h-12"
-                  />
-
+                <div
+                  class="flex items-center justify-center"
+                  v-if="this.$store.getters.isAuthenticated"
+                >
+                  <div v-if="this.current_username">
+                    <img
+                      v-if="this.$store.getters.getCurrentUser.imageURL"
+                      :src="this.$store.getters.getCurrentUser.imageURL"
+                      class="rounded-full object-cover w-12 h-12 border-2 border-black"
+                    />
+                  </div>
                   <svg
                     v-if="!this.$store.getters.getCurrentUser.imageURL"
                     viewBox="0 0 32 32"
-                    class="fill-current cursor-pointer text-black hover:text-gray-500 w-8 h-8"
+                    class="fill-current cursor-pointer text-black hover:text-gray-500 w-8 h-8 "
                     width="100%"
                     height="100%"
                     xmlns="http://www.w3.org/2000/svg"
@@ -59,20 +63,20 @@
                   </svg>
                 </div>
               </li>
-              <li>
+              <li v-if="this.$store.getters.isAuthenticated">
                 <p class="mt-2 text-xl">
                   {{ this.$store.getters.getCurrentUser.username }}
                 </p>
-              </li>
-              <div class="divider"></div>
-              <li>
-                <router-link to="/">หน้าหลัก</router-link>
+                <div class="divider"></div>
               </li>
               <li>
-                <router-link to="/products">ผลงานทั้งหมด</router-link>
+                <router-link to="/"> หน้าหลัก</router-link>
               </li>
               <li>
-                <router-link to="/addproduct">สร้างผลงาน</router-link>
+                <router-link to="/products"> ผลงานทั้งหมด</router-link>
+              </li>
+              <li>
+                <router-link to="/addproduct"> สร้างผลงาน</router-link>
               </li>
               <li v-if="this.$store.getters.isAuthenticated">
                 <router-link
@@ -80,8 +84,9 @@
                     name: 'Profile',
                     params: { username: this.current_username },
                   }"
-                  >ข้อมูลส่วนตัว</router-link
                 >
+                  ข้อมูลส่วนตัว
+                </router-link>
               </li>
               <div class="divider"></div>
               <li>
@@ -92,13 +97,13 @@
                   เข้าสู่ระบบ
                 </router-link>
               </li>
-              <li class="">
+              <li class="bg-primary rounded-lg">
                 <router-link
                   to="/register"
                   v-if="!this.$store.getters.isAuthenticated"
-                  class="bg-primary hover:bg-base-200 text-lg"
+                  class="bg-primary text-white"
                 >
-                  ลงทะเบียน
+                  <button class="text-white">ลงทะเบียน</button>
                 </router-link>
               </li>
               <li v-if="this.$store.getters.isAuthenticated">
@@ -163,7 +168,7 @@
                     <img
                       v-if="this.$store.getters.getCurrentUser.imageURL"
                       :src="this.$store.getters.getCurrentUser.imageURL"
-                      class="rounded-full object-cover w-8 h-8"
+                      class="rounded-full object-cover w-8 h-8 border-2 border-black "
                     />
 
                     <svg

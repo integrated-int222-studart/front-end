@@ -102,11 +102,7 @@ export default {
           message: "add product seccess",
         });
         return { username: localStorage.getItem("username") };
-      } catch (error) {
-        dispatch("addNotification", {
-          type: "error",
-          message: error,
-        });
+      } catch {
         return "error";
       }
     },
@@ -147,8 +143,6 @@ export default {
         resource_url + "/product/productById/" + prod_id
       );
       await commit("SET_EDIT_PRODUCT", response.data);
-      // return response.data;
-      // await dispatch("fetchUsernameByUserId", response.data);
     },
 
     async updateEditProductById({ dispatch, commit }, edit_product) {
@@ -169,7 +163,6 @@ export default {
           type: "success",
           message: "edit product seccess",
         });
-        // return response.data;
       } catch (error) {
         dispatch("addNotification", {
           type: "error",
