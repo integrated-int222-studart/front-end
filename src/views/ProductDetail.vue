@@ -6,6 +6,7 @@
         <!--  -->
         <div class="container mx-auto px-6 ">
           <div class="flex-none lg:flex justify-between items-start ">
+            <!-- img -->
             <div class="h-full w-full">
               <div>
                 <div
@@ -36,20 +37,30 @@
               </div>
             </div>
 
+            <!-- content -->
             <div
               class="h-full w-full p-3 mt-6 ml-0 md:ml-0 lg:ml-10 md:mt-10 lg:mt-0 bg-gray-100"
             >
               <div class="text-left">
                 <div class="grid place-items-center">
                   <div class="flex flex-col w-full h-full py-2 ">
-                    <h1 class="font-bold text-4xl mb-5">
+                    <h1 class="font-bold text-4xl mb-1">
                       {{ this.productById.prodName }}
                     </h1>
-                    <div @click="gotoProfile(this.username)">
-                      <p class="text-sm mb-5 cursor-pointer">
-                        ศิลปิน
-                        {{ this.username }}
+                    <div
+                      class="flex justify-between text-gray-700 item-center mb-5"
+                    >
+                      <p class="">
+                        {{ this.productById.type.typeName }}
                       </p>
+                    </div>
+                    <div @click="gotoProfile(this.username)">
+                      <span class="text-sm ">
+                        ศิลปิน :
+                      </span>
+                      <span class="text-sm mb-5 cursor-pointer underline">
+                        {{ this.username }}
+                      </span>
                     </div>
 
                     <div class="flex flex-col text-sm mb-5 h-32">
@@ -88,13 +99,11 @@
                         ซื้อสินค้า
                       </button>
                     </div>
-                    <!-- <pre class="max-w-xl overflow-hidden">{{
-                      this.productById
-                    }}</pre> -->
                   </div>
                 </div>
               </div>
             </div>
+            <!-- end content -->
           </div>
         </div>
 

@@ -48,28 +48,28 @@ export default {
       try {
         let res = await axios.post(user_url + "/user/login", user_auth);
         let username = res.data.user.username;
-        console.log(res.data.user.username);
 
         commit("LOGIN_USER", res.data);
 
         dispatch("addNotification", {
           type: "success",
-          message: "login seccess",
+          message: "เข้าสู่ระบบสำเร็จ",
         });
         return { username };
       } catch {
-        dispatch("addNotification", {
+        dispatch("addAlertCard", {
           type: "error",
-          message: "login failed",
+          message: "เข้าสู่ระบบไม่สำเร็จ กรุณาตรวจสอบอีเมลและรหัสผ่าน",
         });
+
         return { error: "ERROR" };
       }
     },
 
     async register(_, user_regis) {
-      console.log(user_regis);
       try {
         await axios.post(user_url + "/user/register", user_regis);
+
         return { user_regis };
       } catch {
         return { error: "ERROR" };
@@ -89,12 +89,8 @@ export default {
     async fetchCurrentUser({ commit }) {
       axios.defaults.headers.common["Authorization"] =
         "Bearer " + localStorage.getItem("userToken");
-      try {
-        const response = await axios.get(user_url + "/user/profile");
-        commit("SET_USER_INFO", response.data.user);
-      } catch {
-        console.log({ error: "login" });
-      }
+      const response = await axios.get(user_url + "/user/profile");
+      commit("SET_USER_INFO", response.data.user);
     },
 
     isStillLogin({ commit }) {

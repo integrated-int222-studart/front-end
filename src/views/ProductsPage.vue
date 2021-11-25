@@ -1,13 +1,15 @@
 <template>
   <div class="products mx-3">
-    <div class="mt-10 ">
-      <div class="flex items-center justify-between md:justify-start">
+    <div class="mt-10  sm:justify-center sm:items-center ">
+      <div
+        class="flex items-center justify-between md:justify-start flex-col sm:flex-row"
+      >
         <div class="mx-6">
           <p class="text-5xl font-bold ">ผลงานทั้งหมด</p>
         </div>
-        <div class="flex justify-end flex-1 px-2">
-          <div class="flex items-stretch">
-            <div class="form-control">
+        <div class="flex justify-end flex-1 px-2 ">
+          <div class="sm:flex sm:justify-center sm:items-center ">
+            <div class="form-control ">
               <div class="relative">
                 <input
                   type="text"
@@ -90,12 +92,12 @@
           >
             <template v-slot:btn-status>
               <favorite
-                v-if="showFav(product).length == 0"
+                v-if="myFavoriteList(product).length == 0"
                 :product="product"
                 :status="'like'"
               ></favorite>
               <favorite
-                v-if="showFav(product).length == 1"
+                v-if="myFavoriteList(product).length == 1"
                 :product="product"
                 :status="'unlike'"
               ></favorite>
@@ -104,11 +106,6 @@
         </div>
       </div>
     </div>
-    <!-- <pre
-      class="text-left
-    "
-      >{{ this.products }}</pre
-    > -->
   </div>
 </template>
 
@@ -182,13 +179,14 @@ export default {
   methods: {
     ...mapActions({ getProduct: "fetchProducts" }),
     ...mapActions({ fetchAllType: "fetchAllType" }),
+
     ...mapActions({ fetchCurrentUser: "fetchCurrentUser" }),
     ...mapActions({ fetchFavoriteByUserId: "fetchFavoriteByUserId" }),
     clearFiltered() {
       this.category = "";
       this.search = "";
     },
-    showFav(product) {
+    myFavoriteList(product) {
       let fav = this.productsByFavorite.filter(
         (f) => f.prodID == product.prodID
       );

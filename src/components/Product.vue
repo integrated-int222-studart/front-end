@@ -1,5 +1,5 @@
 <template>
-  <div class="product  ">
+  <div class="product ">
     <div
       class="cursor-pointer p-3 bg-white shadow-lg transform transition duration-500 hover:scale-105"
     >
@@ -13,27 +13,28 @@
         <span class="block font-semibold text-xl truncate">{{
           product.prodName
         }}</span>
+        <div class="flex justify-between item-center">
+          <p class="text-gray-600 text-xs">
+            {{ this.product.type.typeName }}
+          </p>
+        </div>
         <slot name="badge-status"> </slot>
         <div class="flex justify-between items-center ">
-          <p class="text-2xl text-gray-800 mt-0 ">{{ product.price }} บาท</p>
-          <slot name="btn-status">
-            <button class="btn btn-ghost" @click="favAction()">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6 group-hover:opacity-70"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="gray"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
-            </button>
-          </slot>
+          <p class="text-2xl text-gray-800 ">{{ product.price }} บาท</p>
+          <div>
+            <slot name="btn-status">
+              <favorite
+                v-if="myFavoriteList(product).length == 0"
+                :product="this.product"
+                :status="'like'"
+              ></favorite>
+              <favorite
+                v-if="myFavoriteList(product).length == 1"
+                :product="this.product"
+                :status="'unlike'"
+              ></favorite>
+            </slot>
+          </div>
         </div>
       </div>
     </div>
@@ -41,28 +42,24 @@
 </template>
 
 <script>
+import Favorite from "../components/Favorite.vue";
 import { mapActions } from "vuex";
 export default {
-  props: ["product", "owner_username"],
+  props: ["product"],
+  components: {
+    Favorite,
+  },
   data() {
     return {
       url: "http://13.76.182.102:3000/upload/photo/1",
     };
   },
   computed: {
-    // product,
-    showApprovalStatus() {
-      let value = "";
-      if (this.product.adminApproval[0].approval.status == 0) {
-        value = "Pending";
-      }
-      if (this.product.adminApproval[0].approval.status == 1) {
-        value = "Approve";
-      }
-      if (this.product.adminApproval[0].approval.status == 2) {
-        value = "Rejected";
-      }
-      return value;
+    productsByFavorite() {
+      return this.$store.getters.getFavoriteByUserId;
+    },
+    getCurrentUser() {
+      return this.$store.getters.getCurrentUser;
     },
   },
 
@@ -71,6 +68,15 @@ export default {
       addFavoriteByProdustId: "addFavoriteByProdustId",
       removeFavoriteByProdustId: "removeFavoriteByProdustId",
     }),
+    ...mapActions({ fetchCurrentUser: "fetchCurrentUser" }),
+    ...mapActions({ fetchFavoriteByUserId: "fetchFavoriteByUserId" }),
+
+    myFavoriteList(product) {
+      let fav = this.productsByFavorite.filter(
+        (f) => f.prodID == product.prodID
+      );
+      return fav;
+    },
     delete() {
       this.$store.dispatch("removeProduct", this.product);
     },

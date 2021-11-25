@@ -136,16 +136,6 @@ export default {
     },
 
     async addFavoriteByProdustId({ commit, dispatch }, fav_product) {
-      // try {
-      //   axios.defaults.headers.common["Authorization"] =
-      //     "Bearer " + localStorage.getItem("userToken");
-      // } catch {
-      //   dispatch("addAlertCard", {
-      //     type: "error",
-      //     message: "กรุณาเข้าสู่ระบบก่อน",
-      //   });
-      // }
-
       try {
         axios.defaults.headers.common["Authorization"] =
           "Bearer " + localStorage.getItem("userToken");
@@ -161,11 +151,6 @@ export default {
           type: "error",
           message: "กรุณาเข้าสู่ระบบก่อน",
         });
-
-        // dispatch("addNotification", {
-        //   type: "error",
-        //   message: `${error}`,
-        // });
       }
     },
     async removeFavoriteByProdustId({ commit, dispatch }, prod_id) {
@@ -200,29 +185,17 @@ export default {
 
       try {
         await axios.put(user_url + "/user/edit/profile", updated_product);
-        // await commit("UPDATE_EDIT_PRODUCT", response.data);
         dispatch("addNotification", {
           type: "success",
           message: "edit product seccess",
         });
-        // return response.data;
       } catch (error) {
         dispatch("addNotification", {
           type: "error",
           message: error,
         });
       }
-
-      // await dispatch("fetchUsernameByUserId", response.data);
     },
-
-    // async downloadCollectionFile(_, filenames) {
-    //   console.log(filenames);
-    //   const response = await axios.get(user_url + "/image/download/", {
-    //     filename: filenames,
-    //   });
-    //   console.log(response.data);
-    // },
   },
 
   getters: {

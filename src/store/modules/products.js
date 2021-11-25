@@ -101,11 +101,9 @@ export default {
           type: "success",
           message: "add product seccess",
         });
-      } catch (error) {
-        dispatch("addNotification", {
-          type: "error",
-          message: error,
-        });
+        return { username: localStorage.getItem("username") };
+      } catch {
+        return "error";
       }
     },
 
@@ -130,9 +128,7 @@ export default {
 
     async fetchRandomProduct({ commit }) {
       const response = await axios.get(resource_url + "/product/random");
-      console.log(response.data);
       await commit("SET_RANDOM_PRODUCT", response.data);
-      // await dispatch("fetchUsernameByUserId", response.data);
     },
 
     async fetchUsernameByUserId({ commit }, product) {
@@ -147,8 +143,6 @@ export default {
         resource_url + "/product/productById/" + prod_id
       );
       await commit("SET_EDIT_PRODUCT", response.data);
-      // return response.data;
-      // await dispatch("fetchUsernameByUserId", response.data);
     },
 
     async updateEditProductById({ dispatch, commit }, edit_product) {
@@ -169,7 +163,6 @@ export default {
           type: "success",
           message: "edit product seccess",
         });
-        // return response.data;
       } catch (error) {
         dispatch("addNotification", {
           type: "error",

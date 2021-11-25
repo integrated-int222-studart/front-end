@@ -254,48 +254,15 @@
                     name="style"
                     class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
                   />
-                  <!-- <label class="">
-                <input type="checkbox" value= 0 v-model="this.productInputValue.styleID">Sunday
-              </label> -->
                 </div>
-                <button
-                  class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none"
-                >
+                <button class="btn btn-primary py-3 mt-6 text-lg  shadow-xl">
                   สร้างผลงาน
                 </button>
               </Form>
             </div>
           </div>
-          <div class="alert bg-success" v-show="sendSuccess">
-            <div class="flex-1">
-              <div
-                class="alert-icon flex items-center bg-green-100 border-2 border-green-500 justify-center h-10 w-10 flex-shrink-0 rounded-full"
-              >
-                <span class="text-green-500">
-                  <svg fill="currentColor" viewBox="0 0 20 20" class="h-6 w-6">
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </span>
-              </div>
-              <div class="alert-content ml-4">
-                <div class="alert-title font-semibold text-lg text-green-800">
-                  สำเร็จ
-                </div>
-                <div class="alert-description text-sm text-green-600">
-                  เพิ่มผลงานเสร็จสิ้น..!
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-      <!-- <pre>{{this.allStyle}}</pre> -->
-      <!-- <pre>{{ this.productInputValue }}</pre> -->
-      <pre>{{ this.image_list }}</pre>
     </div>
   </div>
 </template>
@@ -303,7 +270,6 @@
 <script>
 import { mapActions } from "vuex";
 import { Form, Field, ErrorMessage } from "vee-validate";
-// import axios from "axios";
 
 export default {
   components: {
@@ -328,7 +294,6 @@ export default {
       preview_list: [],
       image_index: 0,
       image_list: [],
-      sendSuccess: false,
     };
   },
   computed: {
@@ -343,21 +308,23 @@ export default {
     ...mapActions({ fetchAllType: "fetchAllType" }),
     ...mapActions({ fetchAllStyle: "fetchAllStyle" }),
 
-    // submit() {
-    //   this.$store.dispatch("addProduct", this.productInputValue);
-    // },
-
     async onSubmit() {
-      await this.$store.dispatch("addProduct", {
+      const result = await this.$store.dispatch("addProduct", {
         product: this.productInputValue,
         image_list: this.image_list,
       });
-      // if (user.error) {
-      //   alert(user.error);
-      // } else {
-      //   this.sendSuccess = true;
-      //   // alert("เพิ่มผลงานเสร็จสิ้น");
-      // }
+      if (result == "error") {
+        this.$store.dispatch("addAlertCard", {
+          type: "error",
+          message: "กรุณาเข้าสู่ระบบก่อน",
+        });
+      } else {
+        this.$store.dispatch("addAlertCard", {
+          type: "success",
+          message: "เพิ่มข้อมูลเรียบร้อย โปรดรอผู้ดูแลอนุมัติ",
+        });
+        this.$router.push(`/profile/${result.username}`);
+      }
     },
     isRequired(value) {
       return value ? true : "* This field is required";
