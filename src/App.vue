@@ -27,7 +27,6 @@ export default {
     if (this.$store.getters.isAuthenticated) {
       this.fetchCurrentUser();
     }
-    // this.fetchUser();
   },
   computed: {},
   methods: {
