@@ -61,7 +61,6 @@ export default {
         state.listProductApprovals[find].adminApproval == [] ||
         state.listProductApprovals[find].adminApproval.length == 0
       ) {
-        console.log("empty");
         state.listProductApprovals[find] = payload;
       }
       state.listProductApprovals[find] = payload;
@@ -137,7 +136,6 @@ export default {
             purchaseDate: date.toLocaleDateString(),
           }
         );
-        // let udt = { prod_id: prod_id, status: 0 };
         commit("UPDATE_APPROVAL_STATUS", response.data);
 
         dispatch("addNotification", {
@@ -158,7 +156,6 @@ export default {
       return state.admin;
     },
     getListProductApprovals: (state) => {
-      console.log(state.listProductApprovals);
       return state.listProductApprovals;
     },
     isAdminAuthenticated: (state) => !!state.admin_token,

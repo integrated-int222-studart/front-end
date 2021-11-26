@@ -70,8 +70,10 @@
                       <div class=" indicator cursor-pointer">
                         <div
                           class="indicator-item badge bg-error text-black"
-                          @click="preview_list.splice(index, 1)"
+                          @click="deleteImage(index)"
                         >
+                          <!-- @click="preview_list.splice(index, 1)" -->
+
                           <p class="absolute text-xl">-</p>
                         </div>
                       </div>
@@ -309,22 +311,33 @@ export default {
     ...mapActions({ fetchAllStyle: "fetchAllStyle" }),
 
     async onSubmit() {
-      const result = await this.$store.dispatch("addProduct", {
-        product: this.productInputValue,
-        image_list: this.image_list,
-      });
-      if (result == "error") {
-        this.$store.dispatch("addAlertCard", {
+      if (this.image_list.length == 0) {
+        this.$store.dispatch("addNotification", {
           type: "error",
-          message: "กรุณาเข้าสู่ระบบก่อน",
+          message: "กรุณาเพิ่มรูปภาพ",
         });
       } else {
-        this.$store.dispatch("addAlertCard", {
-          type: "success",
-          message: "เพิ่มข้อมูลเรียบร้อย โปรดรอผู้ดูแลอนุมัติ",
+        const result = await this.$store.dispatch("addProduct", {
+          product: this.productInputValue,
+          image_list: this.image_list,
         });
-        this.$router.push(`/profile/${result.username}`);
+        if (result == "error") {
+          this.$store.dispatch("addAlertCard", {
+            type: "error",
+            message: "กรุณาเข้าสู่ระบบก่อน",
+          });
+        } else {
+          this.$store.dispatch("addAlertCard", {
+            type: "success",
+            message: "เพิ่มข้อมูลเรียบร้อย โปรดรอผู้ดูแลอนุมัติ",
+          });
+          this.$router.push(`/profile/${result.username}`);
+        }
       }
+    },
+    deleteImage(index) {
+      this.image_list.splice(index, 1);
+      this.preview_list.splice(index, 1);
     },
     isRequired(value) {
       return value ? true : "* This field is required";

@@ -1,8 +1,5 @@
 <template>
   <div class="register-page">
-    <!-- <p class="text-3xl font-bold">ลงทะเบียน</p> -->
-
-    <!--  -->
     <div class="w-full flex flex-wrap my-10">
       <div class="container mx-auto px-6">
         <div class="grid place-items-center items-start">
@@ -22,7 +19,6 @@
         </div>
       </div>
     </div>
-    <!--  -->
   </div>
 </template>
 

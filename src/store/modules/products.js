@@ -60,7 +60,6 @@ export default {
 
     UPDATE_EDIT_PRODUCT(state, payload) {
       let find = state.products.findIndex((e) => e.prodID == payload.prodID);
-      console.log(find);
       state.products[find] = payload;
     },
   },
@@ -91,11 +90,10 @@ export default {
         new_input.image_list.forEach((element) => {
           fd.append("image", element);
         });
-        const res = await axios.post(
+        await axios.post(
           resource_url + "/image/upload/" + response.data.prodID,
           fd
         );
-        console.log(res.data);
 
         dispatch("addNotification", {
           type: "success",
@@ -151,13 +149,10 @@ export default {
           resource_url + "/product/edit/" + edit_product.prodID,
           edit_product.product
         );
-        console.log(edit_product.prodID);
-        console.log(edit_product.product.styleID);
         const response = await axios.put(
           resource_url + "/product/editStyle/" + edit_product.prodID,
           { styleID: edit_product.product.styleID }
         );
-        console.log(response.data);
         await commit("UPDATE_EDIT_PRODUCT", response.data);
         dispatch("addNotification", {
           type: "success",
@@ -169,8 +164,6 @@ export default {
           message: error,
         });
       }
-
-      // await dispatch("fetchUsernameByUserId", response.data);
     },
   },
   getters: {

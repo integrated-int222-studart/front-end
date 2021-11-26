@@ -88,13 +88,8 @@
                     </h1>
                     <div class="flex align-bottom">
                       <button
-                        class="btn btn-md btn-primary rounded-btn text-lg"
-                        @click="
-                          this.$store.dispatch(
-                            'addProductCollection',
-                            this.$route.params.id
-                          )
-                        "
+                        class="btn btn-md btn-primary rounded-btn text-lg shadow-lg"
+                        @click="addToCollectionButton()"
                       >
                         ซื้อสินค้า
                       </button>
@@ -153,6 +148,10 @@ export default {
   },
   methods: {
     ...mapActions({ fetchProductById: "fetchProductById" }),
+    addToCollectionButton() {
+      this.$store.dispatch("addProductCollection", this.$route.params.id);
+      this.$router.push(`/profile/${localStorage.getItem("username")}`);
+    },
     gotoProfile(username) {
       this.$router.push(`/profile/${username}`);
     },
