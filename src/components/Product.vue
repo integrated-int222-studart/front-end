@@ -80,9 +80,11 @@ export default {
     delete() {
       this.$store.dispatch("removeProduct", this.product);
     },
-    gotoProductDetail(prodid) {
-      this.$router.push(`/productdetail/${prodid}`);
+    async gotoProductDetail(prodid) {
+      await this.$router.push(`/productdetail/${prodid}`);
+      this.$router.go();
     },
+
     favAction() {
       this.addFavoriteByProdustId(this.product);
     },
