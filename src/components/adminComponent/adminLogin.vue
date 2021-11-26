@@ -78,7 +78,10 @@ export default {
     async onSubmit() {
       let user = await this.$store.dispatch("loginAdmin", this.adminLogin);
       if (user.error) {
-        // console.log(user.error);
+        this.$store.dispatch("addNotification", {
+          type: "error",
+          message: "admin login error",
+        });
       } else {
         this.$router.push(`/admin/adminApprovePage`);
       }

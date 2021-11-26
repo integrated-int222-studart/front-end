@@ -211,12 +211,6 @@
                           value="Student"
                           >นักเรียน/นักศึกษา</option
                         >
-                        <!-- <option value="Student">นักเรียน/นักศึกษา</option>
-
-                        <option :value="this.editValue.status">{{
-                          this.editValue.status
-                        }}</option>
-                        <option value="Guest">บุคคลทั่วไป</option> -->
                       </Field>
                       <ErrorMessage
                         name="status"
@@ -244,7 +238,7 @@
                 </div>
               </div>
               <button
-                class="btn  w-full mt-4"
+                class="btn btn-ghost  w-full mt-4"
                 @click="
                   this.$router.push(`/profile/${this.$route.params.username}`)
                 "
@@ -311,6 +305,7 @@ export default {
     },
     async onSubmit() {
       await this.$store.dispatch("updateUserProfile", this.editValue);
+      this.$router.push(`/profile/${this.$route.params.username}`);
     },
     previewImage(event) {
       this.addImage.imageObj = event.target.files[0];

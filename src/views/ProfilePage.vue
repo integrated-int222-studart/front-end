@@ -248,7 +248,6 @@ export default {
     product,
     ApproveStatus,
     DownloadFile,
-    // Favorite,
   },
   mounted() {
     this.fetchUserByUsername(this.$route.params.username);
@@ -263,8 +262,6 @@ export default {
         (product) => product.status != 2
       );
       if (this.$store.getters.getCurrentUsername != this.userById.username) {
-        console.log("watched");
-        // result = this.productsByCreate.filter((product) => product.status == 1);
         if (this.status == "collection") {
           result = this.productsByCollection.filter(
             (product) => product.status == 1 || product.status == 2
@@ -282,11 +279,7 @@ export default {
         }
       }
 
-      // if (this.$store.getters.getCurrentUsername != this.userById.username) {
-      //   result = this.productsByCreate.filter((product) => product.status == 1);
-      // }
       if (this.$store.getters.getCurrentUsername == this.userById.username) {
-        console.log("my");
         if (this.status == "collection") {
           result = this.productsByCollection.filter(
             (product) => product.status == 1 || product.status == 2
@@ -298,27 +291,11 @@ export default {
           );
         }
         if (this.status == "created") {
-          console.log("create");
           result = this.productsByCreate.filter(
             (product) => product.status != 2
           );
         }
       }
-      // if (this.status == "collection") {
-      //   result = this.productsByCollection.filter(
-      //     (product) => product.status == 1 || product.status == 2
-      //   );
-      // }
-      // if (this.status == "favorite") {
-      //   result = this.productsByFavorite.filter(
-      //     (product) => product.status == 1
-      //   );
-      // }
-      // if (this.status == "created") {
-      //   console.log("create");
-      //   result = this.productsByCreate.filter((product) => product.status != 2);
-      // }
-
       return result;
     },
     productsByCollection() {

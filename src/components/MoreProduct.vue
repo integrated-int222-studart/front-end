@@ -26,7 +26,6 @@ export default {
     random_products() {
       return this.$store.getters.getRandomProducts;
     },
-    // ...mapGetters("getRandomProducts"),
   },
   methods: {
     ...mapActions({ fetchRandomProduct: "fetchRandomProduct" }),

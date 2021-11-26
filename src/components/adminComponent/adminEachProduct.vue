@@ -124,8 +124,5 @@ export default {
       this.$store.dispatch("updateApproveProduct", value);
     },
   },
-  created() {
-    console.log("created");
-  },
 };
 </script>

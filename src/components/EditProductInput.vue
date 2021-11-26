@@ -165,20 +165,11 @@
 <script>
 import { mapActions } from "vuex";
 import { Form, Field, ErrorMessage } from "vee-validate";
-// import FormProductInput from "../components/FormProductInput.vue";
 
 export default {
   props: ["prod_id"],
   data() {
     return {
-      //   productInputForm: {
-      //     prodName: "",
-      //     manufacDate: "",
-      //     price: 0.0,
-      //     prodDescription: "",
-      //     productType: "",
-      //     styleID: "",
-      //   },
       inputData: {
         prodName: "",
         manufacDate: "",
@@ -190,17 +181,13 @@ export default {
     };
   },
   async mounted() {
-    // await this.fetchProductById(this.$route.params.prod_id);
-
     await this.fetchAllType();
     await this.fetchAllStyle();
-    // await this.fetchEditProductById(this.prod_id);
   },
   components: {
     Form,
     Field,
     ErrorMessage,
-    // FormProductInput,
   },
   computed: {
     allType() {
@@ -209,9 +196,6 @@ export default {
     allStyle() {
       return this.$store.getters.getAllStyle;
     },
-    // getProductById() {
-    //   return this.$store.getters.getProductById;
-    // },
     getEditProduct() {
       return this.$store.getters.getEditProduct;
     },
@@ -219,22 +203,14 @@ export default {
   methods: {
     ...mapActions({ fetchAllType: "fetchAllType" }),
     ...mapActions({ fetchAllStyle: "fetchAllStyle" }),
-    // ...mapActions({ fetchProductById: "fetchProductById" }),
+
     ...mapActions({ fetchEditProductById: "fetchEditProductById" }),
 
     async onSubmit() {
-      // let styleID = []
-      // styleID.push()
-      // console.log(this.styleID);
       await this.$store.dispatch("updateEditProductById", {
         product: this.inputData,
         prodID: this.prod_id,
       });
-      // if (user.error) {
-      //   alert(user.error);
-      // } else {
-      //   this.sendSuccess = true;
-      // }
     },
     isRequired(value) {
       return value ? true : "* This field is required";
@@ -244,9 +220,7 @@ export default {
     },
   },
   async created() {
-    // this.inputData = await this.fetchEditProductById(this.prod_id);
     await this.fetchEditProductById(this.prod_id);
-    // this.inputData = await this.getEditProduct;
     this.inputData.prodName = await this.getEditProduct.prodName;
     this.inputData.manufacDate = await this.getEditProduct.manufacDate;
     this.inputData.price = await this.getEditProduct.price;

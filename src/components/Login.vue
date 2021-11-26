@@ -42,13 +42,6 @@
             <button class="btn btn-md btn-primary rounded-btn text-lg  mt-8">
               เข้าสู่ระบบ
             </button>
-            <!-- <button
-              @click="submit"
-
-                  class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none"
-                >
-                  เข้าสู่ระบบ
-                </button> -->
           </Form>
           <div class="text-center pt-12 pb-12">
             <p>
@@ -110,11 +103,11 @@ export default {
       if (!value) {
         return "จำเป็นต้องใส่รหัสผ่าน";
       }
-      const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).*$/;
-
       if (value.length < 8) {
         return `รหัสผ่านจำเป็นต้องมีอย่างน้อย 8 ตัวอักษร`;
       }
+      const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[.#?!@$%^&*-]).*$/;
+
       if (!regex.test(value)) {
         return "รหัสผ่านจำเป็นต้องมีอย่างน้อย 1 Uppercase, 1 Lowercase, 1 Number และ 1 Special Letter";
       }
