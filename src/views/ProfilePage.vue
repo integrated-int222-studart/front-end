@@ -126,7 +126,7 @@
           <div
             class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 w-full h-full items-center gap-3"
           >
-            <div v-if="this.filter.length == 0" class="col-span-3">
+            <div v-if="this.filter.length == 0" class="col-span-5">
               <div class="bg-white shadow overflow-hidden sm:rounded-lg pb-8">
                 <div class="border-t border-gray-200 text-center pt-8">
                   <h1 class="text-9xl font-bold text-primary py-8">
