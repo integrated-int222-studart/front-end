@@ -1,7 +1,5 @@
 <template>
-  <div class="register">
-    <p class="text-3xl font-bold">edit profile id :</p>
-    <p>{{ this.$route.params.username }}</p>
+  <div class="edit-profile">
     <!--  -->
     <div class="">
       <div class="w-full text-white bg-main-color"></div>

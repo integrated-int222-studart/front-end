@@ -1,8 +1,5 @@
 <template>
   <div class="add-product">
-    <div class="heading mt-10">
-      <p class="text-3xl font-bold">{{ this.$route.params.prod_id }}</p>
-    </div>
     <main class="p-2 m-2 md:p-4 md:m-4">
       <EditProductInput
         :prod_id="this.$route.params.prod_id"
