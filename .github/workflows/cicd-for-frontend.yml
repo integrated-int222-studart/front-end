@@ -1,7 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CICD
-
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
@@ -9,7 +6,7 @@ on:
     branches: [ main ]
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
@@ -25,3 +22,26 @@ jobs:
         with:
           push: true
           tags: ghcr.io/integrated-int222-studart/front-end:main
+      - name: Publish compose file
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOSTNAME }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "./docker-compose.fe.yml"
+          target: "./front-compose"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Deploy Web Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOSTNAME }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd front-compose/
+            docker-compose -f docker-compose.fe.yml pull
+            docker-compose -f docker-compose.fe.yml up --build -d
