@@ -1,7 +1,7 @@
 version: "3"
 services:
   frontend:
-    image: ghcr.io/suptar21/projectii-frontend:dev
+    image: ghcr.io/integrated-int222-studart/front-end:dev
     container_name: studart-frontend
     ports:
       - "8080:80"
