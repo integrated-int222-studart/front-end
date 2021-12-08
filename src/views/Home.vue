@@ -166,6 +166,9 @@
             <p class="mt-4 text-gray-400">
               Back-end Dev
             </p>
+            <p class="text-gray-400 ">
+              Database
+            </p>
           </div>
           <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-lg ">
             <div class="w-full aspect-w-1 aspect-h-1 shadow-lg">
