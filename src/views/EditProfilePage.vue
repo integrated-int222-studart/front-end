@@ -101,7 +101,8 @@
                         :rules="isRequired"
                         type="text"
                         class="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      />
+                      disabled
+/>
                       <ErrorMessage
                         name="username"
                         class="flex items-center font-medium tracking-wide uppercase text-red-500 text-sm mt-1 ml-1"
