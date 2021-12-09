@@ -149,7 +149,7 @@
               ธนวรรธน์ ศรีจรัสตานนท์
             </h2>
             <p class="mt-4 text-gray-400 ">
-              Front-end Dev
+              Front-end
             </p>
           </div>
           <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-lg">
@@ -164,7 +164,10 @@
               พันธวิศ เห่งนาเลน
             </h2>
             <p class="mt-4 text-gray-400">
-              Back-end Dev
+              Back-end
+            </p>
+            <p class="text-gray-400 ">
+              Database
             </p>
           </div>
           <div class="px-6 py-8 overflow-hidden bg-white rounded-md shadow-lg ">
