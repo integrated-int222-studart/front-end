@@ -264,7 +264,7 @@ export default {
       if (this.$store.getters.getCurrentUsername != this.userById.username) {
         if (this.status == "collection") {
           result = this.productsByCollection.filter(
-            (product) => product.status == 1 || product.status == 2
+            (product) => product.status == 1 || product.status == 2|| product.status == 0
           );
         }
         if (this.status == "favorite") {
@@ -282,7 +282,7 @@ export default {
       if (this.$store.getters.getCurrentUsername == this.userById.username) {
         if (this.status == "collection") {
           result = this.productsByCollection.filter(
-            (product) => product.status == 1 || product.status == 2
+            (product) => product.status == 1 || product.status == 2|| product.status == 0
           );
         }
         if (this.status == "favorite") {
